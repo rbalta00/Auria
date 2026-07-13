@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auria — Joyería en oro laminado a domicilio</title>
+<meta name="description" content="Aretes, collares, cadenas, dijes, pulseras y anillos en oro laminado desde $160. Entrega a domicilio en un radio de 6 km, pago contra entrega. Pide por WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#241C15;
+    --ink-soft:#3A2E22;
+    --paper:#FBF7F0;
+    --paper-dim:#F2E9DB;
+    --gold:#B8912F;
+    --gold-deep:#8C6B1F;
+    --gold-soft:#F3E6C8;
+    --rose:#B76E79;
+    --slate:#6B5F4F;
+    --line:#E6D9BE;
+    --white:#FFFFFF;
+    --radius:16px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter', sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Cormorant Garamond', serif; letter-spacing:-0.01em; font-weight:700;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1160px; margin:0 auto; padding:0 24px;}
+  section{padding:64px 0;}
+  @media (max-width:640px){ section{padding:40px 0;} }
+
+  /* HEADER */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(251,247,240,0.94);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .header-inner{
+    max-width:1160px; margin:0 auto; padding:16px 24px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .logo{font-family:'Cormorant Garamond', serif; font-size:1.6rem; font-weight:700; letter-spacing:0.02em; color:var(--ink);}
+  .logo span{color:var(--gold);}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-weight:600; font-size:0.9rem;
+    padding:12px 22px; border-radius:999px;
+    border:none; cursor:pointer;
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn-primary{background:var(--gold); color:var(--white);}
+  .btn-primary:hover{transform:translateY(-1px); box-shadow:0 8px 20px rgba(184,145,47,0.35);}
+  .btn-ghost{background:transparent; color:var(--ink); border:1.5px solid var(--ink); padding:10.5px 20px;}
+  .header-inner .btn{padding:10px 18px; font-size:0.82rem;}
+  @media (max-width:480px){
+    .header-inner{flex-wrap:wrap; gap:10px; justify-content:center; text-align:center;}
+    .logo{font-size:1.3rem;}
+  }
+
+  /* HERO */
+  .hero{padding-top:56px; padding-bottom:48px;}
+  .hero-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:48px; align-items:center;}
+  @media (max-width:900px){ .hero-grid{grid-template-columns:1fr; gap:32px;} }
+  .badge-live{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--gold-soft); color:var(--gold-deep);
+    padding:7px 16px; border-radius:999px;
+    font-size:0.8rem; font-weight:600; margin-bottom:20px;
+  }
+  .hero h1{font-size:3rem; line-height:1.05; margin-bottom:18px;}
+  .hero h1 em{font-style:italic; color:var(--gold);}
+  @media (max-width:640px){ .hero h1{font-size:2.1rem;} }
+  .hero p.lead{font-size:1.05rem; color:var(--slate); margin-bottom:26px; max-width:480px;}
+  .hero-ctas{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:24px;}
+  .hero-info{
+    margin-top:20px; padding:18px 20px; background:var(--white); border:1px solid var(--line);
+    border-radius:14px; font-size:0.88rem; color:var(--slate); display:flex; flex-direction:column; gap:8px;
+  }
+  .hero-info strong{color:var(--ink);}
+  .hero-photo-grid{
+    display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; border-radius:20px; overflow:hidden;
+    border:2px solid var(--gold); box-shadow:0 16px 34px rgba(184,145,47,0.18);
+  }
+  .hero-photo-grid img{aspect-ratio:1; object-fit:cover; width:100%; height:100%;}
+
+  /* DELIVERY POLICY */
+  .policy-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  @media (max-width:860px){ .policy-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:560px){ .policy-grid{grid-template-columns:1fr;} }
+  .policy-card{
+    background:var(--white); border:1px solid var(--line); border-radius:var(--radius);
+    padding:26px;
+  }
+  .policy-card .icon{font-size:1.8rem; margin-bottom:12px;}
+  .policy-card h4{font-family:'Inter',sans-serif; font-size:1rem; font-weight:700; margin-bottom:8px;}
+  .policy-card p{font-size:0.88rem; color:var(--slate); line-height:1.6;}
+
+  /* SECTION HEAD */
+  .eyebrow{
+    font-size:0.78rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--gold-deep);
+    margin-bottom:10px; font-weight:700;
+  }
+  .section-head{max-width:640px; margin-bottom:36px;}
+  .section-head h2{font-size:2rem; margin-bottom:10px;}
+  .section-head p{color:var(--slate);}
+  .section-head.center{margin-left:auto; margin-right:auto; text-align:center;}
+
+  /* CATALOG */
+  .filter-bar{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:32px;}
+  .filter-btn{
+    padding:9px 18px; border-radius:999px; border:1.5px solid var(--line);
+    background:var(--white); color:var(--ink); font-size:0.85rem; font-weight:600;
+    cursor:pointer; transition:all 0.15s ease;
+  }
+  .filter-btn.active, .filter-btn:hover{border-color:var(--gold); background:var(--gold-soft); color:var(--gold-deep);}
+
+  .product-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:20px;
+  }
+  @media (max-width:960px){ .product-grid{grid-template-columns:repeat(3,1fr);} }
+  @media (max-width:680px){ .product-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:420px){ .product-grid{grid-template-columns:1fr 1fr; gap:12px;} }
+
+  .product-card{
+    background:var(--white); border:1px solid var(--line); border-radius:14px; overflow:hidden;
+    display:flex; flex-direction:column;
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .product-card:hover{transform:translateY(-3px); box-shadow:0 12px 24px rgba(36,28,21,0.1);}
+  .product-card .photo{aspect-ratio:1; overflow:hidden; background:var(--paper-dim);}
+  .product-card .photo img{width:100%; height:100%; object-fit:cover;}
+  .product-card .info{padding:14px 14px 16px; display:flex; flex-direction:column; gap:6px; flex:1;}
+  .product-card .name{font-size:0.86rem; font-weight:600; color:var(--ink); line-height:1.3; min-height:2.2em;}
+  .product-card .price{font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:700; color:var(--gold-deep);}
+  .product-card .order-btn{
+    margin-top:auto; display:flex; align-items:center; justify-content:center; gap:6px;
+    background:var(--ink); color:var(--paper); font-size:0.78rem; font-weight:600;
+    padding:9px; border-radius:999px; border:none; cursor:pointer;
+  }
+  .product-card .order-btn:hover{background:var(--gold-deep);}
+
+  .load-more-wrap{text-align:center; margin-top:32px;}
+  .catalog-empty{text-align:center; padding:40px; color:var(--slate);}
+
+  /* FAQ */
+  .faq-list{max-width:720px; margin:0 auto; display:flex; flex-direction:column; gap:12px;}
+  .faq-item{background:var(--white); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;}
+  .faq-q{display:flex; justify-content:space-between; align-items:center; gap:16px; padding:18px 22px; cursor:pointer; font-weight:600; font-size:0.95rem;}
+  .faq-q .plus{font-size:1.1rem; color:var(--gold-deep); flex-shrink:0; transition:transform 0.2s ease;}
+  .faq-item.open .faq-q .plus{transform:rotate(45deg);}
+  .faq-a{max-height:0; overflow:hidden; transition:max-height 0.25s ease; padding:0 22px;}
+  .faq-item.open .faq-a{max-height:220px; padding:0 22px 18px;}
+  .faq-a p{font-size:0.88rem; color:var(--slate); line-height:1.6;}
+
+  /* CTA FINAL */
+  .final-cta{
+    background:linear-gradient(135deg, var(--ink) 0%, var(--ink-soft) 100%);
+    color:var(--paper); border-radius:24px; padding:56px 40px; text-align:center;
+  }
+  .final-cta h2{font-size:2.1rem; margin-bottom:14px; color:var(--paper);}
+  .final-cta p{color:#D9CBB4; margin-bottom:28px; max-width:480px; margin-left:auto; margin-right:auto;}
+  .final-cta .btn-primary{font-size:1rem; padding:16px 32px;}
+
+  /* FOOTER */
+  footer{padding:40px 0 28px;}
+  .footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:32px; margin-bottom:28px;}
+  @media (max-width:640px){ .footer-grid{grid-template-columns:1fr; text-align:left;} }
+  .footer-grid h5{font-size:0.85rem; margin-bottom:12px; font-family:'Inter',sans-serif; font-weight:700;}
+  .footer-grid p, .footer-grid a{font-size:0.82rem; color:var(--slate); display:block; margin-bottom:8px;}
+  .footer-grid a:hover{color:var(--gold-deep);}
+  .footer-bottom{border-top:1px solid var(--line); padding-top:20px; font-size:0.78rem; color:var(--slate); text-align:center;}
+
+  /* Floating WhatsApp */
+  .float-wa{
+    position:fixed; bottom:20px; right:20px; z-index:60;
+    background:#25D366; color:var(--white);
+    width:58px; height:58px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 10px 24px rgba(37,211,102,0.4);
+  }
+  .float-wa svg{width:26px; height:26px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">Auria<span>.</span></div>
+    <a class="btn btn-primary" id="wa-header" href="#" target="_blank" rel="noopener">Pedir por WhatsApp</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="badge-live">✨ Oro laminado 14K, 18K y rodio</div>
+      <h1>Joyería que <em>brilla</em>,<br>entregada en tu puerta.</h1>
+      <p class="lead">Aretes, collares, cadenas, dijes, pulseras y anillos en oro laminado desde $160. Elige tu pieza y te la llevamos directo a tu domicilio.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" id="wa-hero" href="#" target="_blank" rel="noopener">💬 Pedir por WhatsApp</a>
+        <a class="btn btn-ghost" href="#catalogo">Ver catálogo</a>
+      </div>
+      <div class="hero-info">
+        <div>🚗 <strong>Entrega a domicilio</strong> en un radio de 6 km (próximamente detallamos tu zona exacta — pregunta por WhatsApp)</div>
+        <div>💵 <strong>Pago contra entrega</strong> — pagas cuando recibes tu pieza</div>
+        <div>🎁 <strong>Envío gratis</strong> en pedidos de 2+ piezas o $300+. De lo contrario, envío de $50</div>
+      </div>
+    </div>
+    <div class="hero-photo-grid" id="hero-photo-grid"></div>
+  </div>
+</section>
+
+<section style="background:var(--paper-dim);">
+  <div class="wrap">
+    <div class="section-head center">
+      <div class="eyebrow">Cómo funciona</div>
+      <h2>Comprar en Auria es fácil</h2>
+    </div>
+    <div class="policy-grid">
+      <div class="policy-card">
+        <div class="icon">🛍️</div>
+        <h4>1. Elige tu pieza</h4>
+        <p>Explora el catálogo y encuentra el arete, collar, dije, pulsera o anillo que te gusta.</p>
+      </div>
+      <div class="policy-card">
+        <div class="icon">💬</div>
+        <h4>2. Pide por WhatsApp</h4>
+        <p>Da clic en "Pedir por WhatsApp" en la pieza que quieres y te confirmamos disponibilidad y entrega.</p>
+      </div>
+      <div class="policy-card">
+        <div class="icon">🚗</div>
+        <h4>3. Recibe y paga</h4>
+        <p>Te la llevamos a tu domicilio (radio de 6 km) y pagas contra entrega. Sin anticipos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="catalogo">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Catálogo</div>
+      <h2>Todas nuestras piezas</h2>
+      <p>Oro laminado de 14K, 18K y rodio. Precios desde $160.</p>
+    </div>
+    <div class="filter-bar" id="filter-bar"></div>
+    <div class="product-grid" id="product-grid"></div>
+    <div class="load-more-wrap" id="load-more-wrap">
+      <button class="btn btn-ghost" id="load-more-btn">Cargar más piezas</button>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--paper-dim);">
+  <div class="wrap">
+    <div class="section-head center">
+      <div class="eyebrow">Antes de pedir</div>
+      <h2>Preguntas frecuentes</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          ¿Cómo pago mi pedido?
+          <span class="plus">+</span>
+        </div>
+        <div class="faq-a"><p>El pago es contra entrega: nos pagas en efectivo directamente cuando te llevamos tu pieza a domicilio. No pedimos anticipos.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          ¿Hasta dónde hacen entregas?
+          <span class="plus">+</span>
+        </div>
+        <div class="faq-a"><p>Entregamos en un radio de 6 km desde nuestra zona de operación. Escríbenos por WhatsApp con tu ubicación aproximada y te confirmamos si te cubrimos.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          ¿Cuándo el envío es gratis?
+          <span class="plus">+</span>
+        </div>
+        <div class="faq-a"><p>El envío es gratis cuando pides 2 piezas o más, o cuando tu compra suma $300 o más. Si tu pedido es de 1 pieza y menos de $300, el envío tiene un costo de $50.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          ¿El material es oro de verdad?
+          <span class="plus">+</span>
+        </div>
+        <div class="faq-a"><p>Nuestras piezas son de oro laminado de 14K, 18K y rodio: un baño de oro sobre una base metálica de alta calidad, con buena duración si se les da el cuidado adecuado (evitar agua, perfumes y cambios bruscos de temperatura directamente sobre la pieza).</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          ¿Puedo apartar una pieza?
+          <span class="plus">+</span>
+        </div>
+        <div class="faq-a"><p>Sí, escríbenos por WhatsApp mencionando el nombre de la pieza que viste en el catálogo y te confirmamos disponibilidad antes de la entrega.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="final-cta">
+      <h2>¿Ya elegiste tu pieza favorita?</h2>
+      <p>Escríbenos por WhatsApp y te la llevamos a tu domicilio. Pago contra entrega, sin complicaciones.</p>
+      <a class="btn btn-primary" id="wa-final" href="#" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h5>Auria</h5>
+        <p>Joyería en oro laminado 14K, 18K y rodio. Aretes, collares, cadenas, dijes, pulseras y anillos, entregados a domicilio.</p>
+      </div>
+      <div>
+        <h5>Contacto</h5>
+        <a id="wa-footer" href="#" target="_blank" rel="noopener">WhatsApp: 221 309 9897</a>
+        <p>Entrega en un radio de 6 km · Pago contra entrega</p>
+      </div>
+      <div>
+        <h5>Horario</h5>
+        <p>Escríbenos por WhatsApp para conocer disponibilidad de entrega en tu zona.</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Auria — Todos los derechos reservados</span>
+    </div>
+  </div>
+</footer>
+
+<a class="float-wa" id="wa-float" href="#" target="_blank" rel="noopener" aria-label="Pedir por WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.7.44 3.36 1.29 4.83L2.05 22l5.42-1.42a9.87 9.87 0 0 0 4.57 1.16h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.55 3.7-8.25 8.26-8.25a8.2 8.2 0 0 1 5.84 2.42 8.18 8.18 0 0 1 2.41 5.83c0 4.55-3.71 8.24-8.27 8.24zm4.53-6.18c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.17.24-.64.81-.78.97-.14.17-.29.19-.53.06-.25-.12-1.04-.38-1.98-1.22-.73-.65-1.23-1.46-1.37-1.7-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43-.14-.01-.31-.01-.48-.01a.9.9 0 0 0-.66.31c-.23.24-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.68 4.25 3.75.59.26 1.06.41 1.42.53.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.11-.23-.17-.48-.29z"/></svg>
+</a>
+
+<script>
+const WHATSAPP_NUMBER = "522213099897"; // 52 + 221 309 9897
+const CATEGORY_MAP = {
+  HUGGIES: "Aretes", ARETES: "Aretes", BROQUELES: "Aretes", ARRACADAS: "Aretes", "EAR CUFF": "Aretes",
+  PULSERAS: "Pulseras", "BRAZALETE / ESCLAVAS": "Pulseras",
+  DIJES: "Dijes",
+  CADENAS: "Cadenas",
+  JUEGOS: "Juegos", JUE: "Juegos",
+  ANILLOS: "Anillos",
+};
+const CATEGORY_ORDER = ["Todos", "Aretes", "Pulseras", "Dijes", "Cadenas", "Juegos", "Anillos"];
+
+let ALL_PRODUCTS = [];
+let currentFilter = "Todos";
+let visibleCount = 16;
+const PAGE_SIZE = 16;
+
+function waLink(product) {
+  const text = product
+    ? `Hola, me interesa esta pieza de Auria: "${product.name}" - $${product.price}. ¿Me confirmas disponibilidad?`
+    : "Hola, me interesa una pieza del catálogo de Auria.";
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+}
+
+function setGenericWhatsAppLinks() {
+  ["wa-header", "wa-hero", "wa-final", "wa-footer", "wa-float"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.href = waLink(null);
+  });
+}
+
+function renderFilterBar() {
+  const bar = document.getElementById("filter-bar");
+  bar.innerHTML = "";
+  CATEGORY_ORDER.forEach(cat => {
+    const btn = document.createElement("button");
+    btn.className = "filter-btn" + (cat === currentFilter ? " active" : "");
+    const count = cat === "Todos" ? ALL_PRODUCTS.length : ALL_PRODUCTS.filter(p => p.group === cat).length;
+    btn.textContent = `${cat} (${count})`;
+    btn.onclick = () => {
+      currentFilter = cat;
+      visibleCount = PAGE_SIZE;
+      renderFilterBar();
+      renderGrid();
+    };
+    bar.appendChild(btn);
+  });
+}
+
+function renderGrid() {
+  const grid = document.getElementById("product-grid");
+  const loadMoreWrap = document.getElementById("load-more-wrap");
+  const filtered = currentFilter === "Todos" ? ALL_PRODUCTS : ALL_PRODUCTS.filter(p => p.group === currentFilter);
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="catalog-empty">No hay piezas en esta categoría por ahora.</div>';
+    loadMoreWrap.style.display = "none";
+    return;
+  }
+
+  const visible = filtered.slice(0, visibleCount);
+  grid.innerHTML = visible.map(p => `
+    <div class="product-card">
+      <div class="photo"><img src="${p.image}" alt="${p.name}" loading="lazy"></div>
+      <div class="info">
+        <div class="name">${p.name}</div>
+        <div class="price">$${p.price}</div>
+        <button class="order-btn" onclick="window.open('${waLink(p).replace(/'/g, "\\'")}', '_blank')">💬 Pedir por WhatsApp</button>
+      </div>
+    </div>
+  `).join("");
+
+  loadMoreWrap.style.display = visibleCount < filtered.length ? "block" : "none";
+}
+
+function renderHeroPhotos() {
+  const heroGrid = document.getElementById("hero-photo-grid");
+  const shuffled = [...ALL_PRODUCTS].sort(() => Math.random() - 0.5).slice(0, 6);
+  heroGrid.innerHTML = shuffled.map(p => `<img src="${p.image}" alt="${p.name}" loading="lazy">`).join("");
+}
+
+document.getElementById("load-more-btn").addEventListener("click", () => {
+  visibleCount += PAGE_SIZE;
+  renderGrid();
+});
+
+setGenericWhatsAppLinks();
+
+fetch("catalogo.json")
+  .then(r => r.json())
+  .then(data => {
+    ALL_PRODUCTS = data.map(p => ({ ...p, group: CATEGORY_MAP[p.category] || "Otros" }));
+    renderFilterBar();
+    renderGrid();
+    renderHeroPhotos();
+  })
+  .catch(err => {
+    document.getElementById("product-grid").innerHTML = '<div class="catalog-empty">No se pudo cargar el catálogo.</div>';
+    console.error(err);
+  });
+</script>
+
+</body>
+</html>

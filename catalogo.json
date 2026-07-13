@@ -1,0 +1,2405 @@
+[
+  {
+    "id": "p003-1",
+    "category": "HUGGIES",
+    "name": "CHICOS TRES CUADRADOS",
+    "price": 190,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p003-1.jpg",
+    "sourcePage": 3
+  },
+  {
+    "id": "p003-2",
+    "category": "HUGGIES",
+    "name": "TIPO HOJAS",
+    "price": 180,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p003-2.jpg",
+    "sourcePage": 3
+  },
+  {
+    "id": "p003-3",
+    "category": "HUGGIES",
+    "name": "14K TRES CUADRADOS",
+    "price": 190,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p003-3.jpg",
+    "sourcePage": 3
+  },
+  {
+    "id": "p004-1",
+    "category": "HUGGIES",
+    "name": "CHICO PIEDRAS NEGRO",
+    "price": 190,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p004-1.jpg",
+    "sourcePage": 4
+  },
+  {
+    "id": "p004-2",
+    "category": "HUGGIES",
+    "name": "14K RECTANGULARES",
+    "price": 180,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p004-2.jpg",
+    "sourcePage": 4
+  },
+  {
+    "id": "p004-3",
+    "category": "HUGGIES",
+    "name": "14K CHICOS MOÑO",
+    "price": 160,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p004-3.jpg",
+    "sourcePage": 4
+  },
+  {
+    "id": "p005-1",
+    "category": "HUGGIES",
+    "name": "BOLITAS / PIEDRA",
+    "price": 190,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p005-1.jpg",
+    "sourcePage": 5
+  },
+  {
+    "id": "p005-2",
+    "category": "HUGGIES",
+    "name": "CHICOS 4 OVALOS",
+    "price": 180,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p005-2.jpg",
+    "sourcePage": 5
+  },
+  {
+    "id": "p005-3",
+    "category": "HUGGIES",
+    "name": "14K CORAZÓN ROSA",
+    "price": 200,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p005-3.jpg",
+    "sourcePage": 5
+  },
+  {
+    "id": "p006-1",
+    "category": "HUGGIES",
+    "name": "TRES FLORES",
+    "price": 200,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p006-1.jpg",
+    "sourcePage": 6
+  },
+  {
+    "id": "p006-2",
+    "category": "HUGGIES",
+    "name": "FLOR / PERLA",
+    "price": 190,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p006-2.jpg",
+    "sourcePage": 6
+  },
+  {
+    "id": "p006-3",
+    "category": "HUGGIES",
+    "name": "PRESIÓN MOÑO",
+    "price": 210,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p006-3.jpg",
+    "sourcePage": 6
+  },
+  {
+    "id": "p007-1",
+    "category": "HUGGIES",
+    "name": "CHICOS 14K PERFORADOS",
+    "price": 160,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p007-1.jpg",
+    "sourcePage": 7
+  },
+  {
+    "id": "p007-2",
+    "category": "HUGGIES",
+    "name": "3 CRISTALES",
+    "price": 190,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p007-2.jpg",
+    "sourcePage": 7
+  },
+  {
+    "id": "p007-3",
+    "category": "HUGGIES",
+    "name": "14K PIEDRAS AZULES",
+    "price": 200,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p007-3.jpg",
+    "sourcePage": 7
+  },
+  {
+    "id": "p008-1",
+    "category": "HUGGIES",
+    "name": "14K COLORES",
+    "price": 200,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p008-1.jpg",
+    "sourcePage": 8
+  },
+  {
+    "id": "p008-2",
+    "category": "HUGGIES",
+    "name": "PRESIÓN CRUZADOS",
+    "price": 180,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p008-2.jpg",
+    "sourcePage": 8
+  },
+  {
+    "id": "p008-3",
+    "category": "HUGGIES",
+    "name": "14K CHICOS LINEAS",
+    "price": 160,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p008-3.jpg",
+    "sourcePage": 8
+  },
+  {
+    "id": "p009-1",
+    "category": "HUGGIES",
+    "name": "14K PIEDRAS NEGROS",
+    "price": 200,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p009-1.jpg",
+    "sourcePage": 9
+  },
+  {
+    "id": "p009-2",
+    "category": "HUGGIES",
+    "name": "14K 4 MOÑOS",
+    "price": 190,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p009-2.jpg",
+    "sourcePage": 9
+  },
+  {
+    "id": "p009-3",
+    "category": "HUGGIES",
+    "name": "14K TRES LINEAS",
+    "price": 240,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p009-3.jpg",
+    "sourcePage": 9
+  },
+  {
+    "id": "p010-1",
+    "category": "HUGGIES",
+    "name": "14K CUADRADO BLANCO",
+    "price": 210,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p010-1.jpg",
+    "sourcePage": 10
+  },
+  {
+    "id": "p010-2",
+    "category": "HUGGIES",
+    "name": "Cuadrados Texturizados",
+    "price": 190,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p010-2.jpg",
+    "sourcePage": 10
+  },
+  {
+    "id": "p010-3",
+    "category": "HUGGIES",
+    "name": "14K TRENZADOS CON PIEDRAS",
+    "price": 180,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p010-3.jpg",
+    "sourcePage": 10
+  },
+  {
+    "id": "p011-1",
+    "category": "HUGGIES",
+    "name": "CORAZÓN RODIO",
+    "price": 210,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p011-1.jpg",
+    "sourcePage": 11
+  },
+  {
+    "id": "p011-2",
+    "category": "HUGGIES",
+    "name": "SEMICIRCULO",
+    "price": 220,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p011-2.jpg",
+    "sourcePage": 11
+  },
+  {
+    "id": "p011-3",
+    "category": "HUGGIES",
+    "name": "CHICO DOBLE CIRCULO",
+    "price": 190,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p011-3.jpg",
+    "sourcePage": 11
+  },
+  {
+    "id": "p012-1",
+    "category": "HUGGIES",
+    "name": "CHICO MOÑO",
+    "price": 190,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p012-1.jpg",
+    "sourcePage": 12
+  },
+  {
+    "id": "p012-2",
+    "category": "HUGGIES",
+    "name": "CHICOS VARIOS RECTANGULOS",
+    "price": 190,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p012-2.jpg",
+    "sourcePage": 12
+  },
+  {
+    "id": "p012-3",
+    "category": "HUGGIES",
+    "name": "PERLAS OVALADAS",
+    "price": 190,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p012-3.jpg",
+    "sourcePage": 12
+  },
+  {
+    "id": "p013-1",
+    "category": "HUGGIES",
+    "name": "HUECOS",
+    "price": 190,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p013-1.jpg",
+    "sourcePage": 13
+  },
+  {
+    "id": "p013-2",
+    "category": "HUGGIES",
+    "name": "14 PIEDRAS VERDES",
+    "price": 200,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p013-2.jpg",
+    "sourcePage": 13
+  },
+  {
+    "id": "p014-1",
+    "category": "ARETES",
+    "name": "FLOR CRISTAL",
+    "price": 190,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p014-1.jpg",
+    "sourcePage": 14
+  },
+  {
+    "id": "p014-2",
+    "category": "ARETES",
+    "name": "MOÑO / PIEDRA ROSA",
+    "price": 260,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p014-2.jpg",
+    "sourcePage": 14
+  },
+  {
+    "id": "p015-1",
+    "category": "BROQUELES",
+    "name": "ueGATO GALACTICO",
+    "price": 210,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p015-1.jpg",
+    "sourcePage": 15
+  },
+  {
+    "id": "p015-2",
+    "category": "BROQUELES",
+    "name": "RODIO HOJAS",
+    "price": 190,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p015-2.jpg",
+    "sourcePage": 15
+  },
+  {
+    "id": "p015-3",
+    "category": "BROQUELES",
+    "name": "MOÑO PIEDRA ROJA",
+    "price": 260,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p015-3.jpg",
+    "sourcePage": 15
+  },
+  {
+    "id": "p016-1",
+    "category": "BROQUELES",
+    "name": "ueGATOS ORO",
+    "price": 200,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p016-1.jpg",
+    "sourcePage": 16
+  },
+  {
+    "id": "p016-2",
+    "category": "BROQUELES",
+    "name": "GATOS RODIO",
+    "price": 200,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p016-2.jpg",
+    "sourcePage": 16
+  },
+  {
+    "id": "p016-3",
+    "category": "BROQUELES",
+    "name": "LUNA CON ALAS",
+    "price": 230,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p016-3.jpg",
+    "sourcePage": 16
+  },
+  {
+    "id": "p017-1",
+    "category": "BROQUELES",
+    "name": "ueCIRCULO CRISTAL",
+    "price": 210,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p017-1.jpg",
+    "sourcePage": 17
+  },
+  {
+    "id": "p018-1",
+    "category": "ARRACADAS",
+    "name": "LISAS RODIO (4CM DIAMETRO)",
+    "price": 230,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p018-1.jpg",
+    "sourcePage": 18
+  },
+  {
+    "id": "p018-2",
+    "category": "ARRACADAS",
+    "name": "TIPO 3 OROS (3CM DIAMETRO)",
+    "price": 240,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p018-2.jpg",
+    "sourcePage": 18
+  },
+  {
+    "id": "p018-3",
+    "category": "ARRACADAS",
+    "name": "14K (2CM DIAMETRO)",
+    "price": 230,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p018-3.jpg",
+    "sourcePage": 18
+  },
+  {
+    "id": "p019-1",
+    "category": "ARRACADAS",
+    "name": "RODIO (1.5CM DIAMETRO)",
+    "price": 200,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p019-1.jpg",
+    "sourcePage": 19
+  },
+  {
+    "id": "p020-1",
+    "category": "PULSERAS",
+    "name": "3 RECTANGULARES CON PIEDRAS",
+    "price": 360,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p020-1.jpg",
+    "sourcePage": 20
+  },
+  {
+    "id": "p020-2",
+    "category": "PULSERAS",
+    "name": "RODIO PIEDRAS ROJAS",
+    "price": 360,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p020-2.jpg",
+    "sourcePage": 20
+  },
+  {
+    "id": "p020-3",
+    "category": "PULSERAS",
+    "name": "RODIO COLORES",
+    "price": 280,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p020-3.jpg",
+    "sourcePage": 20
+  },
+  {
+    "id": "p021-1",
+    "category": "PULSERAS",
+    "name": "VARIOS RECTANGULOS CON PIEDRAS",
+    "price": 370,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p021-1.jpg",
+    "sourcePage": 21
+  },
+  {
+    "id": "p021-2",
+    "category": "PULSERAS",
+    "name": "14K PIEDRA AZUL",
+    "price": 340,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p021-2.jpg",
+    "sourcePage": 21
+  },
+  {
+    "id": "p021-3",
+    "category": "PULSERAS",
+    "name": "PIEDRAS VERDES",
+    "price": 360,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p021-3.jpg",
+    "sourcePage": 21
+  },
+  {
+    "id": "p022-1",
+    "category": "BRAZALETE / ESCLAVAS",
+    "name": "BAZALETE NUDO",
+    "price": 340,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p022-1.jpg",
+    "sourcePage": 22
+  },
+  {
+    "id": "p022-2",
+    "category": "BRAZALETE / ESCLAVAS",
+    "name": "ESCLAVA NIÑA",
+    "price": 250,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p022-2.jpg",
+    "sourcePage": 22
+  },
+  {
+    "id": "p023-1",
+    "category": "JUEGOS",
+    "name": "TIPO ABANICO",
+    "price": 460,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p023-1.jpg",
+    "sourcePage": 23
+  },
+  {
+    "id": "p023-2",
+    "category": "JUEGOS",
+    "name": "GOTA",
+    "price": 460,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p023-2.jpg",
+    "sourcePage": 23
+  },
+  {
+    "id": "p023-3",
+    "category": "JUEGOS",
+    "name": "TRIANGULOS",
+    "price": 500,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p023-3.jpg",
+    "sourcePage": 23
+  },
+  {
+    "id": "p024-1",
+    "category": "JUEGOS",
+    "name": "PIEDRA BLANCA",
+    "price": 460,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p024-1.jpg",
+    "sourcePage": 24
+  },
+  {
+    "id": "p024-2",
+    "category": "JUEGOS",
+    "name": "}3 LINEAS",
+    "price": 490,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p024-2.jpg",
+    "sourcePage": 24
+  },
+  {
+    "id": "p024-3",
+    "category": "JUEGOS",
+    "name": "CRUZ",
+    "price": 490,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p024-3.jpg",
+    "sourcePage": 24
+  },
+  {
+    "id": "p025-1",
+    "category": "JUEGOS",
+    "name": "TIPO ALMENDRA",
+    "price": 500,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p025-1.jpg",
+    "sourcePage": 25
+  },
+  {
+    "id": "p026-1",
+    "category": "DIJES",
+    "name": "CORAZÓN",
+    "price": 320,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p026-1.jpg",
+    "sourcePage": 26
+  },
+  {
+    "id": "p026-2",
+    "category": "DIJES",
+    "name": "MUJER CON ALAS",
+    "price": 340,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p026-2.jpg",
+    "sourcePage": 26
+  },
+  {
+    "id": "p026-3",
+    "category": "DIJES",
+    "name": "MEDIA LUNA Y CONEJO",
+    "price": 300,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p026-3.jpg",
+    "sourcePage": 26
+  },
+  {
+    "id": "p027-1",
+    "category": "DIJES",
+    "name": "MEDALLA SAN BENITO",
+    "price": 190,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p027-1.jpg",
+    "sourcePage": 27
+  },
+  {
+    "id": "p027-2",
+    "category": "DIJES",
+    "name": "CORAZÓN MINI",
+    "price": 320,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p027-2.jpg",
+    "sourcePage": 27
+  },
+  {
+    "id": "p027-3",
+    "category": "DIJES",
+    "name": "CORAZÓN / ANCLA",
+    "price": 300,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p027-3.jpg",
+    "sourcePage": 27
+  },
+  {
+    "id": "p028-1",
+    "category": "DIJES",
+    "name": "MUJER CON ALAS",
+    "price": 340,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p028-1.jpg",
+    "sourcePage": 28
+  },
+  {
+    "id": "p028-2",
+    "category": "DIJES",
+    "name": "CRUZ / DOS CORAZONES",
+    "price": 360,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p028-2.jpg",
+    "sourcePage": 28
+  },
+  {
+    "id": "p029-1",
+    "category": "ANILLOS",
+    "name": "PIEDRA VERDE",
+    "price": 250,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p029-1.jpg",
+    "sourcePage": 29
+  },
+  {
+    "id": "p029-2",
+    "category": "ANILLOS",
+    "name": "PIEDRA BLANCA",
+    "price": 250,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p029-2.jpg",
+    "sourcePage": 29
+  },
+  {
+    "id": "p029-3",
+    "category": "ANILLOS",
+    "name": "PIEDRA BLANCA RECTANGULAR",
+    "price": 240,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p029-3.jpg",
+    "sourcePage": 29
+  },
+  {
+    "id": "p030-1",
+    "category": "ANILLOS",
+    "name": "AJUSTABLE LUNA Y ESTRELLA",
+    "price": 200,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p030-1.jpg",
+    "sourcePage": 30
+  },
+  {
+    "id": "p030-2",
+    "category": "ANILLOS",
+    "name": "CRISTALES",
+    "price": 240,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p030-2.jpg",
+    "sourcePage": 30
+  },
+  {
+    "id": "p030-3",
+    "category": "ANILLOS",
+    "name": "PIEDRA AZUL",
+    "price": 250,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p030-3.jpg",
+    "sourcePage": 30
+  },
+  {
+    "id": "p031-1",
+    "category": "EAR CUFF",
+    "name": "MOÑO",
+    "price": 200,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p031-1.jpg",
+    "sourcePage": 31
+  },
+  {
+    "id": "p033-1",
+    "category": "HUGGIES",
+    "name": "TRIANGULOS AMARILLOS",
+    "price": 200,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p033-1.jpg",
+    "sourcePage": 33
+  },
+  {
+    "id": "p033-2",
+    "category": "HUGGIES",
+    "name": "TORNASOL",
+    "price": 220,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p033-2.jpg",
+    "sourcePage": 33
+  },
+  {
+    "id": "p033-3",
+    "category": "HUGGIES",
+    "name": "TIPO TRES OJOS",
+    "price": 160,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p033-3.jpg",
+    "sourcePage": 33
+  },
+  {
+    "id": "p034-1",
+    "category": "HUGGIES",
+    "name": "CHICOS 3 PIEDRAS",
+    "price": 170,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p034-1.jpg",
+    "sourcePage": 34
+  },
+  {
+    "id": "p034-2",
+    "category": "HUGGIES",
+    "name": "COLA SIRENA",
+    "price": 250,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p034-2.jpg",
+    "sourcePage": 34
+  },
+  {
+    "id": "p034-3",
+    "category": "HUGGIES",
+    "name": "HOJAS CON PERLAS",
+    "price": 240,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p034-3.jpg",
+    "sourcePage": 34
+  },
+  {
+    "id": "p035-1",
+    "category": "HUGGIES",
+    "name": "RODIO CHICOS HOJAS",
+    "price": 190,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p035-1.jpg",
+    "sourcePage": 35
+  },
+  {
+    "id": "p035-2",
+    "category": "HUGGIES",
+    "name": "PIEDRA AZUL OVALADA",
+    "price": 220,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p035-2.jpg",
+    "sourcePage": 35
+  },
+  {
+    "id": "p035-3",
+    "category": "HUGGIES",
+    "name": "ESTRELLLA",
+    "price": 190,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p035-3.jpg",
+    "sourcePage": 35
+  },
+  {
+    "id": "p036-1",
+    "category": "HUGGIES",
+    "name": "TIPO ALA CON PERLA",
+    "price": 230,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p036-1.jpg",
+    "sourcePage": 36
+  },
+  {
+    "id": "p036-2",
+    "category": "HUGGIES",
+    "name": "RODIO PIEDRA",
+    "price": 240,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p036-2.jpg",
+    "sourcePage": 36
+  },
+  {
+    "id": "p036-3",
+    "category": "HUGGIES",
+    "name": "COLORES",
+    "price": 180,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p036-3.jpg",
+    "sourcePage": 36
+  },
+  {
+    "id": "p037-1",
+    "category": "HUGGIES",
+    "name": "LISOS",
+    "price": 160,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p037-1.jpg",
+    "sourcePage": 37
+  },
+  {
+    "id": "p037-2",
+    "category": "HUGGIES",
+    "name": "RODIO PIEDRA LILA",
+    "price": 230,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p037-2.jpg",
+    "sourcePage": 37
+  },
+  {
+    "id": "p037-3",
+    "category": "HUGGIES",
+    "name": "BOLA",
+    "price": 180,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p037-3.jpg",
+    "sourcePage": 37
+  },
+  {
+    "id": "p038-1",
+    "category": "HUGGIES",
+    "name": "TIPO HOJA",
+    "price": 190,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p038-1.jpg",
+    "sourcePage": 38
+  },
+  {
+    "id": "p038-2",
+    "category": "HUGGIES",
+    "name": "BLANCOS CON LINEA PIEDRAS",
+    "price": 220,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p038-2.jpg",
+    "sourcePage": 38
+  },
+  {
+    "id": "p038-3",
+    "category": "HUGGIES",
+    "name": "CORAZÓN RODIO PIEDRA LILA",
+    "price": 230,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p038-3.jpg",
+    "sourcePage": 38
+  },
+  {
+    "id": "p039-1",
+    "category": "HUGGIES",
+    "name": "CUADRADOS AZUL",
+    "price": 210,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p039-1.jpg",
+    "sourcePage": 39
+  },
+  {
+    "id": "p039-2",
+    "category": "HUGGIES",
+    "name": "MOÑO / PERLA",
+    "price": 210,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p039-2.jpg",
+    "sourcePage": 39
+  },
+  {
+    "id": "p039-3",
+    "category": "HUGGIES",
+    "name": "RODIO DELFINES",
+    "price": 190,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p039-3.jpg",
+    "sourcePage": 39
+  },
+  {
+    "id": "p040-1",
+    "category": "HUGGIES",
+    "name": "OVALADO VARIAS PERLAS",
+    "price": 230,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p040-1.jpg",
+    "sourcePage": 40
+  },
+  {
+    "id": "p040-2",
+    "category": "HUGGIES",
+    "name": "YIN",
+    "price": 240,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p040-2.jpg",
+    "sourcePage": 40
+  },
+  {
+    "id": "p040-3",
+    "category": "HUGGIES",
+    "name": "YANG",
+    "price": 240,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p040-3.jpg",
+    "sourcePage": 40
+  },
+  {
+    "id": "p041-1",
+    "category": "HUGGIES",
+    "name": "RODIO PIEDRAS",
+    "price": 210,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p041-1.jpg",
+    "sourcePage": 41
+  },
+  {
+    "id": "p041-2",
+    "category": "HUGGIES",
+    "name": "OROS LISOS",
+    "price": 170,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p041-2.jpg",
+    "sourcePage": 41
+  },
+  {
+    "id": "p041-3",
+    "category": "HUGGIES",
+    "name": "VARIAS LINEAS PIEDRAS",
+    "price": 210,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p041-3.jpg",
+    "sourcePage": 41
+  },
+  {
+    "id": "p042-1",
+    "category": "HUGGIES",
+    "name": "MEDIA LUNA",
+    "price": 200,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p042-1.jpg",
+    "sourcePage": 42
+  },
+  {
+    "id": "p042-2",
+    "category": "HUGGIES",
+    "name": "GRUESOS PIEDRA BLANCA",
+    "price": 240,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p042-2.jpg",
+    "sourcePage": 42
+  },
+  {
+    "id": "p042-3",
+    "category": "HUGGIES",
+    "name": "CRUZ / MARIPOSAS",
+    "price": 230,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p042-3.jpg",
+    "sourcePage": 42
+  },
+  {
+    "id": "p043-1",
+    "category": "HUGGIES",
+    "name": "RODIO MARIPOSA COLORES",
+    "price": 260,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p043-1.jpg",
+    "sourcePage": 43
+  },
+  {
+    "id": "p043-2",
+    "category": "HUGGIES",
+    "name": "PERLA CRITICAL",
+    "price": 210,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p043-2.jpg",
+    "sourcePage": 43
+  },
+  {
+    "id": "p043-3",
+    "category": "HUGGIES",
+    "name": "ROMBOS CON PIEDRAS",
+    "price": 210,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p043-3.jpg",
+    "sourcePage": 43
+  },
+  {
+    "id": "p044-1",
+    "category": "HUGGIES",
+    "name": "CRUZADOS",
+    "price": 200,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p044-1.jpg",
+    "sourcePage": 44
+  },
+  {
+    "id": "p044-2",
+    "category": "HUGGIES",
+    "name": "RECTANGULOS CON PIEDRAS",
+    "price": 210,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p044-2.jpg",
+    "sourcePage": 44
+  },
+  {
+    "id": "p044-3",
+    "category": "HUGGIES",
+    "name": "Flor con Cristales",
+    "price": 200,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p044-3.jpg",
+    "sourcePage": 44
+  },
+  {
+    "id": "p045-1",
+    "category": "HUGGIES",
+    "name": "CHICOS NUDO CON PIEDRA AZUL",
+    "price": 190,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p045-1.jpg",
+    "sourcePage": 45
+  },
+  {
+    "id": "p045-2",
+    "category": "HUGGIES",
+    "name": "HUGGIES CON LINEA ONDULADA",
+    "price": 210,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p045-2.jpg",
+    "sourcePage": 45
+  },
+  {
+    "id": "p045-3",
+    "category": "HUGGIES",
+    "name": "RODIO CIRCULOS",
+    "price": 210,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p045-3.jpg",
+    "sourcePage": 45
+  },
+  {
+    "id": "p046-1",
+    "category": "HUGGIES",
+    "name": "PIEDRAS ROSAS",
+    "price": 220,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p046-1.jpg",
+    "sourcePage": 46
+  },
+  {
+    "id": "p046-2",
+    "category": "HUGGIES",
+    "name": "FLECHAS",
+    "price": 230,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p046-2.jpg",
+    "sourcePage": 46
+  },
+  {
+    "id": "p046-3",
+    "category": "HUGGIES",
+    "name": "LINEAS",
+    "price": 200,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p046-3.jpg",
+    "sourcePage": 46
+  },
+  {
+    "id": "p047-1",
+    "category": "HUGGIES",
+    "name": "RECTANGULARES ROSAS",
+    "price": 220,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p047-1.jpg",
+    "sourcePage": 47
+  },
+  {
+    "id": "p047-2",
+    "category": "HUGGIES",
+    "name": "RECTANGULARES LILAS",
+    "price": 220,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p047-2.jpg",
+    "sourcePage": 47
+  },
+  {
+    "id": "p047-3",
+    "category": "HUGGIES",
+    "name": "RODIO CON PERLAS",
+    "price": 210,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p047-3.jpg",
+    "sourcePage": 47
+  },
+  {
+    "id": "p048-1",
+    "category": "HUGGIES",
+    "name": "CUADRADOS ROJOS",
+    "price": 230,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p048-1.jpg",
+    "sourcePage": 48
+  },
+  {
+    "id": "p048-2",
+    "category": "HUGGIES",
+    "name": "MARIPOSAS",
+    "price": 220,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p048-2.jpg",
+    "sourcePage": 48
+  },
+  {
+    "id": "p048-3",
+    "category": "HUGGIES",
+    "name": "CORAZONES",
+    "price": 210,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p048-3.jpg",
+    "sourcePage": 48
+  },
+  {
+    "id": "p049-1",
+    "category": "HUGGIES",
+    "name": "LINEAS INCLINADAS",
+    "price": 210,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p049-1.jpg",
+    "sourcePage": 49
+  },
+  {
+    "id": "p049-2",
+    "category": "HUGGIES",
+    "name": "COLORES",
+    "price": 220,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p049-2.jpg",
+    "sourcePage": 49
+  },
+  {
+    "id": "p049-3",
+    "category": "HUGGIES",
+    "name": "PAJARITOS PIEDRA BLANCA",
+    "price": 220,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p049-3.jpg",
+    "sourcePage": 49
+  },
+  {
+    "id": "p050-1",
+    "category": "HUGGIES",
+    "name": "TRES FIGURAS",
+    "price": 180,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p050-1.jpg",
+    "sourcePage": 50
+  },
+  {
+    "id": "p050-2",
+    "category": "HUGGIES",
+    "name": "DOS FLORES Y UNA PERLA",
+    "price": 230,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p050-2.jpg",
+    "sourcePage": 50
+  },
+  {
+    "id": "p050-3",
+    "category": "HUGGIES",
+    "name": "CIRCULOS CON PIEDRAS",
+    "price": 210,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p050-3.jpg",
+    "sourcePage": 50
+  },
+  {
+    "id": "p051-1",
+    "category": "HUGGIES",
+    "name": "LINEA / CADENA",
+    "price": 200,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p051-1.jpg",
+    "sourcePage": 51
+  },
+  {
+    "id": "p051-2",
+    "category": "HUGGIES",
+    "name": "GRANDES LISOS",
+    "price": 200,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p051-2.jpg",
+    "sourcePage": 51
+  },
+  {
+    "id": "p051-3",
+    "category": "HUGGIES",
+    "name": "PERLA DETALLADA",
+    "price": 190,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p051-3.jpg",
+    "sourcePage": 51
+  },
+  {
+    "id": "p052-1",
+    "category": "HUGGIES",
+    "name": "HUGGIES RODIO LINEAS PIEDRAS",
+    "price": 220,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p052-1.jpg",
+    "sourcePage": 52
+  },
+  {
+    "id": "p052-2",
+    "category": "HUGGIES",
+    "name": "VARIOS CRUZADOS",
+    "price": 220,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p052-2.jpg",
+    "sourcePage": 52
+  },
+  {
+    "id": "p052-3",
+    "category": "HUGGIES",
+    "name": "CUADRITOS AESTHETIC",
+    "price": 180,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p052-3.jpg",
+    "sourcePage": 52
+  },
+  {
+    "id": "p053-1",
+    "category": "HUGGIES",
+    "name": "PIEDRA AMBAR Y CRISTAL",
+    "price": 220,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p053-1.jpg",
+    "sourcePage": 53
+  },
+  {
+    "id": "p053-2",
+    "category": "HUGGIES",
+    "name": "LINEAS INCLINADAS",
+    "price": 220,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p053-2.jpg",
+    "sourcePage": 53
+  },
+  {
+    "id": "p053-3",
+    "category": "HUGGIES",
+    "name": "RECTANGULARES DETALLADOS",
+    "price": 220,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p053-3.jpg",
+    "sourcePage": 53
+  },
+  {
+    "id": "p054-1",
+    "category": "HUGGIES",
+    "name": "PIEDRAS TORNASOL",
+    "price": 240,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p054-1.jpg",
+    "sourcePage": 54
+  },
+  {
+    "id": "p054-2",
+    "category": "HUGGIES",
+    "name": "14K PINCHOS",
+    "price": 180,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p054-2.jpg",
+    "sourcePage": 54
+  },
+  {
+    "id": "p054-3",
+    "category": "HUGGIES",
+    "name": "CORAZONES AZULES",
+    "price": 180,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p054-3.jpg",
+    "sourcePage": 54
+  },
+  {
+    "id": "p055-1",
+    "category": "HUGGIES",
+    "name": "PIEDRA BLANCA",
+    "price": 200,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p055-1.jpg",
+    "sourcePage": 55
+  },
+  {
+    "id": "p055-2",
+    "category": "HUGGIES",
+    "name": "COLORES",
+    "price": 230,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p055-2.jpg",
+    "sourcePage": 55
+  },
+  {
+    "id": "p055-3",
+    "category": "HUGGIES",
+    "name": "OVALOS DETALLADOS",
+    "price": 200,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p055-3.jpg",
+    "sourcePage": 55
+  },
+  {
+    "id": "p056-1",
+    "category": "HUGGIES",
+    "name": "TIPO CADENA",
+    "price": 190,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p056-1.jpg",
+    "sourcePage": 56
+  },
+  {
+    "id": "p056-2",
+    "category": "HUGGIES",
+    "name": "CUADRADO NEGRO",
+    "price": 210,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p056-2.jpg",
+    "sourcePage": 56
+  },
+  {
+    "id": "p056-3",
+    "category": "HUGGIES",
+    "name": "CIRCULOS CON PIEDRAS",
+    "price": 210,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p056-3.jpg",
+    "sourcePage": 56
+  },
+  {
+    "id": "p057-1",
+    "category": "HUGGIES",
+    "name": "5 OVALOS DETALLADOS",
+    "price": 190,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p057-1.jpg",
+    "sourcePage": 57
+  },
+  {
+    "id": "p057-2",
+    "category": "HUGGIES",
+    "name": "PIEDRAS OVALADAS FIUSHAS GRANDES",
+    "price": 250,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p057-2.jpg",
+    "sourcePage": 57
+  },
+  {
+    "id": "p057-3",
+    "category": "HUGGIES",
+    "name": "FORMA EN PIRAMIDE",
+    "price": 200,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p057-3.jpg",
+    "sourcePage": 57
+  },
+  {
+    "id": "p058-1",
+    "category": "HUGGIES",
+    "name": "RODIO BOLITAS",
+    "price": 160,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p058-1.jpg",
+    "sourcePage": 58
+  },
+  {
+    "id": "p058-2",
+    "category": "HUGGIES",
+    "name": "OVALADAS DOS LINEAS BLANCAS",
+    "price": 190,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p058-2.jpg",
+    "sourcePage": 58
+  },
+  {
+    "id": "p058-3",
+    "category": "HUGGIES",
+    "name": "PIEDRAS ROJAS",
+    "price": 190,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p058-3.jpg",
+    "sourcePage": 58
+  },
+  {
+    "id": "p059-1",
+    "category": "HUGGIES",
+    "name": "CIRCULOS PEQUEÑOS",
+    "price": 210,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p059-1.jpg",
+    "sourcePage": 59
+  },
+  {
+    "id": "p059-2",
+    "category": "HUGGIES",
+    "name": "PIEDRAS MORADAS",
+    "price": 220,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p059-2.jpg",
+    "sourcePage": 59
+  },
+  {
+    "id": "p059-3",
+    "category": "HUGGIES",
+    "name": "LINEAS",
+    "price": 180,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p059-3.jpg",
+    "sourcePage": 59
+  },
+  {
+    "id": "p060-1",
+    "category": "HUGGIES",
+    "name": "TIPO GOTA CON GRECAS",
+    "price": 240,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p060-1.jpg",
+    "sourcePage": 60
+  },
+  {
+    "id": "p060-2",
+    "category": "HUGGIES",
+    "name": "GOTAS ROSAS CON CRISTALES",
+    "price": 250,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p060-2.jpg",
+    "sourcePage": 60
+  },
+  {
+    "id": "p060-3",
+    "category": "HUGGIES",
+    "name": "RECTANGULOS RODIO PIEDRITAS",
+    "price": 180,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p060-3.jpg",
+    "sourcePage": 60
+  },
+  {
+    "id": "p061-1",
+    "category": "HUGGIES",
+    "name": "RODIO ENTRELAZADOS",
+    "price": 200,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p061-1.jpg",
+    "sourcePage": 61
+  },
+  {
+    "id": "p061-2",
+    "category": "HUGGIES",
+    "name": "3 COLORES",
+    "price": 180,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p061-2.jpg",
+    "sourcePage": 61
+  },
+  {
+    "id": "p061-3",
+    "category": "HUGGIES",
+    "name": "FLOR",
+    "price": 210,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p061-3.jpg",
+    "sourcePage": 61
+  },
+  {
+    "id": "p063-1",
+    "category": "BROQUELES",
+    "name": "MEDIO CILINDRO",
+    "price": 200,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p063-1.jpg",
+    "sourcePage": 63
+  },
+  {
+    "id": "p063-2",
+    "category": "BROQUELES",
+    "name": "BROQUEL GRANDE TIPO HOJA",
+    "price": 240,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p063-2.jpg",
+    "sourcePage": 63
+  },
+  {
+    "id": "p063-3",
+    "category": "BROQUELES",
+    "name": "MARIPOSA",
+    "price": 220,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p063-3.jpg",
+    "sourcePage": 63
+  },
+  {
+    "id": "p064-1",
+    "category": "BROQUELES",
+    "name": "CRISTALES BLANCO / ROSA",
+    "price": 210,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p064-1.jpg",
+    "sourcePage": 64
+  },
+  {
+    "id": "p064-2",
+    "category": "BROQUELES",
+    "name": "ROSA",
+    "price": 210,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p064-2.jpg",
+    "sourcePage": 64
+  },
+  {
+    "id": "p064-3",
+    "category": "BROQUELES",
+    "name": "CRISTALES NARANJAS",
+    "price": 210,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p064-3.jpg",
+    "sourcePage": 64
+  },
+  {
+    "id": "p065-1",
+    "category": "BROQUELES",
+    "name": "FLOR",
+    "price": 240,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p065-1.jpg",
+    "sourcePage": 65
+  },
+  {
+    "id": "p065-2",
+    "category": "BROQUELES",
+    "name": "TRIANGULO RODIO GRANDE",
+    "price": 240,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p065-2.jpg",
+    "sourcePage": 65
+  },
+  {
+    "id": "p065-3",
+    "category": "BROQUELES",
+    "name": "PERLAS",
+    "price": 200,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p065-3.jpg",
+    "sourcePage": 65
+  },
+  {
+    "id": "p066-1",
+    "category": "BROQUELES",
+    "name": "MEDIA LUNA",
+    "price": 230,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p066-1.jpg",
+    "sourcePage": 66
+  },
+  {
+    "id": "p066-2",
+    "category": "BROQUELES",
+    "name": "TIPO SOL",
+    "price": 200,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p066-2.jpg",
+    "sourcePage": 66
+  },
+  {
+    "id": "p066-3",
+    "category": "BROQUELES",
+    "name": "MOÑO",
+    "price": 200,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p066-3.jpg",
+    "sourcePage": 66
+  },
+  {
+    "id": "p067-1",
+    "category": "BROQUELES",
+    "name": "MEDIO CIRCULO",
+    "price": 220,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p067-1.jpg",
+    "sourcePage": 67
+  },
+  {
+    "id": "p067-2",
+    "category": "BROQUELES",
+    "name": "CORAZÓN / PERLA",
+    "price": 230,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p067-2.jpg",
+    "sourcePage": 67
+  },
+  {
+    "id": "p067-3",
+    "category": "BROQUELES",
+    "name": "RECTANGULO / ESTRELLA",
+    "price": 230,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p067-3.jpg",
+    "sourcePage": 67
+  },
+  {
+    "id": "p068-1",
+    "category": "BROQUELES",
+    "name": "GOTA CON PERLAS",
+    "price": 230,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p068-1.jpg",
+    "sourcePage": 68
+  },
+  {
+    "id": "p068-2",
+    "category": "BROQUELES",
+    "name": "OVALADOS RODIO/ ORO LAMINADO",
+    "price": 200,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p068-2.jpg",
+    "sourcePage": 68
+  },
+  {
+    "id": "p068-3",
+    "category": "BROQUELES",
+    "name": "MOÑO",
+    "price": 240,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p068-3.jpg",
+    "sourcePage": 68
+  },
+  {
+    "id": "p069-1",
+    "category": "BROQUELES",
+    "name": "MARIPOSAS RODIO",
+    "price": 260,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p069-1.jpg",
+    "sourcePage": 69
+  },
+  {
+    "id": "p069-2",
+    "category": "BROQUELES",
+    "name": "MOÑO / ALA",
+    "price": 190,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p069-2.jpg",
+    "sourcePage": 69
+  },
+  {
+    "id": "p069-3",
+    "category": "BROQUELES",
+    "name": "RECTANGULARES",
+    "price": 220,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p069-3.jpg",
+    "sourcePage": 69
+  },
+  {
+    "id": "p070-1",
+    "category": "BROQUELES",
+    "name": "PIEDRA VINO",
+    "price": 180,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p070-1.jpg",
+    "sourcePage": 70
+  },
+  {
+    "id": "p070-2",
+    "category": "BROQUELES",
+    "name": "ESFERA ROJA",
+    "price": 230,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p070-2.jpg",
+    "sourcePage": 70
+  },
+  {
+    "id": "p070-3",
+    "category": "BROQUELES",
+    "name": "ROMBOS LISOS",
+    "price": 260,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p070-3.jpg",
+    "sourcePage": 70
+  },
+  {
+    "id": "p071-1",
+    "category": "BROQUELES",
+    "name": "LISOS",
+    "price": 180,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p071-1.jpg",
+    "sourcePage": 71
+  },
+  {
+    "id": "p073-1",
+    "category": "ARRACADAS",
+    "name": "RODIO TRENZADAS",
+    "price": 230,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p073-1.jpg",
+    "sourcePage": 73
+  },
+  {
+    "id": "p073-2",
+    "category": "ARRACADAS",
+    "name": "TORCIDAS 14K, 3CM",
+    "price": 220,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p073-2.jpg",
+    "sourcePage": 73
+  },
+  {
+    "id": "p073-3",
+    "category": "ARRACADAS",
+    "name": "LISAS RODIO 5CM",
+    "price": 250,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p073-3.jpg",
+    "sourcePage": 73
+  },
+  {
+    "id": "p074-1",
+    "category": "ARRACADAS",
+    "name": "TORCIDAS 4CM",
+    "price": 240,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p074-1.jpg",
+    "sourcePage": 74
+  },
+  {
+    "id": "p074-2",
+    "category": "ARRACADAS",
+    "name": "RODIO 4CM DE DIAMETRO",
+    "price": 240,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p074-2.jpg",
+    "sourcePage": 74
+  },
+  {
+    "id": "p074-3",
+    "category": "ARRACADAS",
+    "name": "TRIPLE 3CM DE DIAMETRO",
+    "price": 260,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p074-3.jpg",
+    "sourcePage": 74
+  },
+  {
+    "id": "p075-1",
+    "category": "ARRACADAS",
+    "name": "TRIPLE RODIO 3CM DIAMETRO",
+    "price": 260,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p075-1.jpg",
+    "sourcePage": 75
+  },
+  {
+    "id": "p075-2",
+    "category": "ARRACADAS",
+    "name": "4CM DE DIAMETRO",
+    "price": 240,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p075-2.jpg",
+    "sourcePage": 75
+  },
+  {
+    "id": "p075-3",
+    "category": "ARRACADAS",
+    "name": "DOBLES (4.5CM DIAMETRO)",
+    "price": 280,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p075-3.jpg",
+    "sourcePage": 75
+  },
+  {
+    "id": "p076-1",
+    "category": "ARRACADAS",
+    "name": "TRES OROS",
+    "price": 250,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p076-1.jpg",
+    "sourcePage": 76
+  },
+  {
+    "id": "p076-2",
+    "category": "ARRACADAS",
+    "name": "ARRACADAS (7CM DIAMETRO)",
+    "price": 270,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p076-2.jpg",
+    "sourcePage": 76
+  },
+  {
+    "id": "p076-3",
+    "category": "ARRACADAS",
+    "name": "TORCIDAS",
+    "price": 230,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p076-3.jpg",
+    "sourcePage": 76
+  },
+  {
+    "id": "p078-1",
+    "category": "ARETES",
+    "name": "ARETES LARGOS",
+    "price": 260,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p078-1.jpg",
+    "sourcePage": 78
+  },
+  {
+    "id": "p078-2",
+    "category": "ARETES",
+    "name": "PIEDRA ROJA CON PERLA",
+    "price": 160,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p078-2.jpg",
+    "sourcePage": 78
+  },
+  {
+    "id": "p078-3",
+    "category": "ARETES",
+    "name": "LARGOS DOBLE CIRCULO",
+    "price": 260,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p078-3.jpg",
+    "sourcePage": 78
+  },
+  {
+    "id": "p079-1",
+    "category": "ARETES",
+    "name": "LARGOS EN PUNTA",
+    "price": 240,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p079-1.jpg",
+    "sourcePage": 79
+  },
+  {
+    "id": "p079-2",
+    "category": "ARETES",
+    "name": "LARGOS DETALLADOS",
+    "price": 250,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p079-2.jpg",
+    "sourcePage": 79
+  },
+  {
+    "id": "p079-3",
+    "category": "ARETES",
+    "name": "LARGOS PIEDRAS BLANCAS",
+    "price": 250,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p079-3.jpg",
+    "sourcePage": 79
+  },
+  {
+    "id": "p080-1",
+    "category": "ARETES",
+    "name": "LARGOS ROMBO",
+    "price": 230,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p080-1.jpg",
+    "sourcePage": 80
+  },
+  {
+    "id": "p080-2",
+    "category": "ARETES",
+    "name": "GOTAS",
+    "price": 180,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p080-2.jpg",
+    "sourcePage": 80
+  },
+  {
+    "id": "p080-3",
+    "category": "ARETES",
+    "name": "LARGOS CON PERLAS AZULES Y BLANCAS",
+    "price": 210,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p080-3.jpg",
+    "sourcePage": 80
+  },
+  {
+    "id": "p081-1",
+    "category": "ARETES",
+    "name": "PERLAS LARGAS",
+    "price": 230,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p081-1.jpg",
+    "sourcePage": 81
+  },
+  {
+    "id": "p081-2",
+    "category": "ARETES",
+    "name": "PERLA Y PIEDRA BLANCA",
+    "price": 160,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p081-2.jpg",
+    "sourcePage": 81
+  },
+  {
+    "id": "p081-3",
+    "category": "ARETES",
+    "name": "TIPO OVALOS",
+    "price": 250,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p081-3.jpg",
+    "sourcePage": 81
+  },
+  {
+    "id": "p083-1",
+    "category": "PULSERAS",
+    "name": "TORCIDA",
+    "price": 230,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p083-1.jpg",
+    "sourcePage": 83
+  },
+  {
+    "id": "p083-2",
+    "category": "PULSERAS",
+    "name": "OVALOS",
+    "price": 360,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p083-2.jpg",
+    "sourcePage": 83
+  },
+  {
+    "id": "p083-3",
+    "category": "PULSERAS",
+    "name": "MOÑOS CON OVALOS",
+    "price": 380,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p083-3.jpg",
+    "sourcePage": 83
+  },
+  {
+    "id": "p084-1",
+    "category": "PULSERAS",
+    "name": "CUADRADOS",
+    "price": 390,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p084-1.jpg",
+    "sourcePage": 84
+  },
+  {
+    "id": "p084-2",
+    "category": "PULSERAS",
+    "name": "CUADRADOS CON CIRCULOS",
+    "price": 380,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p084-2.jpg",
+    "sourcePage": 84
+  },
+  {
+    "id": "p084-3",
+    "category": "PULSERAS",
+    "name": "DOBLE RODIO",
+    "price": 400,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p084-3.jpg",
+    "sourcePage": 84
+  },
+  {
+    "id": "p085-1",
+    "category": "PULSERAS",
+    "name": "14K",
+    "price": 320,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p085-1.jpg",
+    "sourcePage": 85
+  },
+  {
+    "id": "p085-2",
+    "category": "PULSERAS",
+    "name": "RODIO ROJO / VERDE",
+    "price": 390,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p085-2.jpg",
+    "sourcePage": 85
+  },
+  {
+    "id": "p085-3",
+    "category": "PULSERAS",
+    "name": "PERLA CIRCULO",
+    "price": 360,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p085-3.jpg",
+    "sourcePage": 85
+  },
+  {
+    "id": "p086-1",
+    "category": "PULSERAS",
+    "name": "RECTANGULO GRECAS",
+    "price": 390,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p086-1.jpg",
+    "sourcePage": 86
+  },
+  {
+    "id": "p086-2",
+    "category": "PULSERAS",
+    "name": "COLORES",
+    "price": 340,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p086-2.jpg",
+    "sourcePage": 86
+  },
+  {
+    "id": "p086-3",
+    "category": "PULSERAS",
+    "name": "RODIO DOBLE",
+    "price": 350,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p086-3.jpg",
+    "sourcePage": 86
+  },
+  {
+    "id": "p087-1",
+    "category": "PULSERAS",
+    "name": "ROMBOS",
+    "price": 400,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p087-1.jpg",
+    "sourcePage": 87
+  },
+  {
+    "id": "p089-1",
+    "category": "DIJES",
+    "name": "CRUZ",
+    "price": 280,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p089-1.jpg",
+    "sourcePage": 89
+  },
+  {
+    "id": "p089-2",
+    "category": "DIJES",
+    "name": "UNICORNIO",
+    "price": 300,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p089-2.jpg",
+    "sourcePage": 89
+  },
+  {
+    "id": "p089-3",
+    "category": "DIJES",
+    "name": "DOS HUELLAS",
+    "price": 340,
+    "tag": "HOMBRE",
+    "image": "assets/catalogo/p089-3.jpg",
+    "sourcePage": 89
+  },
+  {
+    "id": "p090-1",
+    "category": "DIJES",
+    "name": "CORAZÓN PIEDRA TORNASOL",
+    "price": 360,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p090-1.jpg",
+    "sourcePage": 90
+  },
+  {
+    "id": "p090-2",
+    "category": "DIJES",
+    "name": "AZUL",
+    "price": 320,
+    "tag": "HOMBRE",
+    "image": "assets/catalogo/p090-2.jpg",
+    "sourcePage": 90
+  },
+  {
+    "id": "p090-3",
+    "category": "DIJES",
+    "name": "ESFERA 14K",
+    "price": 280,
+    "tag": "HOMBRE",
+    "image": "assets/catalogo/p090-3.jpg",
+    "sourcePage": 90
+  },
+  {
+    "id": "p091-1",
+    "category": "DIJES",
+    "name": "UNICORNIO",
+    "price": 340,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p091-1.jpg",
+    "sourcePage": 91
+  },
+  {
+    "id": "p093-1",
+    "category": "JUEGOS",
+    "name": "Corazón Rosa (Juego)",
+    "price": 480,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p093-1.jpg",
+    "sourcePage": 93
+  },
+  {
+    "id": "p093-2",
+    "category": "JUEGOS",
+    "name": "LLAVE DE SOL",
+    "price": 500,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p093-2.jpg",
+    "sourcePage": 93
+  },
+  {
+    "id": "p093-3",
+    "category": "JUEGOS",
+    "name": "TORCIDOS",
+    "price": 430,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p093-3.jpg",
+    "sourcePage": 93
+  },
+  {
+    "id": "p094-1",
+    "category": "JUEGOS",
+    "name": "MOÑOS",
+    "price": 510,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p094-1.jpg",
+    "sourcePage": 94
+  },
+  {
+    "id": "p094-2",
+    "category": "JUEGOS",
+    "name": "JUEGO COMPLETO PARA NIÑA",
+    "price": 520,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p094-2.jpg",
+    "sourcePage": 94
+  },
+  {
+    "id": "p094-3",
+    "category": "JUEGOS",
+    "name": "RODIO CIRCULO",
+    "price": 500,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p094-3.jpg",
+    "sourcePage": 94
+  },
+  {
+    "id": "p095-1",
+    "category": "JUE",
+    "name": "RODIO PIEDRA ROJA",
+    "price": 490,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p095-1.jpg",
+    "sourcePage": 95
+  },
+  {
+    "id": "p095-2",
+    "category": "JUE",
+    "name": "RECTANGULARES",
+    "price": 490,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p095-2.jpg",
+    "sourcePage": 95
+  },
+  {
+    "id": "p095-3",
+    "category": "JUE",
+    "name": "GOTAS",
+    "price": 420,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p095-3.jpg",
+    "sourcePage": 95
+  },
+  {
+    "id": "p096-1",
+    "category": "JUEGOS",
+    "name": "RODIO ROMBO",
+    "price": 440,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p096-1.jpg",
+    "sourcePage": 96
+  },
+  {
+    "id": "p096-2",
+    "category": "JUEGOS",
+    "name": "PERLAS",
+    "price": 460,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p096-2.jpg",
+    "sourcePage": 96
+  },
+  {
+    "id": "p096-3",
+    "category": "JUEGOS",
+    "name": "CIRCULO RODIO",
+    "price": 460,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p096-3.jpg",
+    "sourcePage": 96
+  },
+  {
+    "id": "p097-1",
+    "category": "JUEGOS",
+    "name": "CONEJOS",
+    "price": 500,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p097-1.jpg",
+    "sourcePage": 97
+  },
+  {
+    "id": "p097-2",
+    "category": "JUEGOS",
+    "name": "JUEGO DE NIÑA",
+    "price": 540,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p097-2.jpg",
+    "sourcePage": 97
+  },
+  {
+    "id": "p097-3",
+    "category": "JUEGOS",
+    "name": "CARTA CORAZONES",
+    "price": 400,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p097-3.jpg",
+    "sourcePage": 97
+  },
+  {
+    "id": "p098-1",
+    "category": "JUEGOS",
+    "name": "PERLA OVALADA",
+    "price": 490,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p098-1.jpg",
+    "sourcePage": 98
+  },
+  {
+    "id": "p098-2",
+    "category": "JUEGOS",
+    "name": "RECTANGULO CON ROMBOS",
+    "price": 500,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p098-2.jpg",
+    "sourcePage": 98
+  },
+  {
+    "id": "p098-3",
+    "category": "JUEGOS",
+    "name": "CUADRITOS CON PIEDRAS",
+    "price": 540,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p098-3.jpg",
+    "sourcePage": 98
+  },
+  {
+    "id": "p099-1",
+    "category": "JUE",
+    "name": "CIRCULOS CON PIEDRITAS",
+    "price": 540,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p099-1.jpg",
+    "sourcePage": 99
+  },
+  {
+    "id": "p101-1",
+    "category": "CADENAS",
+    "name": "PUNTO - CUADRADO (16 LARGO) - 14K",
+    "price": 220,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p101-1.jpg",
+    "sourcePage": 101
+  },
+  {
+    "id": "p101-2",
+    "category": "CADENAS",
+    "name": "CADENA DE NIÑA (35CM LARGO)",
+    "price": 160,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p101-2.jpg",
+    "sourcePage": 101
+  },
+  {
+    "id": "p101-3",
+    "category": "CADENAS",
+    "name": "PLANCHADA ESLABON (50CM LARGO)",
+    "price": 280,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p101-3.jpg",
+    "sourcePage": 101
+  },
+  {
+    "id": "p103-1",
+    "category": "ANILLOS",
+    "name": "MARIPOSA / PERLAS",
+    "price": 210,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p103-1.jpg",
+    "sourcePage": 103
+  },
+  {
+    "id": "p103-2",
+    "category": "ANILLOS",
+    "name": "CORAZÓN AJUSTABLE",
+    "price": 210,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p103-2.jpg",
+    "sourcePage": 103
+  },
+  {
+    "id": "p103-3",
+    "category": "ANILLOS",
+    "name": "TIPO MARIPOSA",
+    "price": 220,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p103-3.jpg",
+    "sourcePage": 103
+  },
+  {
+    "id": "p104-1",
+    "category": "ANILLOS",
+    "name": "OVALOS",
+    "price": 220,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p104-1.jpg",
+    "sourcePage": 104
+  },
+  {
+    "id": "p104-2",
+    "category": "ANILLOS",
+    "name": "CUADRADO AJUSTABLE",
+    "price": 240,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p104-2.jpg",
+    "sourcePage": 104
+  },
+  {
+    "id": "p104-3",
+    "category": "ANILLOS",
+    "name": "FLOR / CATARINA",
+    "price": 210,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p104-3.jpg",
+    "sourcePage": 104
+  },
+  {
+    "id": "p105-1",
+    "category": "ANILLOS",
+    "name": "PIEDRA AZUL",
+    "price": 260,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p105-1.jpg",
+    "sourcePage": 105
+  },
+  {
+    "id": "p105-2",
+    "category": "ANILLOS",
+    "name": "VARIOS CRISTALES",
+    "price": 240,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p105-2.jpg",
+    "sourcePage": 105
+  },
+  {
+    "id": "p105-3",
+    "category": "ANILLOS",
+    "name": "Trenzado",
+    "price": 200,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p105-3.jpg",
+    "sourcePage": 105
+  },
+  {
+    "id": "p106-1",
+    "category": "ANILLOS",
+    "name": "PERLA AJUSTABLE",
+    "price": 240,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p106-1.jpg",
+    "sourcePage": 106
+  },
+  {
+    "id": "p106-2",
+    "category": "ANILLOS",
+    "name": "ANILLO RECTANGULO CON PIEDRAS",
+    "price": 240,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p106-2.jpg",
+    "sourcePage": 106
+  },
+  {
+    "id": "p106-3",
+    "category": "ANILLOS",
+    "name": "ANILLO AJUSTABLE LENTES CORAZÒN",
+    "price": 250,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p106-3.jpg",
+    "sourcePage": 106
+  },
+  {
+    "id": "p107-1",
+    "category": "ANILLOS",
+    "name": "TORCIDOS",
+    "price": 260,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p107-1.jpg",
+    "sourcePage": 107
+  },
+  {
+    "id": "p107-2",
+    "category": "ANILLOS",
+    "name": "BARRAS",
+    "price": 250,
+    "tag": "MUJER",
+    "image": "assets/catalogo/p107-2.jpg",
+    "sourcePage": 107
+  }
+]
