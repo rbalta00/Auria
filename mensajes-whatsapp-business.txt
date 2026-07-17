@@ -30,7 +30,7 @@ Para armar tu pedido solo necesito:
 2. Dirección de entrega (calle, colonia y referencia)
 3. Un teléfono de contacto
 
-En cuanto me los pases, te confirmo día y horario de entrega.
+En cuanto me los pases, te confirmo día y horario en que pasará nuestra paquetería.
 
 
 4. VERIFICAR ZONA DE ENTREGA
@@ -48,7 +48,7 @@ Por ahora esa zona está fuera de nuestra cobertura de entrega a domicilio 😔 
 6. RECORDATORIO DE PAGO CONTRA ENTREGA
 Atajo sugerido: /pagocontraentrega
 -------------------------------------------
-Te recuerdo que el pago es contra entrega 💵 Nos pagas en efectivo directamente cuando te llevamos tu pieza a domicilio — no pedimos ningún anticipo. Puedes revisar tu pieza antes de pagar.
+Te recuerdo que el pago es contra entrega 💵 Nos pagas en efectivo directamente cuando nuestra paquetería te entrega tu pieza a domicilio — no pedimos ningún anticipo. Puedes revisar tu pieza antes de pagar.
 
 
 7. LINK DE PAGO EN LÍNEA (CLIP / MERCADO PAGO)
@@ -90,7 +90,7 @@ Ya revisamos tu caso y sí aplica garantía ✅ Coordinamos el cambio o reparaci
 13. CONFIRMAR ENTREGA (DÍA Y HORA)
 Atajo sugerido: /entrega
 -------------------------------------------
-¡Todo listo! 📦 Tu pedido llega el [DÍA] entre [HORA INICIO] y [HORA FIN]. Te escribimos un rato antes de llegar. Recuerda que el pago es contra entrega.
+¡Todo listo! 📦 Nuestra paquetería lleva tu pedido el [DÍA] entre [HORA INICIO] y [HORA FIN]. Te avisamos un rato antes de que llegue. Recuerda que el pago es contra entrega.
 
 
 14. AGRADECIMIENTO POST-ENTREGA
