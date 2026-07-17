@@ -103,3 +103,26 @@ Atajo sugerido: /gracias
 Atajo sugerido: /seguimiento
 -------------------------------------------
 ¡Hola de nuevo! 👋 Vi que estabas interesada en una pieza de Auria, ¿sigues buscando algo? Con gusto te ayudo a confirmar disponibilidad y entrega.
+
+
+16. CONFIRMACIÓN DE PEDIDO CON FOLIO
+Atajo sugerido: /folio
+(Usar justo después de recibir nombre, dirección y teléfono — genera el folio como fecha + consecutivo del día, ej. AUR-0717-01)
+-------------------------------------------
+¡Listo! Tu pedido quedó registrado con el folio *[FOLIO]* 📋 Guárdalo por si necesitas darle seguimiento.
+
+Resumen:
+🛍️ [PIEZA(S)]
+💰 Total: $[TOTAL]
+📍 Entrega en: [DIRECCIÓN]
+
+Estatus actual: Confirmado ✅
+Te aviso aquí mismo cuando pase a "En preparación" y "En camino".
+
+
+17. CONSULTAR ESTATUS DE PEDIDO
+Atajo sugerido: /estatus
+-------------------------------------------
+¡Claro! Tu pedido *[FOLIO]* está: [ESTATUS: Confirmado / En preparación / En camino / Entregado] 📦
+
+[Si está "En camino"]: Llega hoy entre [HORA INICIO] y [HORA FIN]. Te avisamos un rato antes.
