@@ -443,9 +443,14 @@ function waLink(product) {
 
 function waLinkMulti(products) {
   if (products.length === 0) return waLink(null);
-  if (products.length === 1) return waLink(products[0]);
+  const total = products.reduce((sum, p) => sum + p.price, 0);
+  if (products.length === 1) {
+    const p = products[0];
+    const text = `Hola, me interesa esta pieza de Auria: "${p.name}" (Código: ${p.code}) - $${p.price}. Total a pagar: $${total} MXN. ¿Me confirmas disponibilidad?`;
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+  }
   const items = products.map(p => `- "${p.name}" (Código: ${p.code}) - $${p.price}`).join("\n");
-  const text = `Hola, me interesan estas piezas de Auria:\n${items}\n¿Me confirmas disponibilidad?`;
+  const text = `Hola, me interesan estas piezas de Auria:\n${items}\nTotal a pagar: $${total} MXN\n¿Me confirmas disponibilidad?`;
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
 }
 
