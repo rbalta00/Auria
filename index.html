@@ -197,6 +197,14 @@
   .lightbox-caption .price{font-family:'Cormorant Garamond',serif; font-size:1.4rem; color:var(--gold-soft);}
   .lightbox-actions{margin-top:16px; display:flex; flex-direction:column; gap:10px; align-items:center;}
   .lightbox-actions .btn{width:100%; max-width:280px;}
+  .lightbox-actions .add-selection{
+    width:100%; max-width:280px; background:none; color:var(--gold-soft);
+    border:1.5px solid var(--gold-soft); border-radius:999px; padding:10px 16px;
+    font-size:0.82rem; font-weight:600; cursor:pointer;
+  }
+  .lightbox-actions .add-selection.added{background:var(--gold-soft); color:var(--ink); border-color:var(--gold-soft);}
+  .lightbox-actions .add-selection:disabled{opacity:0.5; cursor:default;}
+  .lightbox-actions .selection-msg{font-size:0.72rem; color:#D9CBB4; min-height:1em;}
   .lightbox-actions .see-more{color:#D9CBB4; font-size:0.82rem; text-decoration:underline; cursor:pointer; background:none; border:none;}
   .lightbox-close{
     position:absolute; top:16px; right:20px; background:none; border:none;
@@ -222,12 +230,20 @@
     max-width:min(92vw,420px);
   }
   .seen-bar.show{display:flex;}
-  .seen-bar img{width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;}
-  .seen-bar-text{font-size:0.78rem; line-height:1.25; flex:1; min-width:0;}
-  .seen-bar-text b{display:block; color:var(--gold-soft); font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-  .seen-bar button{
+  .seen-bar-items{display:flex; gap:6px; flex-shrink:0;}
+  .seen-item{position:relative; width:36px; height:36px;}
+  .seen-item img{width:36px; height:36px; border-radius:8px; object-fit:cover; display:block;}
+  .seen-item .remove{
+    position:absolute; top:-6px; right:-6px; width:16px; height:16px; border-radius:50%;
+    background:var(--paper); color:var(--ink); border:none; font-size:11px; line-height:1;
+    cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0;
+  }
+  .seen-bar-text{font-size:0.72rem; line-height:1.25; flex:1; min-width:0; color:#D9CBB4;}
+  .seen-bar-text b{display:block; color:var(--gold-soft); font-weight:600;}
+  .seen-bar .btn{
     background:var(--gold); color:var(--white); border:none; border-radius:999px;
     padding:8px 14px; font-size:0.76rem; font-weight:600; cursor:pointer; flex-shrink:0;
+    text-decoration:none;
   }
 </style>
 </head>
@@ -391,18 +407,20 @@
     </div>
     <div class="lightbox-actions">
       <a class="btn btn-primary" id="lightbox-wa" href="#" target="_blank" rel="noopener">💬 Pedir esta pieza por WhatsApp</a>
+      <button class="add-selection" id="lightbox-add" onclick="toggleSelection()">➕ Agregar a mi selección</button>
+      <span class="selection-msg" id="selection-msg"></span>
       <button class="see-more" onclick="closeLightbox({target:{id:'lightbox'}})">Ver más piezas del catálogo</button>
     </div>
   </div>
 </div>
 
 <div class="seen-bar" id="seen-bar">
-  <img id="seen-bar-img" src="" alt="">
+  <div class="seen-bar-items" id="seen-bar-items"></div>
   <div class="seen-bar-text">
-    Viste esta pieza:
-    <b id="seen-bar-name"></b>
+    Tu selección:
+    <b id="seen-bar-count"></b>
   </div>
-  <button onclick="reopenSeenProduct()">Ver de nuevo</button>
+  <a class="btn" id="seen-bar-wa" href="#" target="_blank" rel="noopener">Pedir por WhatsApp</a>
 </div>
 
 <a class="float-wa" id="wa-float" href="#" target="_blank" rel="noopener" aria-label="Pedir por WhatsApp">
@@ -430,6 +448,14 @@ function waLink(product) {
   const text = product
     ? `Hola, me interesa esta pieza de Auria: "${product.name}" (Código: ${product.code}) - $${product.price}. ¿Me confirmas disponibilidad?`
     : "Hola, me interesa una pieza del catálogo de Auria.";
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+}
+
+function waLinkMulti(products) {
+  if (products.length === 0) return waLink(null);
+  if (products.length === 1) return waLink(products[0]);
+  const items = products.map(p => `- "${p.name}" (Código: ${p.code}) - $${p.price}`).join("\n");
+  const text = `Hola, me interesan estas piezas de Auria:\n${items}\n¿Me confirmas disponibilidad?`;
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
 }
 
@@ -496,15 +522,20 @@ document.getElementById("load-more-btn").addEventListener("click", () => {
   renderGrid();
 });
 
+let currentProduct = null;
+
 function openLightbox(id) {
   const p = ALL_PRODUCTS.find(p => p.id === id);
   if (!p) return;
+  currentProduct = p;
   document.getElementById("lightbox-img").src = p.image;
   document.getElementById("lightbox-img").alt = p.name;
   document.getElementById("lightbox-code").textContent = `Cód. ${p.code}`;
   document.getElementById("lightbox-name").textContent = p.name;
   document.getElementById("lightbox-price").textContent = `$${p.price}`;
   document.getElementById("lightbox-wa").href = waLink(p);
+  document.getElementById("selection-msg").textContent = "";
+  updateAddButton();
   document.getElementById("lightbox").classList.add("open");
 }
 
@@ -514,17 +545,64 @@ function closeLightbox(e) {
   }
 }
 
-let seenProduct = null;
+const MAX_SELECTION = 3;
+let selectedProducts = [];
 
-function showSeenBar(p) {
-  seenProduct = p;
-  document.getElementById("seen-bar-img").src = p.image;
-  document.getElementById("seen-bar-name").textContent = `${p.name} · $${p.price}`;
-  document.getElementById("seen-bar").classList.add("show");
+function updateAddButton() {
+  const btn = document.getElementById("lightbox-add");
+  if (!currentProduct) return;
+  const isSelected = selectedProducts.some(p => p.id === currentProduct.id);
+  if (isSelected) {
+    btn.textContent = "✓ Agregada a tu selección";
+    btn.classList.add("added");
+    btn.disabled = false;
+  } else {
+    btn.textContent = `➕ Agregar a mi selección (${selectedProducts.length}/${MAX_SELECTION})`;
+    btn.classList.remove("added");
+    btn.disabled = false;
+  }
 }
 
-function reopenSeenProduct() {
-  if (seenProduct) openLightbox(seenProduct.id);
+function toggleSelection() {
+  if (!currentProduct) return;
+  const idx = selectedProducts.findIndex(p => p.id === currentProduct.id);
+  const msg = document.getElementById("selection-msg");
+  if (idx >= 0) {
+    selectedProducts.splice(idx, 1);
+    msg.textContent = "";
+  } else {
+    if (selectedProducts.length >= MAX_SELECTION) {
+      msg.textContent = `Ya elegiste ${MAX_SELECTION} piezas. Quita una para agregar otra.`;
+      return;
+    }
+    selectedProducts.push(currentProduct);
+    msg.textContent = "";
+  }
+  updateAddButton();
+  renderSelectionBar();
+}
+
+function removeFromSelection(id) {
+  selectedProducts = selectedProducts.filter(p => p.id !== id);
+  renderSelectionBar();
+  if (currentProduct && currentProduct.id === id) updateAddButton();
+}
+
+function renderSelectionBar() {
+  const bar = document.getElementById("seen-bar");
+  if (selectedProducts.length === 0) {
+    bar.classList.remove("show");
+    return;
+  }
+  bar.classList.add("show");
+  document.getElementById("seen-bar-items").innerHTML = selectedProducts.map(p => `
+    <div class="seen-item">
+      <img src="${p.image}" alt="${p.name}">
+      <button class="remove" onclick="removeFromSelection('${p.id}')" aria-label="Quitar">&times;</button>
+    </div>
+  `).join("");
+  document.getElementById("seen-bar-count").textContent = `${selectedProducts.length}/${MAX_SELECTION} piezas`;
+  document.getElementById("seen-bar-wa").href = waLinkMulti(selectedProducts);
 }
 
 function openProductFromURL() {
@@ -534,7 +612,7 @@ function openProductFromURL() {
   if (!product) return;
   document.getElementById("catalogo").scrollIntoView({ block: "start" });
   openLightbox(product.id);
-  showSeenBar(product);
+  toggleSelection();
 }
 
 document.addEventListener("keydown", (e) => {
