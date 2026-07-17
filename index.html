@@ -195,6 +195,9 @@
   .lightbox-caption .code{display:block; font-size:0.78rem; color:#D9CBB4; margin-bottom:4px;}
   .lightbox-caption .name{display:block; font-weight:600; font-size:1rem;}
   .lightbox-caption .price{font-family:'Cormorant Garamond',serif; font-size:1.4rem; color:var(--gold-soft);}
+  .lightbox-actions{margin-top:16px; display:flex; flex-direction:column; gap:10px; align-items:center;}
+  .lightbox-actions .btn{width:100%; max-width:280px;}
+  .lightbox-actions .see-more{color:#D9CBB4; font-size:0.82rem; text-decoration:underline; cursor:pointer; background:none; border:none;}
   .lightbox-close{
     position:absolute; top:16px; right:20px; background:none; border:none;
     color:var(--paper); font-size:2.2rem; line-height:1; cursor:pointer;
@@ -369,6 +372,10 @@
       <span class="name" id="lightbox-name"></span>
       <span class="price" id="lightbox-price"></span>
     </div>
+    <div class="lightbox-actions">
+      <a class="btn btn-primary" id="lightbox-wa" href="#" target="_blank" rel="noopener">💬 Pedir esta pieza por WhatsApp</a>
+      <button class="see-more" onclick="closeLightbox({target:{id:'lightbox'}})">Ver más piezas del catálogo</button>
+    </div>
   </div>
 </div>
 
@@ -471,6 +478,7 @@ function openLightbox(id) {
   document.getElementById("lightbox-code").textContent = `Cód. ${p.code}`;
   document.getElementById("lightbox-name").textContent = p.name;
   document.getElementById("lightbox-price").textContent = `$${p.price}`;
+  document.getElementById("lightbox-wa").href = waLink(p);
   document.getElementById("lightbox").classList.add("open");
 }
 
