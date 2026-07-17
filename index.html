@@ -480,6 +480,15 @@ function closeLightbox(e) {
   }
 }
 
+function openProductFromURL() {
+  const code = new URLSearchParams(window.location.search).get("p");
+  if (!code) return;
+  const product = ALL_PRODUCTS.find(p => p.code.toLowerCase() === code.toLowerCase());
+  if (!product) return;
+  document.getElementById("catalogo").scrollIntoView({ block: "start" });
+  openLightbox(product.id);
+}
+
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") document.getElementById("lightbox").classList.remove("open");
 });
@@ -493,6 +502,7 @@ fetch("catalogo.json")
     renderFilterBar();
     renderGrid();
     renderHeroPhotos();
+    openProductFromURL();
   })
   .catch(err => {
     document.getElementById("product-grid").innerHTML = '<div class="catalog-empty">No se pudo cargar el catálogo.</div>';
