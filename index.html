@@ -602,7 +602,13 @@ function renderSelectionBar() {
 function orderNow(id) {
   const p = ALL_PRODUCTS.find(p => p.id === id);
   if (!p) return;
-  if (!selectedProducts.some(x => x.id === p.id)) {
+  const already = selectedProducts.some(x => x.id === p.id);
+  if (!already) {
+    if (selectedProducts.length >= MAX_SELECTION) {
+      openLightbox(id);
+      document.getElementById("selection-msg").textContent = `Ya elegiste ${MAX_SELECTION} piezas. Quita una para agregar esta.`;
+      return;
+    }
     selectedProducts.push(p);
     renderSelectionBar();
     if (currentProduct && currentProduct.id === p.id) updateAddButton();
