@@ -1,0 +1,105 @@
+MENSAJES PARA WHATSAPP BUSINESS — AURIA
+=========================================
+Cópialos en WhatsApp Business > Herramientas para la empresa > Respuestas rápidas.
+El atajo sugerido (ej. /saludo) es el que escribes con "/" para que aparezca el mensaje.
+
+
+1. SALUDO / BIENVENIDA
+Atajo sugerido: /saludo
+-------------------------------------------
+¡Hola! 👋 Bienvenida a Auria ✨ Joyería en oro laminado 14K, 18K y rodio, con entrega a domicilio en Puebla y pago contra entrega.
+
+¿Ya viste alguna pieza que te gustó, o quieres que te ayude a buscar algo en especial?
+
+
+2. FUERA DE HORARIO
+Atajo sugerido: /ausente
+-------------------------------------------
+¡Gracias por escribirnos! 💛 En este momento estamos fuera de horario, pero en cuanto abramos te respondemos con gusto.
+
+Mientras tanto, puedes ver todo el catálogo aquí: https://auria1.vercel.app/
+
+
+3. CONFIRMAR DISPONIBILIDAD DE PEDIDO
+Atajo sugerido: /disponible
+-------------------------------------------
+¡Perfecto! Esa pieza sí la tenemos disponible ✅
+
+Para armar tu pedido solo necesito:
+1. Tu nombre completo
+2. Dirección de entrega (calle, colonia y referencia)
+3. Un teléfono de contacto
+
+En cuanto me los pases, te confirmo día y horario de entrega.
+
+
+4. VERIFICAR ZONA DE ENTREGA
+Atajo sugerido: /cobertura
+-------------------------------------------
+Entregamos a domicilio en Puebla, Puebla 🚗 Para confirmarte si cubrimos tu zona exacta, ¿me compartes tu colonia o referencia de ubicación?
+
+
+5. FUERA DE COBERTURA
+Atajo sugerido: /sincobertura
+-------------------------------------------
+Por ahora esa zona está fuera de nuestra cobertura de entrega a domicilio 😔 Seguimos creciendo, así que en cuanto lleguemos a tu zona te avisamos por aquí. ¡Gracias por tu interés!
+
+
+6. RECORDATORIO DE PAGO CONTRA ENTREGA
+Atajo sugerido: /pagocontraentrega
+-------------------------------------------
+Te recuerdo que el pago es contra entrega 💵 Nos pagas en efectivo directamente cuando te llevamos tu pieza a domicilio — no pedimos ningún anticipo. Puedes revisar tu pieza antes de pagar.
+
+
+7. LINK DE PAGO EN LÍNEA (CLIP / MERCADO PAGO)
+Atajo sugerido: /linkpago
+-------------------------------------------
+¡Claro! Si prefieres pagar por adelantado con tarjeta, en un momento te mando el link de pago seguro (Clip / Mercado Pago) por el total de tu pedido. En cuanto se confirme el pago, agendamos tu entrega. 💳
+
+
+8. ENVÍO GRATIS
+Atajo sugerido: /enviogratis
+-------------------------------------------
+🎁 El envío es gratis cuando pides 2 piezas o más, o cuando tu compra suma $200 o más. Si es 1 sola pieza y menos de $200, el envío tiene un costo de $50.
+
+
+9. PIEZA AGOTADA
+Atajo sugerido: /agotado
+-------------------------------------------
+Justo esa pieza se nos agotó por el momento 😔 Te aviso apenas tengamos más disponibilidad, o si gustas te muestro piezas parecidas que sí tenemos ahora.
+
+
+10. APARTAR PIEZA
+Atajo sugerido: /apartar
+-------------------------------------------
+¡Con gusto te la aparto! 🙌 Te la guardo por 24 horas para que confirmes tu pedido. Si necesitas más tiempo, avísame.
+
+
+11. GARANTÍA — SOLICITUD
+Atajo sugerido: /garantia
+-------------------------------------------
+Toda pieza de Auria tiene 15 días de garantía contra defectos de fabricación 🛡️ Para revisarlo, ¿me compartes el código de la pieza (el que viste en el catálogo) y una foto del defecto?
+
+
+12. GARANTÍA — CONFIRMACIÓN
+Atajo sugerido: /garantiaok
+-------------------------------------------
+Ya revisamos tu caso y sí aplica garantía ✅ Coordinamos el cambio o reparación de tu pieza sin costo. Te confirmo día y horario para recogerla/entregarte la nueva.
+
+
+13. CONFIRMAR ENTREGA (DÍA Y HORA)
+Atajo sugerido: /entrega
+-------------------------------------------
+¡Todo listo! 📦 Tu pedido llega el [DÍA] entre [HORA INICIO] y [HORA FIN]. Te escribimos un rato antes de llegar. Recuerda que el pago es contra entrega.
+
+
+14. AGRADECIMIENTO POST-ENTREGA
+Atajo sugerido: /gracias
+-------------------------------------------
+¡Gracias por tu compra! 💛 Esperamos que ames tu nueva pieza de Auria. Si tienes cualquier duda o necesitas algo, aquí estamos. ¡Y no olvides que tienes 15 días de garantía por si algo se ofrece!
+
+
+15. SEGUIMIENTO SIN RESPUESTA
+Atajo sugerido: /seguimiento
+-------------------------------------------
+¡Hola de nuevo! 👋 Vi que estabas interesada en una pieza de Auria, ¿sigues buscando algo? Con gusto te ayudo a confirmar disponibilidad y entrega.
