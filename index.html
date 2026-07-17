@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Auria — Joyería en oro laminado a domicilio</title>
-<meta name="description" content="Aretes, collares, cadenas, dijes, pulseras y anillos en oro laminado desde $160. Entrega a domicilio en un radio de 6 km, pago contra entrega. Pide por WhatsApp.">
+<meta name="description" content="Aretes, collares, cadenas, dijes, pulseras y anillos en oro laminado desde $160. Entrega a domicilio, pago contra entrega. Pide por WhatsApp.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -139,7 +139,7 @@
   }
   .product-card:hover{transform:translateY(-3px); box-shadow:0 12px 24px rgba(36,28,21,0.1);}
   .product-card .photo{aspect-ratio:1; overflow:hidden; background:var(--paper-dim);}
-  .product-card .photo img{width:100%; height:100%; object-fit:cover;}
+  .product-card .photo img{width:100%; height:100%; object-fit:cover; cursor:zoom-in;}
   .product-card .info{padding:14px 14px 16px; display:flex; flex-direction:column; gap:6px; flex:1;}
   .product-card .name{font-size:0.86rem; font-weight:600; color:var(--ink); line-height:1.3; min-height:2.2em;}
   .product-card .price{font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:700; color:var(--gold-deep);}
@@ -181,6 +181,23 @@
   .footer-grid a:hover{color:var(--gold-deep);}
   .footer-bottom{border-top:1px solid var(--line); padding-top:20px; font-size:0.78rem; color:var(--slate); text-align:center;}
 
+  /* LIGHTBOX */
+  .lightbox{
+    position:fixed; inset:0; z-index:100; background:rgba(36,28,21,0.92);
+    display:none; align-items:center; justify-content:center; flex-direction:column;
+    padding:24px; cursor:zoom-out;
+  }
+  .lightbox.open{display:flex;}
+  .lightbox-content{max-width:min(90vw,480px); text-align:center; cursor:default;}
+  .lightbox-content img{width:100%; border-radius:12px; box-shadow:0 20px 50px rgba(0,0,0,0.4);}
+  .lightbox-caption{margin-top:16px; color:var(--paper);}
+  .lightbox-caption .name{display:block; font-weight:600; font-size:1rem;}
+  .lightbox-caption .price{font-family:'Cormorant Garamond',serif; font-size:1.4rem; color:var(--gold-soft);}
+  .lightbox-close{
+    position:absolute; top:16px; right:20px; background:none; border:none;
+    color:var(--paper); font-size:2.2rem; line-height:1; cursor:pointer;
+  }
+
   /* Floating WhatsApp */
   .float-wa{
     position:fixed; bottom:20px; right:20px; z-index:60;
@@ -212,9 +229,9 @@
         <a class="btn btn-ghost" href="#catalogo">Ver catálogo</a>
       </div>
       <div class="hero-info">
-        <div>🚗 <strong>Entrega a domicilio</strong> en un radio de 6 km (próximamente detallamos tu zona exacta — pregunta por WhatsApp)</div>
+        <div>🚗 <strong>Entrega a domicilio</strong> — pregunta por WhatsApp si cubrimos tu zona</div>
         <div>💵 <strong>Pago contra entrega</strong> — pagas cuando recibes tu pieza</div>
-        <div>🎁 <strong>Envío gratis</strong> en pedidos de 2+ piezas o $300+. De lo contrario, envío de $50</div>
+        <div>🎁 <strong>Envío gratis</strong> en pedidos de 2+ piezas o $200+. De lo contrario, envío de $50</div>
       </div>
     </div>
     <div class="hero-photo-grid" id="hero-photo-grid"></div>
@@ -241,7 +258,7 @@
       <div class="policy-card">
         <div class="icon">🚗</div>
         <h4>3. Recibe y paga</h4>
-        <p>Te la llevamos a tu domicilio (radio de 6 km) y pagas contra entrega. Sin anticipos.</p>
+        <p>Te la llevamos a tu domicilio y pagas contra entrega. Sin anticipos.</p>
       </div>
     </div>
   </div>
@@ -281,14 +298,14 @@
           ¿Hasta dónde hacen entregas?
           <span class="plus">+</span>
         </div>
-        <div class="faq-a"><p>Entregamos en un radio de 6 km desde nuestra zona de operación. Escríbenos por WhatsApp con tu ubicación aproximada y te confirmamos si te cubrimos.</p></div>
+        <div class="faq-a"><p>Entregamos a domicilio en nuestra zona de operación. Escríbenos por WhatsApp con tu ubicación aproximada y te confirmamos si te cubrimos.</p></div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
           ¿Cuándo el envío es gratis?
           <span class="plus">+</span>
         </div>
-        <div class="faq-a"><p>El envío es gratis cuando pides 2 piezas o más, o cuando tu compra suma $300 o más. Si tu pedido es de 1 pieza y menos de $300, el envío tiene un costo de $50.</p></div>
+        <div class="faq-a"><p>El envío es gratis cuando pides 2 piezas o más, o cuando tu compra suma $200 o más. Si tu pedido es de 1 pieza y menos de $200, el envío tiene un costo de $50.</p></div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
@@ -328,7 +345,7 @@
       <div>
         <h5>Contacto</h5>
         <a id="wa-footer" href="#" target="_blank" rel="noopener">WhatsApp: 221 309 9897</a>
-        <p>Entrega en un radio de 6 km · Pago contra entrega</p>
+        <p>Entrega a domicilio · Pago contra entrega</p>
       </div>
       <div>
         <h5>Horario</h5>
@@ -340,6 +357,17 @@
     </div>
   </div>
 </footer>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lightbox-close" onclick="closeLightbox(event)" aria-label="Cerrar">&times;</button>
+  <div class="lightbox-content">
+    <img id="lightbox-img" src="" alt="">
+    <div class="lightbox-caption">
+      <span class="name" id="lightbox-name"></span>
+      <span class="price" id="lightbox-price"></span>
+    </div>
+  </div>
+</div>
 
 <a class="float-wa" id="wa-float" href="#" target="_blank" rel="noopener" aria-label="Pedir por WhatsApp">
   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.7.44 3.36 1.29 4.83L2.05 22l5.42-1.42a9.87 9.87 0 0 0 4.57 1.16h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.55 3.7-8.25 8.26-8.25a8.2 8.2 0 0 1 5.84 2.42 8.18 8.18 0 0 1 2.41 5.83c0 4.55-3.71 8.24-8.27 8.24zm4.53-6.18c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.17.24-.64.81-.78.97-.14.17-.29.19-.53.06-.25-.12-1.04-.38-1.98-1.22-.73-.65-1.23-1.46-1.37-1.7-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43-.14-.01-.31-.01-.48-.01a.9.9 0 0 0-.66.31c-.23.24-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.68 4.25 3.75.59.26 1.06.41 1.42.53.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.11-.23-.17-.48-.29z"/></svg>
@@ -408,7 +436,7 @@ function renderGrid() {
   const visible = filtered.slice(0, visibleCount);
   grid.innerHTML = visible.map(p => `
     <div class="product-card">
-      <div class="photo"><img src="${p.image}" alt="${p.name}" loading="lazy"></div>
+      <div class="photo"><img src="${p.image}" alt="${p.name}" loading="lazy" onclick="openLightbox('${p.id}')"></div>
       <div class="info">
         <div class="name">${p.name}</div>
         <div class="price">$${p.price}</div>
@@ -429,6 +457,26 @@ function renderHeroPhotos() {
 document.getElementById("load-more-btn").addEventListener("click", () => {
   visibleCount += PAGE_SIZE;
   renderGrid();
+});
+
+function openLightbox(id) {
+  const p = ALL_PRODUCTS.find(p => p.id === id);
+  if (!p) return;
+  document.getElementById("lightbox-img").src = p.image;
+  document.getElementById("lightbox-img").alt = p.name;
+  document.getElementById("lightbox-name").textContent = p.name;
+  document.getElementById("lightbox-price").textContent = `$${p.price}`;
+  document.getElementById("lightbox").classList.add("open");
+}
+
+function closeLightbox(e) {
+  if (e.target.id === "lightbox" || e.target.classList.contains("lightbox-close")) {
+    document.getElementById("lightbox").classList.remove("open");
+  }
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") document.getElementById("lightbox").classList.remove("open");
 });
 
 setGenericWhatsAppLinks();
