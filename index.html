@@ -141,6 +141,7 @@
   .product-card .photo{aspect-ratio:1; overflow:hidden; background:var(--paper-dim);}
   .product-card .photo img{width:100%; height:100%; object-fit:cover; cursor:zoom-in;}
   .product-card .info{padding:14px 14px 16px; display:flex; flex-direction:column; gap:6px; flex:1;}
+  .product-card .code{font-size:0.72rem; color:var(--slate); letter-spacing:0.03em;}
   .product-card .name{font-size:0.86rem; font-weight:600; color:var(--ink); line-height:1.3; min-height:2.2em;}
   .product-card .price{font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:700; color:var(--gold-deep);}
   .product-card .order-btn{
@@ -191,6 +192,7 @@
   .lightbox-content{max-width:min(90vw,480px); text-align:center; cursor:default;}
   .lightbox-content img{width:100%; border-radius:12px; box-shadow:0 20px 50px rgba(0,0,0,0.4);}
   .lightbox-caption{margin-top:16px; color:var(--paper);}
+  .lightbox-caption .code{display:block; font-size:0.78rem; color:#D9CBB4; margin-bottom:4px;}
   .lightbox-caption .name{display:block; font-weight:600; font-size:1rem;}
   .lightbox-caption .price{font-family:'Cormorant Garamond',serif; font-size:1.4rem; color:var(--gold-soft);}
   .lightbox-close{
@@ -363,6 +365,7 @@
   <div class="lightbox-content">
     <img id="lightbox-img" src="" alt="">
     <div class="lightbox-caption">
+      <span class="code" id="lightbox-code"></span>
       <span class="name" id="lightbox-name"></span>
       <span class="price" id="lightbox-price"></span>
     </div>
@@ -392,7 +395,7 @@ const PAGE_SIZE = 16;
 
 function waLink(product) {
   const text = product
-    ? `Hola, me interesa esta pieza de Auria: "${product.name}" - $${product.price}. ¿Me confirmas disponibilidad?`
+    ? `Hola, me interesa esta pieza de Auria: "${product.name}" (Código: ${product.code}) - $${product.price}. ¿Me confirmas disponibilidad?`
     : "Hola, me interesa una pieza del catálogo de Auria.";
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
 }
@@ -438,6 +441,7 @@ function renderGrid() {
     <div class="product-card">
       <div class="photo"><img src="${p.image}" alt="${p.name}" loading="lazy" onclick="openLightbox('${p.id}')"></div>
       <div class="info">
+        <div class="code">Cód. ${p.code}</div>
         <div class="name">${p.name}</div>
         <div class="price">$${p.price}</div>
         <button class="order-btn" onclick="window.open('${waLink(p).replace(/'/g, "\\'")}', '_blank')">💬 Pedir por WhatsApp</button>
@@ -464,6 +468,7 @@ function openLightbox(id) {
   if (!p) return;
   document.getElementById("lightbox-img").src = p.image;
   document.getElementById("lightbox-img").alt = p.name;
+  document.getElementById("lightbox-code").textContent = `Cód. ${p.code}`;
   document.getElementById("lightbox-name").textContent = p.name;
   document.getElementById("lightbox-price").textContent = `$${p.price}`;
   document.getElementById("lightbox").classList.add("open");
