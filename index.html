@@ -138,8 +138,13 @@
     transition:transform 0.15s ease, box-shadow 0.15s ease;
   }
   .product-card:hover{transform:translateY(-3px); box-shadow:0 12px 24px rgba(36,28,21,0.1);}
-  .product-card .photo{aspect-ratio:1; overflow:hidden; background:var(--paper-dim);}
+  .product-card .photo{aspect-ratio:1; overflow:hidden; background:var(--paper-dim); position:relative;}
   .product-card .photo img{width:100%; height:100%; object-fit:cover; cursor:zoom-in;}
+  .product-card .zoom-hint{
+    position:absolute; bottom:8px; right:8px; width:28px; height:28px; border-radius:50%;
+    background:rgba(36,28,21,0.55); color:var(--white); display:flex; align-items:center;
+    justify-content:center; font-size:14px; pointer-events:none;
+  }
   .product-card .info{padding:14px 14px 16px; display:flex; flex-direction:column; gap:6px; flex:1;}
   .product-card .code{font-size:0.72rem; color:var(--slate); letter-spacing:0.03em;}
   .product-card .name{font-size:0.86rem; font-weight:600; color:var(--ink); line-height:1.3; min-height:2.2em;}
@@ -503,7 +508,10 @@ function renderGrid() {
   const visible = filtered.slice(0, visibleCount);
   grid.innerHTML = visible.map(p => `
     <div class="product-card">
-      <div class="photo"><img src="${p.image}" alt="${p.name}" loading="lazy" onclick="openLightbox('${p.id}')"></div>
+      <div class="photo" onclick="openLightbox('${p.id}')">
+        <img src="${p.image}" alt="${p.name}" loading="lazy">
+        <span class="zoom-hint">🔍</span>
+      </div>
       <div class="info">
         <div class="code">Cód. ${p.code}</div>
         <div class="name">${p.name}</div>
