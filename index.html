@@ -398,7 +398,7 @@
       <span class="price" id="lightbox-price"></span>
     </div>
     <div class="lightbox-actions">
-      <a class="btn btn-primary" id="lightbox-wa" href="#" target="_blank" rel="noopener">💬 Pedir esta pieza por WhatsApp</a>
+      <button class="btn btn-primary" id="lightbox-wa" onclick="orderNow(currentProduct.id)">💬 Pedir esta pieza por WhatsApp</button>
       <button class="add-selection" id="lightbox-add" onclick="toggleSelection()">➕ Agregar a mi selección</button>
       <span class="selection-msg" id="selection-msg"></span>
       <button class="see-more" onclick="closeLightbox({target:{id:'lightbox'}})">Agregar más piezas del catálogo</button>
@@ -498,7 +498,7 @@ function renderGrid() {
         <div class="code">Cód. ${p.code}</div>
         <div class="name">${p.name}</div>
         <div class="price">$${p.price}</div>
-        <button class="order-btn" onclick="window.open('${waLink(p).replace(/'/g, "\\'")}', '_blank')">💬 Pedir por WhatsApp</button>
+        <button class="order-btn" onclick="orderNow('${p.id}')">💬 Pedir por WhatsApp</button>
       </div>
     </div>
   `).join("");
@@ -528,7 +528,6 @@ function openLightbox(id) {
   document.getElementById("lightbox-code").textContent = `Cód. ${p.code}`;
   document.getElementById("lightbox-name").textContent = p.name;
   document.getElementById("lightbox-price").textContent = `$${p.price}`;
-  document.getElementById("lightbox-wa").href = waLink(p);
   document.getElementById("selection-msg").textContent = "";
   updateAddButton();
   document.getElementById("lightbox").classList.add("open");
@@ -598,6 +597,17 @@ function renderSelectionBar() {
   `).join("");
   document.getElementById("seen-bar-count").textContent = `${selectedProducts.length}/${MAX_SELECTION} piezas`;
   document.getElementById("seen-bar-wa").href = waLinkMulti(selectedProducts);
+}
+
+function orderNow(id) {
+  const p = ALL_PRODUCTS.find(p => p.id === id);
+  if (!p) return;
+  if (!selectedProducts.some(x => x.id === p.id)) {
+    selectedProducts.push(p);
+    renderSelectionBar();
+    if (currentProduct && currentProduct.id === p.id) updateAddButton();
+  }
+  window.open(waLinkMulti(selectedProducts), "_blank");
 }
 
 function openProductFromURL() {
