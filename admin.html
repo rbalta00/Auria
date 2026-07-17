@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel de pedidos — Auria</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  :root{
+    --ink:#241C15; --ink-soft:#3A2E22; --paper:#FBF7F0; --paper-dim:#F2E9DB;
+    --gold:#B8912F; --gold-deep:#8C6B1F; --gold-soft:#F3E6C8;
+    --slate:#6B5F4F; --line:#E6D9BE; --white:#FFFFFF; --red:#B3413A; --green:#3A7D5C;
+    --radius:12px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:'Inter', sans-serif; background:var(--paper-dim); color:var(--ink); line-height:1.5;}
+  h1,h2{font-family:'Cormorant Garamond', serif; font-weight:700;}
+  .wrap{max-width:980px; margin:0 auto; padding:24px;}
+  input, select, textarea{
+    width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:8px;
+    font-family:inherit; font-size:0.9rem; background:var(--white); color:var(--ink);
+  }
+  label{display:block; font-size:0.78rem; color:var(--slate); margin-bottom:4px; font-weight:600;}
+  .field{margin-bottom:14px;}
+  button{
+    font-family:inherit; cursor:pointer; border:none; border-radius:999px;
+    padding:10px 20px; font-size:0.88rem; font-weight:600;
+  }
+  .btn-primary{background:var(--gold); color:var(--white);}
+  .btn-primary:hover{background:var(--gold-deep);}
+  .btn-ghost{background:var(--white); color:var(--ink); border:1px solid var(--line);}
+  .card{background:var(--white); border-radius:var(--radius); padding:24px; box-shadow:0 4px 16px rgba(36,28,21,0.06);}
+
+  /* LOGIN */
+  #login-view{min-height:100vh; display:flex; align-items:center; justify-content:center;}
+  #login-view .card{max-width:360px; width:100%;}
+  #login-view h1{font-size:1.6rem; margin-bottom:4px;}
+  #login-view p{color:var(--slate); font-size:0.85rem; margin-bottom:20px;}
+  #login-error{color:var(--red); font-size:0.82rem; margin-top:10px; display:none;}
+
+  /* APP */
+  #app-view{display:none;}
+  header{display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;}
+  header .logo{font-family:'Cormorant Garamond', serif; font-size:1.5rem; font-weight:700;}
+  header .logo span{color:var(--gold);}
+
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  @media (max-width:560px){ .grid-2{grid-template-columns:1fr;} }
+
+  #new-order-card{margin-bottom:28px;}
+  #items-list{display:flex; flex-direction:column; gap:8px; margin-bottom:10px;}
+  .item-row{display:flex; gap:8px;}
+  .item-row input{flex:1;}
+  .item-row .price-input{max-width:110px;}
+  .item-row button{padding:8px 12px; flex-shrink:0;}
+  #total-preview{font-size:0.85rem; color:var(--slate); margin-top:4px;}
+  #total-preview b{color:var(--gold-deep);}
+
+  .order-card{background:var(--white); border-radius:var(--radius); padding:18px 20px; margin-bottom:12px; box-shadow:0 2px 10px rgba(36,28,21,0.05);}
+  .order-top{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap;}
+  .order-folio{font-weight:700; font-size:1rem;}
+  .order-date{font-size:0.75rem; color:var(--slate);}
+  .order-status{
+    font-size:0.72rem; font-weight:700; padding:4px 10px; border-radius:999px;
+    text-transform:uppercase; letter-spacing:0.03em;
+  }
+  .status-confirmado{background:#EAF0FB; color:#2C4A8C;}
+  .status-preparacion{background:var(--gold-soft); color:var(--gold-deep);}
+  .status-camino{background:#FDEBD6; color:#B5651D;}
+  .status-entregado{background:#E3F3EA; color:var(--green);}
+  .order-body{margin-top:10px; font-size:0.85rem; color:var(--ink-soft);}
+  .order-body .items{margin:6px 0;}
+  .order-actions{display:flex; gap:8px; margin-top:14px; flex-wrap:wrap;}
+  .order-actions select{width:auto; padding:8px 10px;}
+  #orders-list{margin-top:8px;}
+  #orders-empty{color:var(--slate); font-size:0.88rem; padding:20px 0;}
+</style>
+</head>
+<body>
+
+<div id="login-view">
+  <div class="card">
+    <h1>Panel de pedidos</h1>
+    <p>Auria — acceso solo para administración</p>
+    <div class="field">
+      <label>Correo</label>
+      <input type="email" id="login-email" placeholder="tucorreo@ejemplo.com">
+    </div>
+    <div class="field">
+      <label>Contraseña</label>
+      <input type="password" id="login-password" placeholder="••••••••">
+    </div>
+    <button class="btn-primary" style="width:100%" onclick="login()">Entrar</button>
+    <div id="login-error"></div>
+  </div>
+</div>
+
+<div id="app-view">
+  <div class="wrap">
+    <header>
+      <div class="logo">Auria<span>.</span> <small style="font-family:'Inter'; font-size:0.9rem; color:var(--slate);">Panel de pedidos</small></div>
+      <button class="btn-ghost" onclick="logout()">Cerrar sesión</button>
+    </header>
+
+    <div class="card" id="new-order-card">
+      <h2 style="font-size:1.2rem; margin-bottom:16px;">Nuevo pedido</h2>
+      <div class="grid-2">
+        <div class="field">
+          <label>Nombre del cliente</label>
+          <input type="text" id="f-name" placeholder="Nombre completo">
+        </div>
+        <div class="field">
+          <label>Teléfono</label>
+          <input type="text" id="f-phone" placeholder="221 000 0000">
+        </div>
+      </div>
+      <div class="field">
+        <label>Dirección de entrega</label>
+        <input type="text" id="f-address" placeholder="Calle, colonia y referencia">
+      </div>
+      <div class="field">
+        <label>Código postal</label>
+        <input type="text" id="f-postal" placeholder="72000" style="max-width:160px;">
+      </div>
+      <div class="field">
+        <label>Piezas (código, nombre y precio)</label>
+        <div id="items-list"></div>
+        <button class="btn-ghost" onclick="addItemRow()">+ Agregar pieza</button>
+      </div>
+      <div id="total-preview">Total: <b id="total-amount">$0</b></div>
+      <div style="margin-top:16px;">
+        <button class="btn-primary" onclick="createOrder()">Crear pedido</button>
+      </div>
+      <div id="create-error" style="color:var(--red); font-size:0.82rem; margin-top:10px;"></div>
+    </div>
+
+    <h2 style="font-size:1.2rem; margin-bottom:14px;">Pedidos</h2>
+    <div id="orders-empty">Cargando pedidos…</div>
+    <div id="orders-list"></div>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = "https://fjjtfqnufweozasyasgg.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZqanRmcW51Zndlb3phc3lhc2dnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQyNTYwNTYsImV4cCI6MjA5OTgzMjA1Nn0.svyAtrSy5P44BtwSKWz5Y8mzU0df_9Y9iTmvd8i2lDo";
+const WHATSAPP_NUMBER = "522213099897";
+
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+const STATUS_LABELS = {
+  confirmado: "Confirmado",
+  preparacion: "En preparación",
+  camino: "En camino",
+  entregado: "Entregado",
+};
+
+function showApp() {
+  document.getElementById("login-view").style.display = "none";
+  document.getElementById("app-view").style.display = "block";
+  addItemRow();
+  loadOrders();
+}
+
+function showLogin() {
+  document.getElementById("login-view").style.display = "flex";
+  document.getElementById("app-view").style.display = "none";
+}
+
+async function login() {
+  const email = document.getElementById("login-email").value.trim();
+  const password = document.getElementById("login-password").value;
+  const errorEl = document.getElementById("login-error");
+  errorEl.style.display = "none";
+  const { error } = await sb.auth.signInWithPassword({ email, password });
+  if (error) {
+    errorEl.textContent = "Correo o contraseña incorrectos.";
+    errorEl.style.display = "block";
+    return;
+  }
+  showApp();
+}
+
+async function logout() {
+  await sb.auth.signOut();
+  showLogin();
+}
+
+function addItemRow(code = "", name = "", price = "") {
+  const list = document.getElementById("items-list");
+  const row = document.createElement("div");
+  row.className = "item-row";
+  row.innerHTML = `
+    <input type="text" class="item-code" placeholder="Código (ej. AUR-047)" value="${code}">
+    <input type="text" class="item-name" placeholder="Nombre de la pieza" value="${name}">
+    <input type="number" class="item-price price-input" placeholder="Precio" value="${price}" oninput="updateTotalPreview()">
+    <button class="btn-ghost" onclick="this.parentElement.remove(); updateTotalPreview();">✕</button>
+  `;
+  list.appendChild(row);
+}
+
+function updateTotalPreview() {
+  const prices = Array.from(document.querySelectorAll(".item-price")).map(i => parseFloat(i.value) || 0);
+  const total = prices.reduce((a, b) => a + b, 0);
+  document.getElementById("total-amount").textContent = `$${total} MXN`;
+}
+
+async function nextFolio() {
+  const now = new Date();
+  const mm = String(now.getMonth() + 1).padStart(2, "0");
+  const dd = String(now.getDate()).padStart(2, "0");
+  const prefix = `AUR-${mm}${dd}-`;
+  const { data, error } = await sb
+    .from("pedidos")
+    .select("folio")
+    .ilike("folio", `${prefix}%`);
+  const count = error ? 0 : (data || []).length;
+  const next = String(count + 1).padStart(2, "0");
+  return `${prefix}${next}`;
+}
+
+async function createOrder() {
+  const errorEl = document.getElementById("create-error");
+  errorEl.textContent = "";
+
+  const name = document.getElementById("f-name").value.trim();
+  const phone = document.getElementById("f-phone").value.trim();
+  const address = document.getElementById("f-address").value.trim();
+  const postal = document.getElementById("f-postal").value.trim();
+
+  const items = Array.from(document.querySelectorAll(".item-row")).map(row => ({
+    code: row.querySelector(".item-code").value.trim(),
+    name: row.querySelector(".item-name").value.trim(),
+    price: parseFloat(row.querySelector(".item-price").value) || 0,
+  })).filter(i => i.name);
+
+  if (!name || !phone || !address || items.length === 0) {
+    errorEl.textContent = "Completa nombre, teléfono, dirección y al menos una pieza.";
+    return;
+  }
+
+  const total = items.reduce((sum, i) => sum + i.price, 0);
+  const folio = await nextFolio();
+
+  const { error } = await sb.from("pedidos").insert({
+    folio,
+    customer_name: name,
+    phone,
+    address,
+    postal_code: postal,
+    items,
+    total,
+    status: "confirmado",
+  });
+
+  if (error) {
+    errorEl.textContent = "Error al crear el pedido: " + error.message;
+    return;
+  }
+
+  document.getElementById("f-name").value = "";
+  document.getElementById("f-phone").value = "";
+  document.getElementById("f-address").value = "";
+  document.getElementById("f-postal").value = "";
+  document.getElementById("items-list").innerHTML = "";
+  addItemRow();
+  updateTotalPreview();
+  loadOrders();
+}
+
+function statusMessage(order) {
+  const itemsText = order.items.map(i => `- "${i.name}" (Código: ${i.code}) - $${i.price}`).join("\n");
+  let statusLine = "";
+  if (order.status === "confirmado") statusLine = "Tu pedido está confirmado y lo estamos preparando ✅";
+  if (order.status === "preparacion") statusLine = "Tu pedido está en preparación 📦";
+  if (order.status === "camino") statusLine = "¡Tu pedido va en camino! 🚗 Te avisamos un rato antes de llegar.";
+  if (order.status === "entregado") statusLine = "¡Gracias por tu compra! Esperamos que ames tu pieza 💛";
+
+  const text = `Hola ${order.customer_name}, este es el estatus de tu pedido *${order.folio}*:\n\n${statusLine}\n\n${itemsText}\nTotal: $${order.total} MXN`;
+  const digits = order.phone.replace(/\D/g, "");
+  const customerWaNumber = digits.startsWith("52") ? digits : "52" + digits;
+  return `https://wa.me/${customerWaNumber}?text=${encodeURIComponent(text)}`;
+}
+
+async function updateStatus(id, status) {
+  await sb.from("pedidos").update({ status, updated_at: new Date().toISOString() }).eq("id", id);
+  loadOrders();
+}
+
+async function loadOrders() {
+  const listEl = document.getElementById("orders-list");
+  const emptyEl = document.getElementById("orders-empty");
+  const { data, error } = await sb.from("pedidos").select("*").order("created_at", { ascending: false });
+
+  if (error) {
+    emptyEl.textContent = "Error al cargar pedidos: " + error.message;
+    emptyEl.style.display = "block";
+    return;
+  }
+
+  if (!data || data.length === 0) {
+    emptyEl.textContent = "Todavía no hay pedidos registrados.";
+    emptyEl.style.display = "block";
+    listEl.innerHTML = "";
+    return;
+  }
+
+  emptyEl.style.display = "none";
+  listEl.innerHTML = data.map(order => `
+    <div class="order-card">
+      <div class="order-top">
+        <div>
+          <div class="order-folio">${order.folio} — ${order.customer_name}</div>
+          <div class="order-date">${new Date(order.created_at).toLocaleString("es-MX")}</div>
+        </div>
+        <span class="order-status status-${order.status}">${STATUS_LABELS[order.status] || order.status}</span>
+      </div>
+      <div class="order-body">
+        <div>📞 ${order.phone} · 📍 ${order.address}${order.postal_code ? " · CP " + order.postal_code : ""}</div>
+        <div class="items">${order.items.map(i => `${i.name} (${i.code}) — $${i.price}`).join("<br>")}</div>
+        <div><b>Total: $${order.total} MXN</b></div>
+      </div>
+      <div class="order-actions">
+        <select onchange="updateStatus(${order.id}, this.value)">
+          <option value="confirmado" ${order.status === "confirmado" ? "selected" : ""}>Confirmado</option>
+          <option value="preparacion" ${order.status === "preparacion" ? "selected" : ""}>En preparación</option>
+          <option value="camino" ${order.status === "camino" ? "selected" : ""}>En camino</option>
+          <option value="entregado" ${order.status === "entregado" ? "selected" : ""}>Entregado</option>
+        </select>
+        <a class="btn-primary" style="text-decoration:none; display:inline-flex; align-items:center;" href="${statusMessage(order)}" target="_blank" rel="noopener">💬 Enviar estatus por WhatsApp</a>
+      </div>
+    </div>
+  `).join("");
+}
+
+(async () => {
+  const { data: { session } } = await sb.auth.getSession();
+  if (session) {
+    showApp();
+  } else {
+    showLogin();
+  }
+})();
+
+document.getElementById("login-password").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") login();
+});
+</script>
+
+</body>
+</html>
