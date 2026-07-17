@@ -548,7 +548,7 @@ function updateAddButton() {
   if (!currentProduct) return;
   const isSelected = selectedProducts.some(p => p.id === currentProduct.id);
   if (isSelected) {
-    btn.textContent = "✓ Agregada a tu selección";
+    btn.textContent = `✓ Agregada a tu selección (${selectedProducts.length}/${MAX_SELECTION})`;
     btn.classList.add("added");
     btn.disabled = false;
   } else {
