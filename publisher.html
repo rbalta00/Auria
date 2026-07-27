@@ -299,7 +299,7 @@
 
       <button class="btn" onclick="generateCaption()" style="margin-bottom: 8px;">🎯 Generar Caption Automático</button>
       <button class="btn btn-secondary" onclick="copyCaption()" style="margin-bottom: 8px;">📋 Copiar Caption</button>
-      <button class="btn" onclick="publishToFacebook()">📤 Publicar en Facebook</button>
+      <button class="btn" onclick="copyAndOpenFacebook()">📸 Copiar y Abrir Facebook</button>
 
       <div id="status-message" style="margin-top: 16px;"></div>
     </div>
@@ -413,7 +413,7 @@ function copyCaption() {
   });
 }
 
-async function publishToFacebook() {
+function copyAndOpenFacebook() {
   if (!currentProduct) {
     showStatus('Selecciona un producto', 'error');
     return;
@@ -425,10 +425,9 @@ async function publishToFacebook() {
     return;
   }
 
-  const accessToken = document.getElementById('fb-token').value;
-  const pageId = '632020316670959'; // ID de página de Auria
+  const pageId = '632020316670959';
 
-  // Guardar localmente primero
+  // Guardar la publicación en localStorage
   const post = {
     id: Date.now(),
     product: currentProduct,
@@ -436,62 +435,24 @@ async function publishToFacebook() {
     image: currentProduct.image,
     fbId: null,
     scheduledFor: new Date().toISOString(),
-    status: accessToken ? 'publishing' : 'draft'
+    status: 'pending'
   };
 
-  if (!accessToken) {
-    // Sin token: guardar como borrador local
-    recentPosts.unshift(post);
-    localStorage.setItem('auria_posts', JSON.stringify(recentPosts.slice(0, 20)));
-    showStatus('📝 Guardado localmente.\n\n📌 Para publicar en Facebook:\n1. Copia el caption (botón Copiar)\n2. Ve a https://facebook.com/632020316670959\n3. Haz clic en "Crear publicación"\n4. Pega el caption e imagen\n5. Publica\n\n💡 O pega tu token de acceso arriba para publicar automáticamente', 'info');
-    renderRecentPosts();
-    return;
-  }
+  recentPosts.unshift(post);
+  localStorage.setItem('auria_posts', JSON.stringify(recentPosts.slice(0, 20)));
+  renderRecentPosts();
 
-  showStatus('⏳ Publicando en Facebook...', 'info');
+  // Copiar caption al portapapeles
+  navigator.clipboard.writeText(caption).then(() => {
+    showStatus('✅ Caption copiado al portapapeles\n\n📸 Abriendo Facebook...\n\n1. Se abrirá la página de Auria\n2. Pega el caption (Ctrl+V)\n3. Sube la imagen del producto\n4. ¡Publica!', 'success');
 
-  try {
-    // Publicar con imagen en Facebook Graph API
-    const formData = new FormData();
-    formData.append('message', caption);
-    formData.append('access_token', accessToken);
-
-    // Fetch la imagen y convertir a blob
-    const response = await fetch(currentProduct.image);
-    const blob = await response.blob();
-    formData.append('source', blob, `${currentProduct.code}.jpg`);
-
-    const fbResponse = await fetch(`https://graph.facebook.com/v18.0/${pageId}/photos`, {
-      method: 'POST',
-      body: formData
-    });
-
-    if (!fbResponse.ok) {
-      const error = await fbResponse.json();
-      post.status = 'error';
-      recentPosts.unshift(post);
-      localStorage.setItem('auria_posts', JSON.stringify(recentPosts.slice(0, 20)));
-      showStatus(`❌ Error en Facebook: ${error.error?.message || 'Error desconocido'}`, 'error');
-      renderRecentPosts();
-      return;
-    }
-
-    const result = await fbResponse.json();
-    post.fbId = result.id;
-    post.status = 'published';
-
-    recentPosts.unshift(post);
-    localStorage.setItem('auria_posts', JSON.stringify(recentPosts.slice(0, 20)));
-
-    showStatus('✅ ¡Publicado en Facebook! https://facebook.com/' + result.id, 'success');
-    renderRecentPosts();
-  } catch (err) {
-    post.status = 'error';
-    recentPosts.unshift(post);
-    localStorage.setItem('auria_posts', JSON.stringify(recentPosts.slice(0, 20)));
-    showStatus('❌ Error: ' + err.message + '\n\nVerifica que:\n1. El token sea válido\n2. La imagen sea accesible\n3. Tengas permisos en la página', 'error');
-    renderRecentPosts();
-  }
+    // Abrir página de Auria en Facebook después de 1 segundo
+    setTimeout(() => {
+      window.open(`https://facebook.com/${pageId}`, '_blank');
+    }, 500);
+  }).catch(err => {
+    showStatus('❌ No se pudo copiar. Intenta manualmente.', 'error');
+  });
 }
 
 function showStatus(message, type = 'info') {
