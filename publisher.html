@@ -305,6 +305,66 @@
     </div>
   </div>
 
+  <!-- Panel de Anuncios -->
+  <div class="panel" style="margin-top: 24px;">
+    <h2>3️⃣ Crear Anuncio</h2>
+
+    <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 20px;">
+      <!-- Configuración del anuncio -->
+      <div>
+        <div class="form-group">
+          <label for="ad-name">Nombre de la Campaña:</label>
+          <input type="text" id="ad-name" placeholder="ej: Promoción Navidad CHICOS">
+        </div>
+
+        <div class="form-group">
+          <label for="ad-budget">Presupuesto Diario (MXN):</label>
+          <input type="number" id="ad-budget" placeholder="100" min="50" max="10000">
+        </div>
+
+        <div class="form-group">
+          <label for="ad-objective">Objetivo de la Campaña:</label>
+          <select id="ad-objective">
+            <option value="">Selecciona un objetivo</option>
+            <option value="REACH">Alcance (llegar a más gente)</option>
+            <option value="TRAFFIC">Tráfico (llevar a tu sitio)</option>
+            <option value="CONVERSIONS">Conversiones (compras/leads)</option>
+            <option value="APP_INSTALLS">Instalaciones de app</option>
+            <option value="VIDEO_VIEWS">Reproducciones de video</option>
+            <option value="LINK_CLICKS">Clics en enlace</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="ad-duration">Duración (días):</label>
+          <input type="number" id="ad-duration" placeholder="7" min="1" max="90" value="7">
+        </div>
+
+        <div class="form-group">
+          <label for="ad-headline">Titular del Anuncio:</label>
+          <input type="text" id="ad-headline" placeholder="ej: ¡Descubre nuestras joyas!">
+        </div>
+
+        <div class="form-group">
+          <label for="ad-description">Descripción:</label>
+          <textarea id="ad-description" placeholder="Texto que aparecerá en el anuncio..."></textarea>
+        </div>
+
+        <button class="btn" onclick="createAd()" style="width: 100%; margin-top: 10px;">🚀 Crear y Publicar Anuncio</button>
+        <div id="ad-status-message" style="margin-top: 16px;"></div>
+      </div>
+
+      <!-- Vista previa del anuncio -->
+      <div style="background: #FBF7F0; padding: 16px; border-radius: 8px; border: 2px solid #E6D9BE;">
+        <h3 style="color: #241C15; margin-bottom: 12px;">📺 Vista Previa del Anuncio</h3>
+        <div id="ad-preview" style="background: white; padding: 12px; border-radius: 6px; font-size: 0.9rem;">
+          <div style="font-weight: 600; margin-bottom: 8px; color: #B8912F;">Selecciona un producto y configura el anuncio</div>
+          <div style="color: #999; font-size: 0.85rem;">La vista previa aparecerá aquí</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Panel inferior: Publicaciones recientes -->
   <div class="panel" style="margin-top: 24px;">
     <h2>📊 Publicaciones Recientes</h2>
@@ -461,6 +521,10 @@ async function loadProducts() {
 
     renderProductGrid();
     renderRecentPosts();
+
+    // Agregar listeners para vista previa de anuncios
+    document.getElementById('ad-headline')?.addEventListener('input', updateAdPreview);
+    document.getElementById('ad-description')?.addEventListener('input', updateAdPreview);
   } catch (e) {
     showStatus('Error cargando catálogo: ' + e.message, 'error');
   }
@@ -483,6 +547,7 @@ function renderProductGrid() {
 function selectProduct(id) {
   currentProduct = ALL_PRODUCTS.find(p => p.id === id);
   renderPreview();
+  updateAdPreview();
 }
 
 function renderPreview() {
@@ -503,6 +568,181 @@ function renderPreview() {
   if (!document.getElementById('caption').value) {
     generateCaption();
   }
+}
+
+function updateAdPreview() {
+  if (!currentProduct) {
+    document.getElementById('ad-preview').innerHTML = '<div style="color: #999;">Selecciona un producto para ver la vista previa</div>';
+    return;
+  }
+
+  const headline = document.getElementById('ad-headline').value || currentProduct.name;
+  const description = document.getElementById('ad-description').value || `Disponible en oro laminado. $${currentProduct.price} MXN`;
+
+  const preview = `
+    <div style="background: #f0f0f0; border-radius: 6px; overflow: hidden;">
+      <img src="${currentProduct.image}" style="width: 100%; height: 200px; object-fit: cover;">
+      <div style="padding: 12px;">
+        <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 6px; color: #241C15;">${headline}</div>
+        <div style="font-size: 0.85rem; color: #666; line-height: 1.4; margin-bottom: 8px;">${description}</div>
+        <div style="background: #B8912F; color: white; padding: 8px 12px; border-radius: 4px; text-align: center; font-weight: 600; font-size: 0.85rem; cursor: pointer;">Conocer más</div>
+      </div>
+    </div>
+  `;
+  document.getElementById('ad-preview').innerHTML = preview;
+}
+
+async function createAd() {
+  if (!currentProduct) {
+    showAdStatus('Selecciona un producto primero', 'error');
+    return;
+  }
+
+  const adName = document.getElementById('ad-name').value;
+  const budget = document.getElementById('ad-budget').value;
+  const objective = document.getElementById('ad-objective').value;
+  const duration = document.getElementById('ad-duration').value;
+  const headline = document.getElementById('ad-headline').value;
+  const description = document.getElementById('ad-description').value;
+  const accessToken = document.getElementById('fb-token').value;
+
+  if (!adName || !budget || !objective || !headline || !accessToken) {
+    showAdStatus('Completa todos los campos requeridos', 'error');
+    return;
+  }
+
+  showAdStatus('⏳ Creando anuncio en Facebook...', 'info');
+
+  try {
+    const adAccountId = 'act_1187128626787623'; // Ad Account ID de Auria
+    const pageId = '632020316670959';
+    const budgetCents = Math.round(budget * 100);
+
+    // 1. Crear campaña
+    const campaignData = new URLSearchParams({
+      name: adName,
+      objective: objective,
+      special_ad_categories: '["HOUSING"]',
+      access_token: accessToken
+    });
+
+    const campaignResponse = await fetch(`https://graph.facebook.com/v18.0/${adAccountId}/campaigns`, {
+      method: 'POST',
+      body: campaignData
+    });
+
+    if (!campaignResponse.ok) {
+      const error = await campaignResponse.json();
+      throw new Error(error.error?.message || 'Error creando campaña');
+    }
+
+    const campaign = await campaignResponse.json();
+    const campaignId = campaign.id;
+
+    // 2. Crear conjunto de anuncios (Ad Set)
+    const startDate = new Date().toISOString().split('T')[0];
+    const endDate = new Date(Date.now() + duration * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+
+    const adSetData = new URLSearchParams({
+      name: `${adName} - AdSet`,
+      campaign_id: campaignId,
+      daily_budget: budgetCents,
+      billing_event: 'IMPRESSIONS',
+      optimization_goal: objective === 'CONVERSIONS' ? 'CONVERSIONS' : 'REACH',
+      start_time: Math.floor(new Date(startDate).getTime() / 1000),
+      end_time: Math.floor(new Date(endDate).getTime() / 1000),
+      targeting: JSON.stringify({
+        geo_locations: { regions: [{ key: 'MX-PUE' }] },
+        age_min: 18,
+        age_max: 65,
+        genders: [1, 2],
+        user_os: ['iOS', 'Android']
+      }),
+      access_token: accessToken
+    });
+
+    const adSetResponse = await fetch(`https://graph.facebook.com/v18.0/${adAccountId}/adsets`, {
+      method: 'POST',
+      body: adSetData
+    });
+
+    if (!adSetResponse.ok) {
+      const error = await adSetResponse.json();
+      throw new Error(error.error?.message || 'Error creando conjunto de anuncios');
+    }
+
+    const adSet = await adSetResponse.json();
+    const adSetId = adSet.id;
+
+    // 3. Crear anuncio (Ad Creative)
+    const adCreativeData = new URLSearchParams({
+      name: `${adName} - Creative`,
+      object_story_id: `${pageId}_${pageId}`,
+      access_token: accessToken
+    });
+
+    const adCreativeResponse = await fetch(`https://graph.facebook.com/v18.0/${adAccountId}/adcreatives`, {
+      method: 'POST',
+      body: adCreativeData
+    });
+
+    if (!adCreativeResponse.ok) {
+      const error = await adCreativeResponse.json();
+      throw new Error(error.error?.message || 'Error creando creativo');
+    }
+
+    const adCreative = await adCreativeResponse.json();
+    const creativeId = adCreative.id;
+
+    // 4. Crear anuncio final
+    const adData = new URLSearchParams({
+      name: adName,
+      adset_id: adSetId,
+      creative: JSON.stringify({ creative_id: creativeId }),
+      status: 'PAUSED',
+      access_token: accessToken
+    });
+
+    const adResponse = await fetch(`https://graph.facebook.com/v18.0/${adAccountId}/ads`, {
+      method: 'POST',
+      body: adData
+    });
+
+    if (!adResponse.ok) {
+      const error = await adResponse.json();
+      throw new Error(error.error?.message || 'Error creando anuncio');
+    }
+
+    const ad = await adResponse.json();
+
+    showAdStatus(`✅ ¡Anuncio creado exitosamente!\n\n📊 Campaña: ${adName}\n💰 Presupuesto: $${budget} MXN/día\n⏱️ Duración: ${duration} días\n\n⚠️ Estado: PAUSADO (actívalo en Facebook Ads Manager para comenzar)`, 'success');
+
+    // Guardar en historial
+    const adRecord = {
+      id: Date.now(),
+      name: adName,
+      product: currentProduct,
+      budget: budget,
+      objective: objective,
+      duration: duration,
+      campaignId: campaignId,
+      status: 'created',
+      createdAt: new Date().toISOString()
+    };
+
+    let adHistory = JSON.parse(localStorage.getItem('auria_ads') || '[]');
+    adHistory.unshift(adRecord);
+    localStorage.setItem('auria_ads', JSON.stringify(adHistory.slice(0, 20)));
+
+  } catch (err) {
+    showAdStatus(`❌ Error: ${err.message}\n\nVerifica que:\n1. El token sea válido\n2. Tengas permisos de anuncios\n3. La cuenta de anuncios esté activa`, 'error');
+  }
+}
+
+function showAdStatus(message, type = 'info') {
+  const el = document.getElementById('ad-status-message');
+  el.innerHTML = `<div class="alert alert-${type}">${message.replace(/\n/g, '<br>')}</div>`;
+  setTimeout(() => el.innerHTML = '', 8000);
 }
 
 function renderRecentPosts() {
