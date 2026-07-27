@@ -8,6 +8,25 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Meta Pixel Code - UPDATE PIXEL_ID with your actual Facebook Pixel ID -->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1543346170662334');
+  fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1543346170662334&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
 <style>
   :root{
     --ink:#241C15;
@@ -440,6 +459,18 @@
 </div>
 
 <script>
+// Facebook Pixel tracking helper
+function trackPixelEvent(eventName, eventData = {}) {
+  if (typeof fbq !== 'undefined') {
+    fbq('track', eventName, eventData);
+  }
+}
+
+// Track WhatsApp button clicks
+function trackWhatsAppClick(source = 'button') {
+  trackPixelEvent('Lead', { source: source });
+}
+
 const WHATSAPP_NUMBER = "5215620586234"; // 52 + 1 + 56 2058 6234
 const CATEGORY_MAP = {
   HUGGIES: "Aretes", ARETES: "Aretes", BROQUELES: "Aretes", ARRACADAS: "Aretes", "EAR CUFF": "Aretes",
@@ -479,7 +510,12 @@ function waLinkMulti(products) {
 function setGenericWhatsAppLinks() {
   ["wa-header", "wa-hero", "wa-final", "wa-footer"].forEach(id => {
     const el = document.getElementById(id);
-    if (el) el.href = waLink(null);
+    if (el) {
+      el.href = waLink(null);
+      el.addEventListener('click', (e) => {
+        trackWhatsAppClick(id);
+      });
+    }
   });
 }
 
@@ -523,7 +559,7 @@ function renderGrid() {
         <div class="code">Cód. ${p.code}</div>
         <div class="name">${p.name}</div>
         <div class="price">$${p.price}</div>
-        <button class="order-btn" onclick="orderNow('${p.id}')">💬 Pedir por WhatsApp</button>
+        <button class="order-btn" onclick="orderNow('${p.id}'); trackWhatsAppClick('catalog-order');">💬 Pedir por WhatsApp</button>
       </div>
     </div>
   `).join("");
@@ -556,6 +592,7 @@ function openLightbox(id) {
   document.getElementById("selection-msg").textContent = "";
   updateAddButton();
   document.getElementById("lightbox").classList.add("open");
+  trackPixelEvent('ViewContent', { content_name: p.name, content_category: p.group, value: p.price, currency: 'MXN', content_type: 'product', content_id: p.code });
 }
 
 function closeLightbox(e) {
@@ -596,6 +633,7 @@ function toggleSelection() {
     }
     selectedProducts.push(currentProduct);
     msg.textContent = "";
+    trackPixelEvent('AddToCart', { content_name: currentProduct.name, content_category: currentProduct.group, value: currentProduct.price, currency: 'MXN', content_id: currentProduct.code });
   }
   updateAddButton();
   renderSelectionBar();
@@ -621,7 +659,11 @@ function renderSelectionBar() {
     </div>
   `).join("");
   document.getElementById("seen-bar-count").textContent = `${selectedProducts.length}/${MAX_SELECTION} piezas`;
-  document.getElementById("seen-bar-wa").href = waLinkMulti(selectedProducts);
+  const seenBarWa = document.getElementById("seen-bar-wa");
+  seenBarWa.href = waLinkMulti(selectedProducts);
+  seenBarWa.onclick = () => {
+    trackPixelEvent('Lead', { items_count: selectedProducts.length, value: selectedProducts.reduce((s, x) => s + x.price, 0), currency: 'MXN', source: 'seen-bar' });
+  };
 }
 
 function orderNow(id) {
@@ -638,6 +680,7 @@ function orderNow(id) {
     renderSelectionBar();
     if (currentProduct && currentProduct.id === p.id) updateAddButton();
   }
+  trackPixelEvent('Lead', { product_code: p.code, items_count: selectedProducts.length, value: selectedProducts.reduce((s, x) => s + x.price, 0), currency: 'MXN' });
   window.open(waLinkMulti(selectedProducts), "_blank");
 }
 
