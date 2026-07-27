@@ -368,8 +368,23 @@ async function publishToFacebook() {
   const accessToken = document.getElementById('fb-token').value;
   const pageId = '632020316670959'; // ID de página de Auria
 
+  // Guardar localmente primero
+  const post = {
+    id: Date.now(),
+    product: currentProduct,
+    caption: caption,
+    image: currentProduct.image,
+    fbId: null,
+    scheduledFor: new Date().toISOString(),
+    status: accessToken ? 'publishing' : 'draft'
+  };
+
   if (!accessToken) {
-    showStatus('❌ Necesitas pegar tu Facebook Access Token para publicar automáticamente.\n\nSin token: Copia el caption y pégalo manualmente en Facebook.', 'error');
+    // Sin token: guardar como borrador local
+    recentPosts.unshift(post);
+    localStorage.setItem('auria_posts', JSON.stringify(recentPosts.slice(0, 20)));
+    showStatus('📝 Guardado localmente.\n\n📌 Para publicar en Facebook:\n1. Copia el caption (botón Copiar)\n2. Ve a https://facebook.com/632020316670959\n3. Haz clic en "Crear publicación"\n4. Pega el caption e imagen\n5. Publica\n\n💡 O pega tu token de acceso arriba para publicar automáticamente', 'info');
+    renderRecentPosts();
     return;
   }
 
@@ -393,22 +408,17 @@ async function publishToFacebook() {
 
     if (!fbResponse.ok) {
       const error = await fbResponse.json();
+      post.status = 'error';
+      recentPosts.unshift(post);
+      localStorage.setItem('auria_posts', JSON.stringify(recentPosts.slice(0, 20)));
       showStatus(`❌ Error en Facebook: ${error.error?.message || 'Error desconocido'}`, 'error');
+      renderRecentPosts();
       return;
     }
 
     const result = await fbResponse.json();
-
-    // Guardar localmente
-    const post = {
-      id: Date.now(),
-      product: currentProduct,
-      caption: caption,
-      image: currentProduct.image,
-      fbId: result.id,
-      scheduledFor: new Date().toISOString(),
-      status: 'published'
-    };
+    post.fbId = result.id;
+    post.status = 'published';
 
     recentPosts.unshift(post);
     localStorage.setItem('auria_posts', JSON.stringify(recentPosts.slice(0, 20)));
@@ -416,7 +426,11 @@ async function publishToFacebook() {
     showStatus('✅ ¡Publicado en Facebook! https://facebook.com/' + result.id, 'success');
     renderRecentPosts();
   } catch (err) {
+    post.status = 'error';
+    recentPosts.unshift(post);
+    localStorage.setItem('auria_posts', JSON.stringify(recentPosts.slice(0, 20)));
     showStatus('❌ Error: ' + err.message + '\n\nVerifica que:\n1. El token sea válido\n2. La imagen sea accesible\n3. Tengas permisos en la página', 'error');
+    renderRecentPosts();
   }
 }
 
