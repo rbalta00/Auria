@@ -274,6 +274,12 @@
       </div>
 
       <div class="form-group">
+        <label for="fb-token">Access Token de Facebook (Opcional):</label>
+        <input type="password" id="fb-token" placeholder="Pega aquí tu Facebook Page Access Token">
+        <small style="color: #999; font-size: 0.8rem; display: block; margin-top: 4px;">📌 <strong>Cómo obtenerlo:</strong> Meta Business Suite → Configuración → Usuarios del sistema → Selecciona tu usuario → Copia "Token de acceso permanente"</small>
+      </div>
+
+      <div class="form-group">
         <label for="caption">Caption para Facebook:</label>
         <textarea id="caption" placeholder="Tu texto aquí..."></textarea>
       </div>
@@ -359,24 +365,59 @@ async function publishToFacebook() {
     return;
   }
 
-  showStatus('⏳ Preparando publicación...', 'info');
+  const accessToken = document.getElementById('fb-token').value;
+  const pageId = '632020316670959'; // ID de página de Auria
 
-  // Por ahora, solo guardar localmente y mostrar instrucción
-  // En producción, necesitarías un access token de Facebook
-  const post = {
-    id: Date.now(),
-    product: currentProduct,
-    caption: caption,
-    image: currentProduct.image,
-    scheduledFor: publishType === 'schedule' ? document.getElementById('publish-time').value : new Date().toISOString(),
-    status: 'pending'
-  };
+  if (!accessToken) {
+    showStatus('❌ Necesitas pegar tu Facebook Access Token para publicar automáticamente.\n\nSin token: Copia el caption y pégalo manualmente en Facebook.', 'error');
+    return;
+  }
 
-  recentPosts.unshift(post);
-  localStorage.setItem('auria_posts', JSON.stringify(recentPosts.slice(0, 20)));
+  showStatus('⏳ Publicando en Facebook...', 'info');
 
-  showStatus(`✅ Publicación preparada. Copia el caption y pégalo en Facebook:\n\n${caption}`, 'success');
-  renderRecentPosts();
+  try {
+    // Publicar con imagen en Facebook Graph API
+    const formData = new FormData();
+    formData.append('message', caption);
+    formData.append('access_token', accessToken);
+
+    // Fetch la imagen y convertir a blob
+    const response = await fetch(currentProduct.image);
+    const blob = await response.blob();
+    formData.append('source', blob, `${currentProduct.code}.jpg`);
+
+    const fbResponse = await fetch(`https://graph.facebook.com/v18.0/${pageId}/photos`, {
+      method: 'POST',
+      body: formData
+    });
+
+    if (!fbResponse.ok) {
+      const error = await fbResponse.json();
+      showStatus(`❌ Error en Facebook: ${error.error?.message || 'Error desconocido'}`, 'error');
+      return;
+    }
+
+    const result = await fbResponse.json();
+
+    // Guardar localmente
+    const post = {
+      id: Date.now(),
+      product: currentProduct,
+      caption: caption,
+      image: currentProduct.image,
+      fbId: result.id,
+      scheduledFor: new Date().toISOString(),
+      status: 'published'
+    };
+
+    recentPosts.unshift(post);
+    localStorage.setItem('auria_posts', JSON.stringify(recentPosts.slice(0, 20)));
+
+    showStatus('✅ ¡Publicado en Facebook! https://facebook.com/' + result.id, 'success');
+    renderRecentPosts();
+  } catch (err) {
+    showStatus('❌ Error: ' + err.message + '\n\nVerifica que:\n1. El token sea válido\n2. La imagen sea accesible\n3. Tengas permisos en la página', 'error');
+  }
 }
 
 function showStatus(message, type = 'info') {
