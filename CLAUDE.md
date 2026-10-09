@@ -60,3 +60,10 @@ All events include product code, category, price, quantity, currency (MXN), and 
 ## Updating the catalog
 
 To add/change products, edit `catalogo.json` directly (or regenerate it from a new PDF export via the gitignored `pagetext/`/`catalogo.txt` extraction files) — there's no CMS or admin UI for catalog editing, only for order tracking.
+
+## Publicar cambios (deploy)
+
+- Repo: `rbalta00/Auria`, rama `main`. Vercel: proyecto `auria1` -> https://auria1.vercel.app (conectado a GitHub).
+- **Auto-deploy**: un `git push` a `main` ya dispara el deploy en Vercel solo, no hace falta correr nada mas.
+- Atajo: `.\deploy.ps1 "mensaje"` en la raiz del repo hace `git add` + `commit` + `push` en un solo paso.
+- Convencion con el usuario: cuando pida "guardar", "subir" o "publicar" este repo, correr el flujo completo sin preguntar el alcance (ver tambien `D:\repos-activos\SETUP.md` si existe esa carpeta).
