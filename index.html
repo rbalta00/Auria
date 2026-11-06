@@ -239,6 +239,41 @@
     color:var(--paper); font-size:2.2rem; line-height:1; cursor:pointer;
   }
 
+  /* Referidos */
+  .ref-banner{
+    background:var(--gold-soft); border:1px solid var(--gold); border-radius:12px;
+    padding:10px 16px; font-size:0.85rem; color:var(--ink); margin:14px 0;
+    display:none; align-items:center; gap:8px;
+  }
+  .ref-banner.show{display:flex;}
+  .ref-modal{
+    position:fixed; inset:0; z-index:110; background:rgba(36,28,21,0.6);
+    display:none; align-items:center; justify-content:center; padding:20px;
+  }
+  .ref-modal.open{display:flex;}
+  .ref-modal-card{
+    background:var(--paper); border-radius:16px; padding:28px 24px; max-width:380px;
+    width:100%; text-align:center; box-shadow:0 20px 50px rgba(0,0,0,0.3); position:relative;
+  }
+  .ref-modal-close{
+    position:absolute; top:10px; right:14px; background:none; border:none;
+    font-size:1.8rem; line-height:1; cursor:pointer; color:var(--slate);
+  }
+  .ref-modal-card h3{font-size:1.3rem; margin-bottom:6px;}
+  .ref-modal-card p.sub{font-size:0.85rem; color:var(--slate); margin-bottom:18px;}
+  .ref-modal-card input{
+    width:100%; padding:11px 14px; border:1px solid var(--line); border-radius:10px;
+    margin-bottom:12px; font-size:0.92rem; font-family:inherit;
+  }
+  .ref-modal-card .btn{width:100%;}
+  .ref-modal-result{display:none; margin-top:14px; text-align:left;}
+  .ref-modal-result.show{display:block;}
+  .ref-modal-result .link-box{
+    background:#fff; border:1px solid var(--line); border-radius:8px; padding:8px 10px;
+    font-size:0.76rem; word-break:break-all; margin-bottom:10px; color:var(--slate);
+  }
+  .ref-modal-error{color:#a33; font-size:0.8rem; margin-top:8px; min-height:1em;}
+
   /* Seen-product reminder bar */
   .seen-bar{
     position:fixed; left:50%; bottom:20px; transform:translateX(-50%);
@@ -285,11 +320,13 @@
       <div class="hero-ctas">
         <a class="btn btn-primary" id="wa-hero" href="#" target="_blank" rel="noopener">💬 Pedir por WhatsApp</a>
         <a class="btn btn-ghost" href="#catalogo">Ver catálogo</a>
+        <button class="btn btn-ghost" onclick="abrirModalReferidos()">🎁 Recomienda y gana $100</button>
       </div>
+      <div class="ref-banner" id="ref-banner">🎁 Vienes referido -- menciónalo al pedir para tu <b>$50 de descuento</b> en tu primera compra.</div>
       <div class="hero-info">
         <div>🚗 <strong>Entrega a domicilio en Puebla</strong> — verificamos cobertura según tu ubicación</div>
         <div>💵 <strong>Pago contra entrega</strong> — pagas cuando recibes tu pieza</div>
-        <div>🎁 <strong>Envío gratis</strong> en pedidos de 2+ piezas o $200+. De lo contrario, envío de $50</div>
+        <div>🎁 <strong>Envío gratis</strong> dentro del área de cobertura en Puebla</div>
         <div>🛡️ <strong>Garantía de 15 días</strong> contra defectos de fabricación</div>
       </div>
     </div>
@@ -364,7 +401,7 @@
           ¿Cuándo el envío es gratis?
           <span class="plus">+</span>
         </div>
-        <div class="faq-a"><p>El envío es gratis cuando pides 2 piezas o más, o cuando tu compra suma $200 o más. Si tu pedido es de 1 pieza y menos de $200, el envío tiene un costo de $50.</p></div>
+        <div class="faq-a"><p>El envío es gratis en cualquier pedido dentro de nuestra área de cobertura en Puebla. Escríbenos por WhatsApp con tu ubicación para confirmar que estás dentro de la zona.</p></div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
@@ -447,6 +484,24 @@
   </div>
 </div>
 
+<div class="ref-modal" id="ref-modal" onclick="if(event.target.id==='ref-modal') cerrarModalReferidos()">
+  <div class="ref-modal-card">
+    <button class="ref-modal-close" onclick="cerrarModalReferidos()" aria-label="Cerrar">&times;</button>
+    <h3>🎁 Recomienda y gana $100</h3>
+    <p class="sub">Comparte tu link con una amiga. Cuando haga su primera compra, te ganas $100 en cupón -- y ella se lleva $50 de descuento en esa primera compra.</p>
+    <div id="ref-form">
+      <input type="text" id="ref-nombre" placeholder="Tu nombre" maxlength="60">
+      <input type="tel" id="ref-telefono" placeholder="Tu WhatsApp (10 dígitos)" maxlength="10">
+      <button class="btn btn-primary" onclick="generarCodigoReferido()">Generar mi link</button>
+      <div class="ref-modal-error" id="ref-error"></div>
+    </div>
+    <div class="ref-modal-result" id="ref-result">
+      <div class="link-box" id="ref-link-box"></div>
+      <button class="btn btn-primary" id="ref-wa-share">💬 Enviar por WhatsApp</button>
+    </div>
+  </div>
+</div>
+
 <div class="seen-bar" id="seen-bar">
   <div class="seen-bar-row">
     <div class="seen-bar-items" id="seen-bar-items"></div>
@@ -458,6 +513,7 @@
   <a class="btn" id="seen-bar-wa" href="#" target="_blank" rel="noopener">Pedir por WhatsApp</a>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 // Facebook Pixel tracking helper
 function trackPixelEvent(eventName, eventData = {}) {
@@ -471,7 +527,99 @@ function trackWhatsAppClick(source = 'button') {
   trackPixelEvent('Lead', { source: source });
 }
 
-const WHATSAPP_NUMBER = "5215620586234"; // 52 + 1 + 56 2058 6234
+const WHATSAPP_NUMBER = "5212218170745"; // 52 + 1 + 221 817 0745
+
+// ---------------- Sistema de referidos (2026-11-06) ----------------
+// Quien refiere gana $100 cuando su referido hace su primera compra; el referido se
+// lleva $50 de descuento en esa primera compra. Proyecto de Supabase APARTE (cuenta
+// distinta a la de admin.html) solo para esto -- la key es publica por diseno, mismo
+// modelo de seguridad que el resto de los proyectos del usuario (sin autenticacion de
+// usuario final, protegido solo por RLS + no publicar la key fuera de este sitio).
+const REF_SUPABASE_URL = "https://npllotjcjplpdztbxhla.supabase.co";
+const REF_SUPABASE_KEY = "sb_publishable_iSF-h2sxdYAnzhqOtWz-mQ_w52iLvSp";
+const sbRef = (window.supabase && window.supabase.createClient)
+  ? window.supabase.createClient(REF_SUPABASE_URL, REF_SUPABASE_KEY) : null;
+
+function codigoReferidoActivo() {
+  return localStorage.getItem("auria_ref_codigo");
+}
+
+// Captura ?ref=CODIGO de la URL al llegar: se guarda en localStorage (persiste toda la
+// visita, no solo la carga actual) y se registra en Supabase que el codigo tuvo una
+// visita -- asi el dueno del negocio tiene un registro aunque la persona nunca llegue
+// a pedir por WhatsApp. No se bloquea nada si falla (fire-and-forget).
+function capturarReferidoDesdeUrl() {
+  const params = new URLSearchParams(location.search);
+  const ref = params.get("ref");
+  if (ref) {
+    localStorage.setItem("auria_ref_codigo", ref.toUpperCase());
+  }
+  if (codigoReferidoActivo()) {
+    document.getElementById("ref-banner")?.classList.add("show");
+  }
+}
+
+// Se agrega a CUALQUIER mensaje de pedido por WhatsApp (waLink/waLinkMulti) cuando hay
+// un codigo de referido activo -- asi el dueno del negocio ve el codigo directo en el
+// chat de WhatsApp, sin depender de que el cliente se acuerde de mencionarlo. El dueno
+// es quien aplica el descuento y lo registra en el panel de admin.
+function notaReferidoWa() {
+  const cod = codigoReferidoActivo();
+  return cod ? `\n\n🎁 Código de referido: ${cod} (aplica $50 de descuento si es mi primera compra)` : "";
+}
+
+function generarCodigoAleatorio(nombre) {
+  const base = (nombre || "AUR").normalize("NFD").replace(/[̀-ͯ]/g, "")
+    .replace(/[^A-Za-z]/g, "").toUpperCase().slice(0, 3) || "AUR";
+  const sufijo = Math.random().toString(36).slice(2, 6).toUpperCase();
+  return `${base}${sufijo}`;
+}
+
+function abrirModalReferidos() {
+  document.getElementById("ref-modal").classList.add("open");
+  document.getElementById("ref-form").style.display = "";
+  document.getElementById("ref-result").classList.remove("show");
+  document.getElementById("ref-error").textContent = "";
+  trackPixelEvent("Lead", { source: "referidos-modal-abierto" });
+}
+function cerrarModalReferidos() {
+  document.getElementById("ref-modal").classList.remove("open");
+}
+
+async function generarCodigoReferido() {
+  const errEl = document.getElementById("ref-error");
+  errEl.textContent = "";
+  const nombre = document.getElementById("ref-nombre").value.trim();
+  const telefono = document.getElementById("ref-telefono").value.trim();
+  if (!nombre || !/^\d{10}$/.test(telefono)) {
+    errEl.textContent = "Pon tu nombre y un WhatsApp a 10 dígitos.";
+    return;
+  }
+  if (!sbRef) {
+    errEl.textContent = "No se pudo conectar -- intenta de nuevo en un momento.";
+    return;
+  }
+  const codigo = generarCodigoAleatorio(nombre);
+  const { error } = await sbRef.from("referidos").insert({
+    codigo, nombre_referente: nombre, telefono_referente: telefono,
+  });
+  if (error) {
+    errEl.textContent = "No se pudo generar tu link: " + error.message;
+    return;
+  }
+  const link = `${location.origin}${location.pathname}?ref=${codigo}`;
+  document.getElementById("ref-form").style.display = "none";
+  const resultEl = document.getElementById("ref-result");
+  resultEl.classList.add("show");
+  document.getElementById("ref-link-box").textContent = link;
+  const shareText = `¡Hola! Te recomiendo Auria 💛 joyería en oro laminado 14k/18k con entrega a domicilio en Puebla. ` +
+    `Usa mi link y en tu primera compra te llevas $50 de descuento: ${link}`;
+  const waShareLink = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+  const waBtn = document.getElementById("ref-wa-share");
+  waBtn.onclick = () => { trackPixelEvent("Lead", { source: "referidos-compartir" }); window.open(waShareLink, "_blank"); };
+  trackPixelEvent("Lead", { source: "referidos-codigo-generado" });
+}
+
 const CATEGORY_MAP = {
   HUGGIES: "Aretes", ARETES: "Aretes", BROQUELES: "Aretes", ARRACADAS: "Aretes", "EAR CUFF": "Aretes",
   PULSERAS: "Pulseras", "BRAZALETE / ESCLAVAS": "Pulseras",
@@ -488,9 +636,9 @@ let visibleCount = 16;
 const PAGE_SIZE = 16;
 
 function waLink(product) {
-  const text = product
+  const text = (product
     ? `Hola, me interesa esta pieza de Auria: "${product.name}" (Código: ${product.code}) - $${product.price}. ¿Me confirmas disponibilidad?`
-    : "Hola, me interesa una pieza del catálogo de Auria.";
+    : "Hola, me interesa una pieza del catálogo de Auria.") + notaReferidoWa();
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
 }
 
@@ -499,11 +647,11 @@ function waLinkMulti(products) {
   const total = products.reduce((sum, p) => sum + p.price, 0);
   if (products.length === 1) {
     const p = products[0];
-    const text = `Hola, me interesa esta pieza de Auria: "${p.name}" (Código: ${p.code}) - $${p.price}. Total a pagar: $${total} MXN. ¿Me confirmas disponibilidad?`;
+    const text = `Hola, me interesa esta pieza de Auria: "${p.name}" (Código: ${p.code}) - $${p.price}. Total a pagar: $${total} MXN. ¿Me confirmas disponibilidad?` + notaReferidoWa();
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
   }
   const items = products.map(p => `- "${p.name}" (Código: ${p.code}) - $${p.price}`).join("\n");
-  const text = `Hola, me interesan estas piezas de Auria:\n${items}\nTotal a pagar: $${total} MXN\n¿Me confirmas disponibilidad?`;
+  const text = `Hola, me interesan estas piezas de Auria:\n${items}\nTotal a pagar: $${total} MXN\n¿Me confirmas disponibilidad?` + notaReferidoWa();
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
 }
 
@@ -699,6 +847,7 @@ document.addEventListener("keydown", (e) => {
 });
 
 setGenericWhatsAppLinks();
+capturarReferidoDesdeUrl();
 
 fetch("catalogo.json")
   .then(r => r.json())

@@ -78,6 +78,18 @@
   .order-actions select{width:auto; padding:8px 10px;}
   #orders-list{margin-top:8px;}
   #orders-empty{color:var(--slate); font-size:0.88rem; padding:20px 0;}
+
+  /* Referidos */
+  .ref-row{border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin-bottom:10px;}
+  .ref-row-top{display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;}
+  .ref-codigo{font-weight:700; font-family:monospace; background:var(--gold-soft); padding:2px 8px; border-radius:6px; font-size:0.85rem;}
+  .ref-nombre{font-size:0.85rem; color:var(--ink-soft);}
+  .ref-conversion{background:var(--paper-dim); border-radius:8px; padding:8px 10px; margin-top:8px; font-size:0.8rem; display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap;}
+  .ref-conversion.cupon-ok{background:#E3F3EA;}
+  .ref-add-form{display:flex; gap:6px; margin-top:8px; flex-wrap:wrap;}
+  .ref-add-form input{flex:1; min-width:110px; padding:7px 9px; font-size:0.8rem;}
+  .ref-add-form button{padding:7px 12px; font-size:0.78rem;}
+  .ref-empty{color:var(--slate); font-size:0.85rem;}
 </style>
 </head>
 <body>
@@ -138,6 +150,12 @@
       <div id="create-error" style="color:var(--red); font-size:0.82rem; margin-top:10px;"></div>
     </div>
 
+    <div class="card" id="ref-card" style="margin-bottom:28px;">
+      <h2 style="font-size:1.2rem; margin-bottom:6px;">🎁 Referidos</h2>
+      <p style="font-size:0.8rem; color:var(--slate); margin-bottom:16px;">Quien refiere gana $100 cuando su referido hace su primera compra. El referido se lleva $50 de descuento en esa primera compra. Cuando un cliente mencione un código de referido al pedir, regístralo aquí.</p>
+      <div id="ref-list">Cargando…</div>
+    </div>
+
     <h2 style="font-size:1.2rem; margin-bottom:14px;">Pedidos</h2>
     <div id="orders-empty">Cargando pedidos…</div>
     <div id="orders-list"></div>
@@ -147,9 +165,18 @@
 <script>
 const SUPABASE_URL = "https://fjjtfqnufweozasyasgg.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZqanRmcW51Zndlb3phc3lhc2dnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQyNTYwNTYsImV4cCI6MjA5OTgzMjA1Nn0.svyAtrSy5P44BtwSKWz5Y8mzU0df_9Y9iTmvd8i2lDo";
-const WHATSAPP_NUMBER = "5215620586234";
+const WHATSAPP_NUMBER = "5212218170745"; // 52 + 1 + 221 817 0745
 
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// Proyecto de Supabase APARTE para el sistema de referidos (2026-11-06) -- cuenta
+// distinta a la de "pedidos" (esta sigue pausada/activa segun el limite de 2 proyectos
+// gratis de la cuenta rbalta00; referidos vive en la cuenta nueva usada para Buen
+// Cerdito, sin ese limite todavia). Por eso son dos clientes de Supabase separados en
+// esta misma pagina.
+const REF_SUPABASE_URL = "https://npllotjcjplpdztbxhla.supabase.co";
+const REF_SUPABASE_KEY = "sb_publishable_iSF-h2sxdYAnzhqOtWz-mQ_w52iLvSp";
+const sbRef = supabase.createClient(REF_SUPABASE_URL, REF_SUPABASE_KEY);
 
 const STATUS_LABELS = {
   confirmado: "Confirmado",
@@ -163,6 +190,60 @@ function showApp() {
   document.getElementById("app-view").style.display = "block";
   addItemRow();
   loadOrders();
+  cargarReferidos();
+}
+
+// ---------------- Referidos ----------------
+async function cargarReferidos() {
+  const listEl = document.getElementById("ref-list");
+  const { data: referidos, error: errRef } = await sbRef.from("referidos").select("*").order("creado_en", { ascending: false });
+  if (errRef) { listEl.innerHTML = `<p class="ref-empty">Error al cargar referidos: ${errRef.message}</p>`; return; }
+  if (!referidos || !referidos.length) { listEl.innerHTML = `<p class="ref-empty">Todavía nadie ha generado un link de referido.</p>`; return; }
+
+  const { data: conversiones } = await sbRef.from("referidos_conversiones").select("*").order("creado_en", { ascending: false });
+  const porCodigo = {};
+  (conversiones || []).forEach(c => { (porCodigo[c.codigo] = porCodigo[c.codigo] || []).push(c); });
+
+  listEl.innerHTML = referidos.map(r => {
+    const convs = porCodigo[r.codigo] || [];
+    const convsHtml = convs.map(c => `
+      <div class="ref-conversion ${c.cupon_entregado ? "cupon-ok" : ""}">
+        <span>${c.nombre_referido || "(sin nombre)"} ${c.telefono_referido ? "· " + c.telefono_referido : ""} ${c.monto_compra ? "· compró $" + c.monto_compra : ""}</span>
+        <button class="btn-ghost" onclick="toggleCupon('${c.id}', ${c.cupon_entregado})">${c.cupon_entregado ? "✅ Cupón $100 entregado" : "Marcar cupón $100 entregado"}</button>
+      </div>
+    `).join("");
+    return `
+      <div class="ref-row">
+        <div class="ref-row-top">
+          <div><span class="ref-codigo">${r.codigo}</span> <span class="ref-nombre">${r.nombre_referente} · ${r.telefono_referente}</span></div>
+          <span class="ref-nombre">${new Date(r.creado_en).toLocaleDateString("es-MX")}</span>
+        </div>
+        ${convsHtml}
+        <div class="ref-add-form">
+          <input type="text" placeholder="Nombre del referido" id="conv-nombre-${r.codigo}">
+          <input type="text" placeholder="Teléfono" id="conv-tel-${r.codigo}">
+          <input type="number" placeholder="Monto de compra" id="conv-monto-${r.codigo}">
+          <button class="btn-primary" onclick="registrarConversion('${r.codigo}')">+ Registrar compra</button>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+async function registrarConversion(codigo) {
+  const nombre = document.getElementById(`conv-nombre-${codigo}`).value.trim();
+  const telefono = document.getElementById(`conv-tel-${codigo}`).value.trim();
+  const monto = parseFloat(document.getElementById(`conv-monto-${codigo}`).value) || null;
+  const { error } = await sbRef.from("referidos_conversiones").insert({
+    codigo, nombre_referido: nombre || null, telefono_referido: telefono || null, monto_compra: monto,
+  });
+  if (error) { alert("No se pudo registrar: " + error.message); return; }
+  cargarReferidos();
+}
+
+async function toggleCupon(id, actual) {
+  await sbRef.from("referidos_conversiones").update({ cupon_entregado: !actual }).eq("id", id);
+  cargarReferidos();
 }
 
 function showLogin() {
