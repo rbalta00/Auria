@@ -315,7 +315,10 @@
 <header>
   <div class="header-inner">
     <div class="logo">Auria<span>.</span></div>
-    <a class="btn btn-primary" id="wa-header" href="#" target="_blank" rel="noopener">Pedir por WhatsApp</a>
+    <div style="display:flex; gap:10px; align-items:center;">
+      <button class="btn btn-ghost" onclick="compartirSitio()" style="cursor:pointer;">🔗 Compartir</button>
+      <a class="btn btn-primary" id="wa-header" href="#" target="_blank" rel="noopener">Pedir por WhatsApp</a>
+    </div>
   </div>
 </header>
 
@@ -661,6 +664,28 @@ function waLinkMulti(products) {
   const items = products.map(p => `- "${p.name}" (Código: ${p.code}) - $${p.price}`).join("\n");
   const text = `Hola, me interesan estas piezas de Auria:\n${items}\nTotal a pagar: $${total} MXN\n¿Me confirmas disponibilidad?` + notaReferidoWa();
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+}
+
+// Boton "Compartir" -- usa el share sheet nativo del telefono (Web Share API), que ya
+// trae acceso a contactos/WhatsApp/Mensajes/etc. del propio sistema operativo, sin
+// pedir ningun permiso aparte. Si el navegador no lo soporta (la mayoria de escritorio),
+// cae a copiar el link al portapapeles.
+async function compartirSitio() {
+  const shareData = {
+    title: "Auria -- Joyería en oro laminado",
+    text: "Mira el catálogo de Auria: joyería en oro laminado con entrega a domicilio.",
+    url: location.origin + location.pathname,
+  };
+  if (navigator.share) {
+    try { await navigator.share(shareData); trackPixelEvent('Lead', { source: 'compartir-sitio' }); } catch (e) { /* el usuario cancelo */ }
+    return;
+  }
+  if (navigator.clipboard) {
+    await navigator.clipboard.writeText(shareData.url);
+    alert("Link copiado -- pégalo donde quieras compartirlo (WhatsApp, redes, etc.)");
+    return;
+  }
+  prompt("Copia este link para compartirlo:", shareData.url);
 }
 
 function setGenericWhatsAppLinks() {
