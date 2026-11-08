@@ -3,7 +3,7 @@
 // otros proyectos del usuario (ver cotizador-fv-cfe-web/service-worker.js). Los pedidos
 // (admin.html) viven en Supabase, nunca en este cache.
 
-const CACHE_NOMBRE = "auria-pwa-v1";
+const CACHE_NOMBRE = "auria-pwa-v2";
 
 const ARCHIVOS_APP_SHELL = [
   "./index.html",
