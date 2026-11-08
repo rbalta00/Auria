@@ -95,3 +95,7 @@ Decided with the user (not yet built — build when she gives the go-ahead + the
 - **Auto-deploy**: un `git push` a `main` ya dispara el deploy en Vercel solo, no hace falta correr nada mas.
 - Atajo: `.\deploy.ps1 "mensaje"` en la raiz del repo hace `git add` + `commit` + `push` en un solo paso.
 - Convencion con el usuario: cuando pida "guardar", "subir" o "publicar" este repo, correr el flujo completo sin preguntar el alcance (ver tambien `D:\repos-activos\SETUP.md` si existe esa carpeta).
+
+## Pendiente: login del admin de Nidia (2026-11-08)
+
+El proyecto de Supabase propio de Auria (`fjjtfqnufweozasyasgg`, cuenta `rbalta00`) sigue PAUSADO -- esa cuenta ya tiene 2/2 proyectos activos del plan gratis (`invita` y `cotizador-fv-cfe`), asi que reactivarlo pausaria uno de esos dos. El usuario dijo explicitamente dejarlo pendiente por ahora ("o no le pongas contraseña de momento") en vez de elegir cual pausar. Cuando se retome: preguntar cual de los dos proyectos puede pausarse, reactivar `fjjtfqnufweozasyasgg` desde el dashboard de Supabase, y que el usuario cree ahi mismo el usuario de Auth para `admin.html` (correo + contraseña, minimo 6 caracteres -- nunca guardar la contraseña real en este archivo). Karla, en cambio, SI quedo resuelta ese mismo dia -- su admin vive en una cuenta de Supabase aparte (`inforbventas1-prog`, la misma de Buen Cerdito) que no tiene ese limite, ver `CLAUDE.md` del repo `karla`.
