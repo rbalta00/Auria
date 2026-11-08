@@ -315,7 +315,8 @@
 <header>
   <div class="header-inner">
     <div class="logo">Auria<span>.</span></div>
-    <div style="display:flex; gap:10px; align-items:center;">
+    <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+      <button class="btn btn-ghost" id="install-btn" onclick="instalarApp()" style="cursor:pointer;">📲 Instalar app</button>
       <button class="btn btn-ghost" onclick="compartirSitio()" style="cursor:pointer;">🔗 Compartir</button>
       <a class="btn btn-primary" id="wa-header" href="#" target="_blank" rel="noopener">Pedir por WhatsApp</a>
     </div>
@@ -664,6 +665,36 @@ function waLinkMulti(products) {
   const items = products.map(p => `- "${p.name}" (Código: ${p.code}) - $${p.price}`).join("\n");
   const text = `Hola, me interesan estas piezas de Auria:\n${items}\nTotal a pagar: $${total} MXN\n¿Me confirmas disponibilidad?` + notaReferidoWa();
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+}
+
+// Boton "Instalar app" -- Chrome/Edge (Android y escritorio) avisan con el evento
+// beforeinstallprompt cuando el sitio ya es instalable (manifest.json + service worker
+// activos); hasta entonces no hay nada que "disparar" todavia, por eso antes no se veia
+// ningun boton. iOS/Safari nunca dispara ese evento (no tiene instalacion programatica)
+// -- ahi se le explica al usuario como hacerlo a mano via el boton de Compartir nativo.
+let deferredInstallPrompt = null;
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+});
+window.addEventListener("appinstalled", () => {
+  deferredInstallPrompt = null;
+  const btn = document.getElementById("install-btn");
+  if (btn) btn.textContent = "✓ App instalada";
+});
+async function instalarApp() {
+  if (deferredInstallPrompt) {
+    deferredInstallPrompt.prompt();
+    await deferredInstallPrompt.userChoice;
+    deferredInstallPrompt = null;
+    return;
+  }
+  const esIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  if (esIOS) {
+    alert('Para instalar en iPhone/iPad: toca el botón de Compartir (el cuadro con la flecha hacia arriba, abajo del navegador) y elige "Agregar a pantalla de inicio".');
+  } else {
+    alert('Este navegador no ofreció la instalación automática todavía. Abre el menú (⋮ arriba a la derecha) y busca "Instalar app" o "Agregar a pantalla de inicio".');
+  }
 }
 
 // Boton "Compartir" -- usa el share sheet nativo del telefono (Web Share API), que ya
