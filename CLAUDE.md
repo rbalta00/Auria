@@ -61,6 +61,34 @@ All events include product code, category, price, quantity, currency (MXN), and 
 
 To add/change products, edit `catalogo.json` directly (or regenerate it from a new PDF export via the gitignored `pagetext/`/`catalogo.txt` extraction files) — there's no CMS or admin UI for catalog editing, only for order tracking.
 
+### Runbook: user says "ya subí/guardé las fotos nuevas" (2026-11-08)
+
+Established workflow: the user drops raw new jewelry photos (generic `WhatsApp Image ...jpeg` filenames, straight from her phone — no code/price/category encoded in the filename) into `fotos-nuevas-sin-procesar/`, then just tells Claude "ya las subí" in a later session — expects Claude to do everything else. Do this:
+
+1. List `fotos-nuevas-sin-procesar/` — anything new there is a candidate to add.
+2. **Product name/price/category can't be inferred from a raw photo.** If the user hasn't already given this info in the same message (or via an updated `catalogo.txt`/PDF export), ask for it per batch (a simple list is enough: "foto 1 = Huggies corazón rodio, $230, HUGGIES" etc.) — don't guess prices or invent names.
+3. Rename/move each processed photo into `assets/catalogo/`, following the existing convention: lowercase `aur-NNN.jpg`, `NNN` = next sequential number after the current max in `catalogo.json` (currently 197 products, `aur-001.jpg`..`aur-197.jpg` roughly — check the real max before assigning).
+4. Add one entry per product to `catalogo.json`: `{ id: "pNNN", category, name, price, tag, image: "assets/catalogo/aur-NNN.jpg", code: "AUR-NNN" }` (match `id`/`code` numbering to the image's `NNN`; `category` must be one of the raw values `CATEGORY_MAP` in `index.html` already groups — check that file if introducing a genuinely new category).
+5. If the user says to remove/discontinue products, delete their `catalogo.json` entry and move the photo file to `duplicados-removidos/` (don't just delete the photo outright — this folder is the existing "soft trash" convention) — don't guess which to remove, she names them or says "borra las que ya no tengo" and lists which.
+6. Move the now-processed source photos out of `fotos-nuevas-sin-procesar/` (into `assets/catalogo/` per step 3 — nothing should linger in the inbox folder once handled).
+7. Commit + push to `main` (see "Publicar cambios" below) -- this single push auto-deploys Auria AND (once the multi-brand setup below exists) every other branded storefront that reads this same shared catalog, with no extra steps.
+
+## Plan: multiple branded storefronts, one shared catalog (2026-11-08)
+
+Decided with the user (not yet built — build when she gives the go-ahead + the next brand's name/reference design):
+
+- **The business**: Isaac resells the SAME jewelry catalog (same products, same prices, supplied by one source) through MULTIPLE independent saleswomen ("vendedoras"), each with her OWN storefront brand. Auria (this repo) is the first, selling for a client named Nidia. A second one is already being planned for a saleswoman currently referred to as "Karla" (brand name not finalized).
+- **What's shared across every branded site**: the catalog data only -- `catalogo.json` + the photos in `assets/catalogo/`. Updating it (per the runbook above) should update every brand's storefront automatically, with zero per-brand repo work.
+- **What's NOT shared, and independent per brand**:
+  - Separate git repo per vendedora (not the same repo deployed to two Vercel URLs) -- they're independent clients/products; keeping them as separate repos means one can be handed off, repriced, or discontinued without touching the others.
+  - Separate Vercel project + domain per repo, same Vercel account (no reason to use a second hosting platform like Cloudflare -- it would just be more to maintain for no benefit here).
+  - Fully independent visual design per brand -- the user confirmed Karla's site can look completely different from Auria's (different layout/colors/structure), as long as it renders the same catalog fields (`id`/`category`/`name`/`price`/`tag`/`image`/`code`).
+  - Brand name, WhatsApp number (`WHATSAPP_NUMBER` in `index.html`), and presumably logo/colors -- each hardcoded per repo, same as Auria's today.
+- **Not decided yet, needs the user's input before building**:
+  - WHERE the shared catalog physically lives -- options: (a) keep it in this Auria repo and have the other brands' `index.html` `fetch()` the ABSOLUTE URL `https://auria1.vercel.app/catalogo.json` + image URLs instead of a relative path, or (b) spin out a tiny dedicated "catalogo-joyeria" repo/Vercel project that ALL brands (including Auria) point to. (a) is less work now (nothing to extract from this repo); (b) is cleaner long-term (Auria's repo stops being "secretly" the backend for other brands) -- worth asking the user once there's a second real brand to decide against.
+  - Karla's actual brand name, her WhatsApp number, and any design reference.
+- **To build the second brand's repo**: copy this repo's `index.html`/CSS as a starting point (or build fresh, per the design reference given), swap `WHATSAPP_NUMBER` and branding, point `fetch()` at the shared catalog URL (not a local `catalogo.json`) once that's decided, new repo under `rbalta00/<nombre-marca>`, new Vercel project + domain, same deploy convention as below.
+
 ## Publicar cambios (deploy)
 
 - Repo: `rbalta00/Auria`, rama `main`. Vercel: proyecto `auria1` -> https://auria1.vercel.app (conectado a GitHub).
