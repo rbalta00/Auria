@@ -317,7 +317,7 @@
     <div class="logo">Auria<span>.</span></div>
     <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
       <button class="btn btn-ghost" id="install-btn" onclick="instalarApp()" style="cursor:pointer;">📲 Instalar app</button>
-      <button class="btn btn-ghost" onclick="abrirModalReferidos()" style="cursor:pointer;">🎁 Compartir y gana $100</button>
+      <button class="btn btn-ghost" onclick="compartirSitio()" style="cursor:pointer;">🔗 Compartir</button>
       <a class="btn btn-primary" id="wa-header" href="#" target="_blank" rel="noopener">Pedir por WhatsApp</a>
     </div>
   </div>
@@ -704,6 +704,29 @@ async function instalarApp() {
   } else {
     alert('Este navegador no ofreció la instalación automática todavía. Abre el menú (⋮ arriba a la derecha) y busca "Instalar app" o "Agregar a pantalla de inicio".');
   }
+}
+
+// Boton "Compartir" del header -- comparte el link de la tienda al instante (sin
+// pedir nombre/telefono), usando el share sheet nativo del telefono (acceso directo a
+// contactos/WhatsApp/Mensajes). El boton de "Compartir y gana $100" en el hero es
+// DISTINTO a proposito -- ese genera un link de referido rastreable, por eso SI pide
+// nombre+telefono antes de compartir (hace falta para poder pagarte el bono despues).
+async function compartirSitio() {
+  const shareData = {
+    title: "Auria -- Joyería en oro laminado",
+    text: "Mira el catálogo de Auria: joyería en oro laminado con entrega a domicilio.",
+    url: location.origin + location.pathname,
+  };
+  if (navigator.share) {
+    try { await navigator.share(shareData); trackPixelEvent('Lead', { source: 'compartir-sitio' }); } catch (e) { /* el usuario cancelo */ }
+    return;
+  }
+  if (navigator.clipboard) {
+    await navigator.clipboard.writeText(shareData.url);
+    alert("Link copiado -- pégalo donde quieras compartirlo (WhatsApp, redes, etc.)");
+    return;
+  }
+  prompt("Copia este link para compartirlo:", shareData.url);
 }
 
 function setGenericWhatsAppLinks() {
