@@ -223,7 +223,7 @@ async function cargarReferidos() {
     return `
       <div class="ref-row">
         <div class="ref-row-top">
-          <div><span class="ref-codigo">${r.codigo}</span> <span class="ref-nombre">${r.nombre_referente} · ${r.telefono_referente}</span></div>
+          <div><span class="ref-codigo">${r.codigo}</span> <span class="ref-nombre">${r.nombre_referente ? r.nombre_referente + " · " + (r.telefono_referente || "sin teléfono") : "⚠️ Anónimo -- pídele su WhatsApp al pagarle el bono"}</span></div>
           <span class="ref-nombre">${new Date(r.creado_en).toLocaleDateString("es-MX")}</span>
         </div>
         ${convsHtml}

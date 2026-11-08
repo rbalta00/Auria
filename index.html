@@ -317,7 +317,7 @@
     <div class="logo">Auria<span>.</span></div>
     <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
       <button class="btn btn-ghost" id="install-btn" onclick="instalarApp()" style="cursor:pointer;">📲 Instalar app</button>
-      <button class="btn btn-ghost" onclick="compartirSitio()" style="cursor:pointer;">🔗 Compartir</button>
+      <button class="btn btn-ghost" onclick="compartirYGanar()" style="cursor:pointer;">🎁 Compartir y gana $100</button>
       <a class="btn btn-primary" id="wa-header" href="#" target="_blank" rel="noopener">Pedir por WhatsApp</a>
     </div>
   </div>
@@ -332,7 +332,7 @@
       <div class="hero-ctas">
         <a class="btn btn-primary" id="wa-hero" href="#" target="_blank" rel="noopener">💬 Pedir por WhatsApp</a>
         <a class="btn btn-ghost" href="#catalogo">Ver catálogo</a>
-        <button class="btn btn-ghost" onclick="abrirModalReferidos()">🎁 Compartir y gana $100</button>
+        <button class="btn btn-ghost" onclick="compartirYGanar()">🎁 Compartir y gana $100</button>
       </div>
       <div class="ref-banner" id="ref-banner">🎁 Vienes referido -- menciónalo al pedir para tu <b>$50 de descuento</b> en tu primera compra.</div>
       <div class="hero-info">
@@ -587,6 +587,38 @@ function generarCodigoAleatorio(nombre) {
   return `${base}${sufijo}`;
 }
 
+// Boton unico "Compartir y gana $100" -- instantaneo, sin formulario: genera (o
+// reusa, guardado en localStorage) un codigo de referido silencioso la primera vez
+// que se usa en este dispositivo, y abre de inmediato el share sheet nativo (acceso a
+// contactos/WhatsApp/Mensajes). No pide nombre/telefono por adelantado -- cuando haya
+// una conversion real, se le pregunta a quien compro o se identifica por el codigo al
+// pagar la recompensa. El modal con formulario (abrirModalReferidos) se deja sin usar
+// por ningun boton visible, pero sigue funcionando por si se quiere retomar.
+async function compartirYGanar() {
+  const storKey = "auria_mi_ref_codigo";
+  let codigo = localStorage.getItem(storKey);
+  if (!codigo) {
+    codigo = generarCodigoAleatorio();
+    if (sbRef) {
+      try { await sbRef.from("referidos").insert({ codigo }); } catch (e) { /* seguimos: compartimos igual aunque no se haya guardado */ }
+    }
+    localStorage.setItem(storKey, codigo);
+  }
+  const link = `${location.origin}${location.pathname}?ref=${codigo}`;
+  const shareText = `¡Hola! Te recomiendo Auria 💛 joyería en oro laminado 14k/18k con entrega a domicilio en Puebla. ` +
+    `Usa mi link y en tu primera compra te llevas $50 de descuento:`;
+  trackPixelEvent("Lead", { source: "referidos-compartir" });
+  if (navigator.share) {
+    try { await navigator.share({ title: "Auria", text: shareText, url: link }); return; } catch (e) { return; }
+  }
+  if (navigator.clipboard) {
+    await navigator.clipboard.writeText(shareText + " " + link);
+    alert("Link copiado -- pégalo donde quieras compartirlo. Cuando tu amiga compre, menciona tu código: " + codigo);
+    return;
+  }
+  window.open(`https://wa.me/?text=${encodeURIComponent(shareText + " " + link)}`, "_blank");
+}
+
 function abrirModalReferidos() {
   document.getElementById("ref-modal").classList.add("open");
   document.getElementById("ref-form").style.display = "";
@@ -704,29 +736,6 @@ async function instalarApp() {
   } else {
     alert('Este navegador no ofreció la instalación automática todavía. Abre el menú (⋮ arriba a la derecha) y busca "Instalar app" o "Agregar a pantalla de inicio".');
   }
-}
-
-// Boton "Compartir" del header -- comparte el link de la tienda al instante (sin
-// pedir nombre/telefono), usando el share sheet nativo del telefono (acceso directo a
-// contactos/WhatsApp/Mensajes). El boton de "Compartir y gana $100" en el hero es
-// DISTINTO a proposito -- ese genera un link de referido rastreable, por eso SI pide
-// nombre+telefono antes de compartir (hace falta para poder pagarte el bono despues).
-async function compartirSitio() {
-  const shareData = {
-    title: "Auria -- Joyería en oro laminado",
-    text: "Mira el catálogo de Auria: joyería en oro laminado con entrega a domicilio.",
-    url: location.origin + location.pathname,
-  };
-  if (navigator.share) {
-    try { await navigator.share(shareData); trackPixelEvent('Lead', { source: 'compartir-sitio' }); } catch (e) { /* el usuario cancelo */ }
-    return;
-  }
-  if (navigator.clipboard) {
-    await navigator.clipboard.writeText(shareData.url);
-    alert("Link copiado -- pégalo donde quieras compartirlo (WhatsApp, redes, etc.)");
-    return;
-  }
-  prompt("Copia este link para compartirlo:", shareData.url);
 }
 
 function setGenericWhatsAppLinks() {
