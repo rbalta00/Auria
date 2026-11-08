@@ -317,7 +317,7 @@
     <div class="logo">Auria<span>.</span></div>
     <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
       <button class="btn btn-ghost" id="install-btn" onclick="instalarApp()" style="cursor:pointer;">📲 Instalar app</button>
-      <button class="btn btn-ghost" onclick="compartirSitio()" style="cursor:pointer;">🔗 Compartir</button>
+      <button class="btn btn-ghost" onclick="abrirModalReferidos()" style="cursor:pointer;">🎁 Compartir y gana $100</button>
       <a class="btn btn-primary" id="wa-header" href="#" target="_blank" rel="noopener">Pedir por WhatsApp</a>
     </div>
   </div>
@@ -332,7 +332,7 @@
       <div class="hero-ctas">
         <a class="btn btn-primary" id="wa-hero" href="#" target="_blank" rel="noopener">💬 Pedir por WhatsApp</a>
         <a class="btn btn-ghost" href="#catalogo">Ver catálogo</a>
-        <button class="btn btn-ghost" onclick="abrirModalReferidos()">🎁 Recomienda y gana $100</button>
+        <button class="btn btn-ghost" onclick="abrirModalReferidos()">🎁 Compartir y gana $100</button>
       </div>
       <div class="ref-banner" id="ref-banner">🎁 Vienes referido -- menciónalo al pedir para tu <b>$50 de descuento</b> en tu primera compra.</div>
       <div class="hero-info">
@@ -625,10 +625,19 @@ async function generarCodigoReferido() {
   resultEl.classList.add("show");
   document.getElementById("ref-link-box").textContent = link;
   const shareText = `¡Hola! Te recomiendo Auria 💛 joyería en oro laminado 14k/18k con entrega a domicilio en Puebla. ` +
-    `Usa mi link y en tu primera compra te llevas $50 de descuento: ${link}`;
-  const waShareLink = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+    `Usa mi link y en tu primera compra te llevas $50 de descuento:`;
+  const waShareLink = `https://wa.me/?text=${encodeURIComponent(shareText + " " + link)}`;
   const waBtn = document.getElementById("ref-wa-share");
-  waBtn.onclick = () => { trackPixelEvent("Lead", { source: "referidos-compartir" }); window.open(waShareLink, "_blank"); };
+  // Boton unico de compartir: usa el share sheet nativo (acceso directo a contactos,
+  // WhatsApp, Mensajes, etc.) y solo cae a abrir wa.me fijo si el navegador no lo soporta
+  // (la mayoria de escritorio).
+  waBtn.onclick = async () => {
+    trackPixelEvent("Lead", { source: "referidos-compartir" });
+    if (navigator.share) {
+      try { await navigator.share({ title: "Auria", text: shareText, url: link }); return; } catch (e) { /* el usuario cancelo */ return; }
+    }
+    window.open(waShareLink, "_blank");
+  };
   trackPixelEvent("Lead", { source: "referidos-codigo-generado" });
 }
 
@@ -695,28 +704,6 @@ async function instalarApp() {
   } else {
     alert('Este navegador no ofreció la instalación automática todavía. Abre el menú (⋮ arriba a la derecha) y busca "Instalar app" o "Agregar a pantalla de inicio".');
   }
-}
-
-// Boton "Compartir" -- usa el share sheet nativo del telefono (Web Share API), que ya
-// trae acceso a contactos/WhatsApp/Mensajes/etc. del propio sistema operativo, sin
-// pedir ningun permiso aparte. Si el navegador no lo soporta (la mayoria de escritorio),
-// cae a copiar el link al portapapeles.
-async function compartirSitio() {
-  const shareData = {
-    title: "Auria -- Joyería en oro laminado",
-    text: "Mira el catálogo de Auria: joyería en oro laminado con entrega a domicilio.",
-    url: location.origin + location.pathname,
-  };
-  if (navigator.share) {
-    try { await navigator.share(shareData); trackPixelEvent('Lead', { source: 'compartir-sitio' }); } catch (e) { /* el usuario cancelo */ }
-    return;
-  }
-  if (navigator.clipboard) {
-    await navigator.clipboard.writeText(shareData.url);
-    alert("Link copiado -- pégalo donde quieras compartirlo (WhatsApp, redes, etc.)");
-    return;
-  }
-  prompt("Copia este link para compartirlo:", shareData.url);
 }
 
 function setGenericWhatsAppLinks() {
