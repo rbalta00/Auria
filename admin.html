@@ -107,12 +107,12 @@
     <h1>Panel de pedidos</h1>
     <p>Auria — acceso solo para administración</p>
     <div class="field">
-      <label>Correo</label>
-      <input type="email" id="login-email" placeholder="tucorreo@ejemplo.com">
+      <label>Usuario</label>
+      <input type="text" id="login-user" placeholder="admin" autocomplete="username">
     </div>
     <div class="field">
       <label>Contraseña</label>
-      <input type="password" id="login-password" placeholder="••••••••">
+      <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password">
     </div>
     <button class="btn-primary" style="width:100%" onclick="login()">Entrar</button>
     <div id="login-error"></div>
@@ -259,22 +259,30 @@ function showLogin() {
   document.getElementById("app-view").style.display = "none";
 }
 
-async function login() {
-  const email = document.getElementById("login-email").value.trim();
-  const password = document.getElementById("login-password").value;
+// Login simple por usuario+PIN (sin Supabase Auth, mismo patron que Buen Cerdito y
+// que el admin.html de Karla) -- pedido explicito del usuario (2026-11-08), en vez de
+// crear una cuenta real de email en Supabase Auth. "pedidos" ya es de lectura/
+// escritura abierta para la anon key sin importar esto, asi que no baja la seguridad
+// real quitar Supabase Auth, solo cambia como se ve el candado en pantalla.
+const ADMIN_USER = "admin";
+const ADMIN_PIN = "111111";
+
+function login() {
+  const user = document.getElementById("login-user").value.trim();
+  const pin = document.getElementById("login-password").value;
   const errorEl = document.getElementById("login-error");
   errorEl.style.display = "none";
-  const { error } = await sb.auth.signInWithPassword({ email, password });
-  if (error) {
-    errorEl.textContent = "Correo o contraseña incorrectos.";
+  if (user !== ADMIN_USER || pin !== ADMIN_PIN) {
+    errorEl.textContent = "Usuario o contraseña incorrectos.";
     errorEl.style.display = "block";
     return;
   }
+  localStorage.setItem("auria_admin_ok", "1");
   showApp();
 }
 
-async function logout() {
-  await sb.auth.signOut();
+function logout() {
+  localStorage.removeItem("auria_admin_ok");
   showLogin();
 }
 
@@ -425,14 +433,7 @@ async function loadOrders() {
   `).join("");
 }
 
-(async () => {
-  const { data: { session } } = await sb.auth.getSession();
-  if (session) {
-    showApp();
-  } else {
-    showLogin();
-  }
-})();
+if (localStorage.getItem("auria_admin_ok") === "1") { showApp(); } else { showLogin(); }
 
 document.getElementById("login-password").addEventListener("keydown", (e) => {
   if (e.key === "Enter") login();

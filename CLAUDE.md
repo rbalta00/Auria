@@ -96,6 +96,19 @@ Decided with the user (not yet built — build when she gives the go-ahead + the
 - Atajo: `.\deploy.ps1 "mensaje"` en la raiz del repo hace `git add` + `commit` + `push` en un solo paso.
 - Convencion con el usuario: cuando pida "guardar", "subir" o "publicar" este repo, correr el flujo completo sin preguntar el alcance (ver tambien `D:\repos-activos\SETUP.md` si existe esa carpeta).
 
-## Pendiente: login del admin de Nidia (2026-11-08)
+## Login del admin: usuario+PIN, no Supabase Auth (resuelto 2026-11-08)
 
-El proyecto de Supabase propio de Auria (`fjjtfqnufweozasyasgg`, cuenta `rbalta00`) sigue PAUSADO -- esa cuenta ya tiene 2/2 proyectos activos del plan gratis (`invita` y `cotizador-fv-cfe`), asi que reactivarlo pausaria uno de esos dos. El usuario dijo explicitamente dejarlo pendiente por ahora ("o no le pongas contraseña de momento") en vez de elegir cual pausar. Cuando se retome: preguntar cual de los dos proyectos puede pausarse, reactivar `fjjtfqnufweozasyasgg` desde el dashboard de Supabase, y que el usuario cree ahi mismo el usuario de Auth para `admin.html` (correo + contraseña, minimo 6 caracteres -- nunca guardar la contraseña real en este archivo). Karla, en cambio, SI quedo resuelta ese mismo dia -- su admin vive en una cuenta de Supabase aparte (`inforbventas1-prog`, la misma de Buen Cerdito) que no tiene ese limite, ver `CLAUDE.md` del repo `karla`.
+El plan original era usar Supabase Auth (correo+contraseña real) para `admin.html`, pero
+eso requeria reactivar el proyecto propio de Auria (`fjjtfqnufweozasyasgg`, cuenta
+`rbalta00`, pausado) y esa cuenta ya tiene 2/2 proyectos activos del plan gratis
+(`invita` y `cotizador-fv-cfe`). El usuario pidio explicitamente simplificarlo en vez de
+resolver eso: "los demas administradores no me piden correo, solo admin y un numero" --
+mismo patron de acceso por PIN que ya usa Buen Cerdito.
+
+`admin.html` ya NO usa `sb.auth.*` para el login -- es un chequeo simple client-side
+contra `ADMIN_USER`/`ADMIN_PIN` (constantes al inicio del `<script>`), con el estado de
+sesion guardado en `localStorage` (`auria_admin_ok`). El proyecto de Supabase
+`fjjtfqnufweozasyasgg` sigue pausado y SIGUE sin falta reactivarlo para esto -- la tabla
+`pedidos` ya era de lectura/escritura abierta a la anon key sin importar el login, asi
+que no cambia la seguridad real del backend, solo como se ve el candado en pantalla.
+Karla usa el mismo patron, ver `CLAUDE.md` del repo `karla`.
