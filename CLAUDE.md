@@ -149,3 +149,38 @@ Mismo header de siempre, junto a "Cerrar sesion": "📲 Instalar app" (mismo pat
 selector nativo del sistema; sin soporte, cae a `wa.me/?text=...` SIN numero, que abre el
 selector de contactos de WhatsApp en vez de mandarlo a un numero fijo). Mismo patron
 replicado identico en `karla`/Universo de Joyas.
+
+**Fix real, mismo dia**: el link SI iba repetido dos veces en el mensaje real (reportado
+por el usuario) -- `texto` ya llevaba `${TIENDA_URL}` pegado al final Y ademas se le pasaba
+otra vez a `navigator.share({..., url: TIENDA_URL})`, que lo agrega solo. Corregido
+quitando el link del texto (solo queda en el fallback de `wa.me`, que si lo necesita pegado
+porque ahi no hay un campo `url` aparte).
+
+## Sin limite de piezas en la seleccion + fix de desborde del carrito flotante (2026-11-09)
+
+El usuario pidio quitar el tope de `MAX_SELECTION = 3` ("no limites cuantas piezas se
+pueden agregar"). Al quitarlo goteo un bug real que antes era imposible de ver (el tope de
+3 siempre lo tapaba): `.seen-bar-items` (las miniaturas dentro del carrito flotante,
+`flex-shrink:0` sin `overflow-x`) se desbordaba del ancho fijo de la tarjeta
+(`width:min(92vw,320px)`) en cuanto habia mas de ~4 piezas seleccionadas -- las miniaturas
+se salian del borde redondeado hacia la derecha, dejando el widget con pinta de roto (el
+boton "Pedir por WhatsApp" seguia ahi abajo, visible y funcional, pero el usuario lo
+reporto como "no tiene boton" porque visualmente ya no se veia como un carrito usable).
+Corregido con `max-width:140px; overflow-x:auto;` en `.seen-bar-items` -- ahora scrollea
+horizontal dentro de un ancho fijo sin importar cuantas piezas traiga, en vez de desbordar.
+Mismo cambio de MAX_SELECTION en `karla`/Universo de Joyas (su `#seen-bar-items` ya tenia
+`flex:1; overflow-x:auto` desde el diseño original, no tenia este bug, pero igual se le
+quito el tope de 3 por consistencia).
+
+## Tarjeta "💳 Datos de pago" en `admin.html` (2026-11-09)
+
+A pedido del usuario ("agregale celdas para enviar numero de cuenta transferencia link de
+pago banco etc"): campos Banco / Titular / Numero de cuenta / CLABE / Link de pago,
+guardados en `localStorage` (`auria_datos_pago_v1`) -- solo en este navegador, mismo
+alcance que `WHATSAPP_NUMBER`/`ADMIN_PIN`, no hay tabla de Supabase para esto (es
+configuracion propia de la vendedora, no un dato que necesite compartirse entre
+dispositivos ni entre las dos marcas). **Arranca vacio a proposito** -- no se inventó
+ningun numero de cuenta real. Tres acciones: "💾 Guardar", "📋 Copiar" (al portapapeles,
+`navigator.clipboard`) y "💬 Enviar por WhatsApp" (sin numero fijo, abre el selector de
+contactos, mismo patron que "Enviar link de la tienda"). Mismo patron replicado identico
+en `karla`/Universo de Joyas (`karla_datos_pago_v1`).

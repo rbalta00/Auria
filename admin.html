@@ -162,6 +162,45 @@
       <div id="create-error" style="color:var(--red); font-size:0.82rem; margin-top:10px;"></div>
     </div>
 
+    <div class="card" id="pago-card" style="margin-bottom:28px;">
+      <h2 style="font-size:1.2rem; margin-bottom:6px;">💳 Datos de pago</h2>
+      <p style="font-size:0.8rem; color:var(--slate); margin-bottom:16px;">
+        Captura aquí una sola vez tu banco, cuenta y/o link de pago (ej. Mercado Pago, Clip)
+        para pago por transferencia o tarjeta. Queda guardado en este navegador. Úsalo para
+        copiarlo o mandarlo por WhatsApp al cliente que te pida transferir.
+      </p>
+      <div class="grid-2">
+        <div class="field">
+          <label>Banco</label>
+          <input type="text" id="pago-banco" placeholder="Ej. BBVA">
+        </div>
+        <div class="field">
+          <label>Titular de la cuenta</label>
+          <input type="text" id="pago-titular" placeholder="Nombre completo">
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <label>Número de cuenta</label>
+          <input type="text" id="pago-cuenta" placeholder="0000000000">
+        </div>
+        <div class="field">
+          <label>CLABE interbancaria</label>
+          <input type="text" id="pago-clabe" placeholder="18 dígitos">
+        </div>
+      </div>
+      <div class="field">
+        <label>Link de pago (Mercado Pago, Clip, etc.)</label>
+        <input type="text" id="pago-link" placeholder="https://...">
+      </div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:4px;">
+        <button class="btn-primary" onclick="guardarDatosPago()">💾 Guardar</button>
+        <button class="btn-ghost" onclick="copiarDatosPago()">📋 Copiar</button>
+        <button class="btn-ghost" onclick="enviarDatosPagoWhatsApp()">💬 Enviar por WhatsApp</button>
+      </div>
+      <div id="pago-aviso" style="color:var(--slate); font-size:0.8rem; margin-top:10px;"></div>
+    </div>
+
     <div class="card" id="ref-card" style="margin-bottom:28px;">
       <h2 style="font-size:1.2rem; margin-bottom:6px;">🎁 Referidos</h2>
       <p style="font-size:0.8rem; color:var(--slate); margin-bottom:16px;">Quien refiere gana $100 cuando su referido hace su primera compra. El referido se lleva $50 de descuento en esa primera compra. Cuando un cliente mencione un código de referido al pedir, regístralo aquí.</p>
@@ -217,6 +256,68 @@ function showApp() {
   loadOrders();
   cargarReferidos();
   cargarInventario();
+  cargarDatosPago();
+}
+
+// ---------------- Datos de pago (banco/cuenta/link, solo local a este
+// navegador -- igual que WHATSAPP_NUMBER, no existia un numero/cuenta real
+// todavia, asi que no se inventa nada: arranca vacio hasta que se capture) ----
+const PAGO_STORAGE_KEY = "auria_datos_pago_v1";
+
+function cargarDatosPago() {
+  let datos = {};
+  try { datos = JSON.parse(localStorage.getItem(PAGO_STORAGE_KEY) || "{}"); } catch (e) { datos = {}; }
+  document.getElementById("pago-banco").value = datos.banco || "";
+  document.getElementById("pago-titular").value = datos.titular || "";
+  document.getElementById("pago-cuenta").value = datos.cuenta || "";
+  document.getElementById("pago-clabe").value = datos.clabe || "";
+  document.getElementById("pago-link").value = datos.link || "";
+}
+
+function leerDatosPagoForm() {
+  return {
+    banco: document.getElementById("pago-banco").value.trim(),
+    titular: document.getElementById("pago-titular").value.trim(),
+    cuenta: document.getElementById("pago-cuenta").value.trim(),
+    clabe: document.getElementById("pago-clabe").value.trim(),
+    link: document.getElementById("pago-link").value.trim(),
+  };
+}
+
+function guardarDatosPago() {
+  localStorage.setItem(PAGO_STORAGE_KEY, JSON.stringify(leerDatosPagoForm()));
+  const aviso = document.getElementById("pago-aviso");
+  aviso.textContent = "✓ Guardado en este navegador.";
+  setTimeout(() => { aviso.textContent = ""; }, 2500);
+}
+
+function textoDatosPago() {
+  const d = leerDatosPagoForm();
+  const lineas = ["Estos son nuestros datos para transferencia:"];
+  if (d.banco) lineas.push(`Banco: ${d.banco}`);
+  if (d.titular) lineas.push(`Titular: ${d.titular}`);
+  if (d.cuenta) lineas.push(`Cuenta: ${d.cuenta}`);
+  if (d.clabe) lineas.push(`CLABE: ${d.clabe}`);
+  if (d.link) lineas.push(`Link de pago: ${d.link}`);
+  return lineas.join("\n");
+}
+
+async function copiarDatosPago() {
+  const texto = textoDatosPago();
+  const aviso = document.getElementById("pago-aviso");
+  try {
+    await navigator.clipboard.writeText(texto);
+    aviso.textContent = "✓ Copiado al portapapeles.";
+  } catch (e) {
+    aviso.textContent = "No se pudo copiar automático -- selecciona y copia a mano.";
+  }
+  setTimeout(() => { aviso.textContent = ""; }, 2500);
+}
+
+function enviarDatosPagoWhatsApp() {
+  // Sin numero fijo: abre el selector de contactos de WhatsApp (misma idea que
+  // "Enviar link de la tienda") para que el admin elija a que cliente mandarselo.
+  window.open(`https://wa.me/?text=${encodeURIComponent(textoDatosPago())}`, "_blank");
 }
 
 // ---------------- Inventario (compartido con Universo de Joyas, tabla

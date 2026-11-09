@@ -292,7 +292,7 @@
   }
   .seen-bar.show{display:flex;}
   .seen-bar-row{display:flex; align-items:center; gap:12px;}
-  .seen-bar-items{display:flex; gap:6px; flex-shrink:0;}
+  .seen-bar-items{display:flex; gap:6px; flex-shrink:0; max-width:140px; overflow-x:auto; padding-bottom:2px;}
   .seen-item{position:relative; width:36px; height:36px;}
   .seen-item img{width:36px; height:36px; border-radius:8px; object-fit:cover; display:block;}
   .seen-item .remove{
@@ -355,8 +355,8 @@
     <div class="policy-grid">
       <div class="policy-card">
         <div class="icon">🛍️</div>
-        <h4>1. Elige hasta 3 piezas</h4>
-        <p>Explora el catálogo y agrega a tu selección los aretes, collares, dijes, pulseras o anillos que te gusten (máximo 3).</p>
+        <h4>1. Elige tus piezas</h4>
+        <p>Explora el catálogo y agrega a tu selección los aretes, collares, dijes, pulseras o anillos que te gusten.</p>
       </div>
       <div class="policy-card">
         <div class="icon">💬</div>
@@ -832,7 +832,6 @@ function closeLightbox(e) {
   }
 }
 
-const MAX_SELECTION = 3;
 let selectedProducts = [];
 
 function updateAddButton() {
@@ -840,11 +839,11 @@ function updateAddButton() {
   if (!currentProduct) return;
   const isSelected = selectedProducts.some(p => p.id === currentProduct.id);
   if (isSelected) {
-    btn.textContent = `✓ Agregada a tu selección (${selectedProducts.length}/${MAX_SELECTION})`;
+    btn.textContent = `✓ Agregada a tu selección (${selectedProducts.length})`;
     btn.classList.add("added");
     btn.disabled = false;
   } else {
-    btn.textContent = `➕ Agregar a mi selección (${selectedProducts.length}/${MAX_SELECTION})`;
+    btn.textContent = selectedProducts.length ? `➕ Agregar a mi selección (${selectedProducts.length})` : `➕ Agregar a mi selección`;
     btn.classList.remove("added");
     btn.disabled = false;
   }
@@ -858,10 +857,6 @@ function toggleSelection() {
     selectedProducts.splice(idx, 1);
     msg.textContent = "";
   } else {
-    if (selectedProducts.length >= MAX_SELECTION) {
-      msg.textContent = `Ya elegiste ${MAX_SELECTION} piezas. Quita una para agregar otra.`;
-      return;
-    }
     selectedProducts.push(currentProduct);
     msg.textContent = "";
     trackPixelEvent('AddToCart', { content_name: currentProduct.name, content_category: currentProduct.group, value: currentProduct.price, currency: 'MXN', content_id: currentProduct.code });
@@ -889,7 +884,7 @@ function renderSelectionBar() {
       <button class="remove" onclick="removeFromSelection('${p.id}')" aria-label="Quitar">&times;</button>
     </div>
   `).join("");
-  document.getElementById("seen-bar-count").textContent = `${selectedProducts.length}/${MAX_SELECTION} piezas`;
+  document.getElementById("seen-bar-count").textContent = `${selectedProducts.length} pieza${selectedProducts.length === 1 ? "" : "s"}`;
   const seenBarWa = document.getElementById("seen-bar-wa");
   seenBarWa.href = waLinkMulti(selectedProducts);
   seenBarWa.onclick = () => {
@@ -902,11 +897,6 @@ function orderNow(id) {
   if (!p) return;
   const already = selectedProducts.some(x => x.id === p.id);
   if (!already) {
-    if (selectedProducts.length >= MAX_SELECTION) {
-      openLightbox(id);
-      document.getElementById("selection-msg").textContent = `Ya elegiste ${MAX_SELECTION} piezas. Quita una para agregar esta.`;
-      return;
-    }
     selectedProducts.push(p);
     renderSelectionBar();
     if (currentProduct && currentProduct.id === p.id) updateAddButton();
