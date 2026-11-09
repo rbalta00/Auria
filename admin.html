@@ -123,7 +123,11 @@
   <div class="wrap">
     <header>
       <div class="logo">Auria<span>.</span> <small style="font-family:'Inter'; font-size:0.9rem; color:var(--slate);">Panel de pedidos</small></div>
-      <button class="btn-ghost" onclick="logout()">Cerrar sesión</button>
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+        <button class="btn-ghost" id="install-btn" onclick="instalarApp()">📲 Instalar app</button>
+        <button class="btn-ghost" onclick="compartirLinkTienda()">🔗 Enviar link de la tienda</button>
+        <button class="btn-ghost" onclick="logout()">Cerrar sesión</button>
+      </div>
     </header>
 
     <div class="card" id="new-order-card">
@@ -164,6 +168,19 @@
       <div id="ref-list">Cargando…</div>
     </div>
 
+    <div class="card" id="inventory-card" style="margin-bottom:28px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:6px;">
+        <h2 style="font-size:1.2rem;">📦 Inventario</h2>
+        <input type="text" id="inv-search" placeholder="Buscar código, nombre o categoría…" oninput="renderInventario()" style="max-width:260px;">
+      </div>
+      <p style="font-size:0.8rem; color:var(--slate); margin-bottom:16px;">
+        Mismo stock para Auria y Universo de Joyas (venden la misma pieza física). Arranca en 0 para todo --
+        captura aquí la cantidad real que tengas de cada pieza. Se descuenta 1 sola automáticamente cuando se
+        crea un pedido con ese código, desde este panel o desde el de Universo de Joyas.
+      </p>
+      <div id="inventory-list" style="max-height:460px; overflow-y:auto;">Cargando…</div>
+    </div>
+
     <h2 style="font-size:1.2rem; margin-bottom:14px;">Pedidos</h2>
     <div id="orders-empty">Cargando pedidos…</div>
     <div id="orders-list"></div>
@@ -199,6 +216,70 @@ function showApp() {
   addItemRow();
   loadOrders();
   cargarReferidos();
+  cargarInventario();
+}
+
+// ---------------- Inventario (compartido con Universo de Joyas, tabla
+// inventario_joyeria en el mismo proyecto Supabase que ya usan los referidos --
+// npllotjcjplpdztbxhla, cuenta inforbventas1-prog) ----------------
+let CATALOGO_INV = [];
+let STOCK_INV = {};
+
+async function cargarInventario() {
+  const listEl = document.getElementById("inventory-list");
+  try {
+    const [catalogo, { data: filas, error }] = await Promise.all([
+      fetch("catalogo.json").then(r => r.json()),
+      sbRef.from("inventario_joyeria").select("*"),
+    ]);
+    if (error) throw error;
+    CATALOGO_INV = catalogo;
+    STOCK_INV = {};
+    (filas || []).forEach(f => { STOCK_INV[f.codigo] = f.stock; });
+    renderInventario();
+  } catch (e) {
+    listEl.innerHTML = `<p style="color:var(--red);">No se pudo cargar el inventario: ${e.message}</p>`;
+  }
+}
+
+function renderInventario() {
+  const listEl = document.getElementById("inventory-list");
+  const q = (document.getElementById("inv-search").value || "").trim().toLowerCase();
+  const filtrado = CATALOGO_INV.filter(p => !q ||
+    p.code.toLowerCase().includes(q) || p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q));
+
+  if (!filtrado.length) { listEl.innerHTML = `<p style="color:var(--slate);">Sin resultados.</p>`; return; }
+
+  listEl.innerHTML = filtrado.map(p => `
+    <div style="display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid var(--line);">
+      <div style="flex:1; min-width:0;">
+        <div style="font-weight:600; font-size:0.85rem;">${p.code} — ${p.name}</div>
+        <div style="color:var(--slate); font-size:0.78rem;">${p.category} · $${p.price}</div>
+      </div>
+      <input type="number" min="0" value="${STOCK_INV[p.code] ?? 0}" id="stock-${p.code}" style="width:72px; padding:6px; border:1px solid var(--line); border-radius:6px;">
+      <button class="btn-ghost" onclick="guardarStock('${p.code}')">💾 Guardar</button>
+    </div>
+  `).join("");
+}
+
+async function guardarStock(code) {
+  const input = document.getElementById(`stock-${code}`);
+  const nuevo = parseInt(input.value, 10) || 0;
+  const { error } = await sbRef.from("inventario_joyeria")
+    .upsert({ codigo: code, stock: nuevo, actualizado_en: new Date().toISOString() });
+  if (error) { alert("No se pudo guardar el stock: " + error.message); return; }
+  STOCK_INV[code] = nuevo;
+}
+
+async function descontarInventario(items) {
+  for (const it of items) {
+    if (!it.code) continue;
+    const { data: fila } = await sbRef.from("inventario_joyeria").select("stock").eq("codigo", it.code).maybeSingle();
+    const nuevo = (fila ? fila.stock : 0) - 1;
+    await sbRef.from("inventario_joyeria").upsert({ codigo: it.code, stock: nuevo, actualizado_en: new Date().toISOString() });
+    STOCK_INV[it.code] = nuevo;
+  }
+  renderInventario();
 }
 
 // ---------------- Referidos ----------------
@@ -358,6 +439,8 @@ async function createOrder() {
     return;
   }
 
+  descontarInventario(items);
+
   document.getElementById("f-name").value = "";
   document.getElementById("f-phone").value = "";
   document.getElementById("f-address").value = "";
@@ -431,6 +514,42 @@ async function loadOrders() {
       </div>
     </div>
   `).join("");
+}
+
+// Boton "Instalar app" y "Enviar link de la tienda" -- mismo patron que index.html
+// (beforeinstallprompt/appinstalled + navigator.share con fallback a wa.me sin numero,
+// que abre el selector de contactos de WhatsApp en vez de mandarlo a un numero fijo).
+const TIENDA_URL = "https://auria1.vercel.app";
+let deferredInstallPrompt = null;
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+});
+window.addEventListener("appinstalled", () => {
+  deferredInstallPrompt = null;
+  const btn = document.getElementById("install-btn");
+  if (btn) btn.textContent = "✓ App instalada";
+});
+async function instalarApp() {
+  if (deferredInstallPrompt) {
+    deferredInstallPrompt.prompt();
+    await deferredInstallPrompt.userChoice;
+    deferredInstallPrompt = null;
+    return;
+  }
+  const esIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  if (esIOS) {
+    alert('Para instalar en iPhone/iPad: toca el botón de Compartir (el cuadro con la flecha hacia arriba, abajo del navegador) y elige "Agregar a pantalla de inicio".');
+  } else {
+    alert('Este navegador no ofreció la instalación automática todavía. Abre el menú (⋮ arriba a la derecha) y busca "Instalar app" o "Agregar a pantalla de inicio".');
+  }
+}
+async function compartirLinkTienda() {
+  const texto = `¡Hola! Te comparto el catálogo de Auria 💛 joyería en oro laminado con entrega a domicilio: ${TIENDA_URL}`;
+  if (navigator.share) {
+    try { await navigator.share({ title: "Auria", text: texto, url: TIENDA_URL }); return; } catch (e) { return; }
+  }
+  window.open(`https://wa.me/?text=${encodeURIComponent(texto)}`, "_blank");
 }
 
 if (localStorage.getItem("auria_admin_ok") === "1") { showApp(); } else { showLogin(); }

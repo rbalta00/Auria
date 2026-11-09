@@ -112,3 +112,40 @@ sesion guardado en `localStorage` (`auria_admin_ok`). El proyecto de Supabase
 `pedidos` ya era de lectura/escritura abierta a la anon key sin importar el login, asi
 que no cambia la seguridad real del backend, solo como se ve el candado en pantalla.
 Karla usa el mismo patron, ver `CLAUDE.md` del repo `karla`.
+
+## Inventario compartido entre Auria y Universo de Joyas (agregado 2026-11-09)
+
+`admin.html` tiene una tarjeta nueva "📦 Inventario" (buscador + lista de las 197 piezas
+del catalogo con un campo de stock editable, boton "💾 Guardar"). Vive en una tabla nueva
+**`inventario_joyeria`** en el MISMO proyecto Supabase que ya usan los referidos
+(`npllotjcjplpdztbxhla`, cuenta `inforbventas1-prog`, cliente `sbRef` ya existente en este
+archivo) -- a proposito el MISMO proyecto que usa `karla`/Universo de Joyas para
+`pedidos_karla`, porque las dos marcas venden la MISMA pieza fisica (mismo catalogo,
+mismo proveedor) -- el stock tiene que ser uno solo, compartido, o se puede vender dos
+veces la misma pieza desde las dos tiendas.
+
+- Esquema: `codigo` (PK, mismo valor que `catalogo.json`'s `code`, ej. `AUR-047`), `stock`
+  (integer), `actualizado_en`. RLS abierta a `anon` (select/insert/update), mismo modelo
+  de seguridad que el resto del proyecto.
+- **El stock arranca en 0 para TODAS las piezas a proposito** -- no se inventaron
+  cantidades reales (no existian en ningun lado). Isaac/la vendedora tiene que capturar
+  las cantidades reales desde cualquiera de los dos paneles de admin.
+- Al crear un pedido desde `admin.html` (aqui o en Karla), se descuenta automaticamente 1
+  unidad del stock por cada pieza con `code` no vacio en el pedido (`descontarInventario()`,
+  llamada despues de un insert exitoso en `pedidos`/`pedidos_karla`). No bloquea la venta
+  si el stock ya esta en 0 o negativo -- solo informa, para no trabar una venta real por un
+  numero que todavia no se ha capturado bien.
+- Probado en vivo: guardar un stock desde el panel de Auria y confirmar que aparece igual
+  en el panel de Universo de Joyas (y viceversa), usando los mismos 197 productos de
+  `catalogo.json`.
+
+## Botones nuevos en `admin.html`: Instalar app + Enviar link de la tienda (2026-11-09)
+
+Mismo header de siempre, junto a "Cerrar sesion": "📲 Instalar app" (mismo patron
+`beforeinstallprompt`/`appinstalled` que ya tenia `index.html`, ahora tambien en el admin
+-- antes solo existia en la tienda publica) y "🔗 Enviar link de la tienda"
+(`navigator.share()` con el link de produccion, `TIENDA_URL = "https://auria1.vercel.app"`
+-- para que la vendedora comparta su propio link con contactos de su telefono desde el
+selector nativo del sistema; sin soporte, cae a `wa.me/?text=...` SIN numero, que abre el
+selector de contactos de WhatsApp en vez de mandarlo a un numero fijo). Mismo patron
+replicado identico en `karla`/Universo de Joyas.
