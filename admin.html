@@ -545,11 +545,15 @@ async function instalarApp() {
   }
 }
 async function compartirLinkTienda() {
-  const texto = `¡Hola! Te comparto el catálogo de Auria 💛 joyería en oro laminado con entrega a domicilio: ${TIENDA_URL}`;
+  // El texto NO lleva el link -- navigator.share ya lo agrega el solo via "url" (si
+  // tambien va dentro de "text" sale repetido dos veces en el mensaje real, bug
+  // reportado por el usuario 2026-11-09). El fallback de wa.me si lo necesita pegado
+  // al texto, porque ahi no hay un campo "url" aparte.
+  const texto = `¡Hola! Te comparto el catálogo de Auria 💛 joyería en oro laminado con entrega a domicilio:`;
   if (navigator.share) {
     try { await navigator.share({ title: "Auria", text: texto, url: TIENDA_URL }); return; } catch (e) { return; }
   }
-  window.open(`https://wa.me/?text=${encodeURIComponent(texto)}`, "_blank");
+  window.open(`https://wa.me/?text=${encodeURIComponent(texto + " " + TIENDA_URL)}`, "_blank");
 }
 
 if (localStorage.getItem("auria_admin_ok") === "1") { showApp(); } else { showLogin(); }
