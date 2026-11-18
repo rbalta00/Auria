@@ -227,20 +227,23 @@
 </div>
 
 <script>
-const SUPABASE_URL = "https://fjjtfqnufweozasyasgg.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZqanRmcW51Zndlb3phc3lhc2dnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQyNTYwNTYsImV4cCI6MjA5OTgzMjA1Nn0.svyAtrSy5P44BtwSKWz5Y8mzU0df_9Y9iTmvd8i2lDo";
 const WHATSAPP_NUMBER = "5212218170745"; // 52 + 1 + 221 817 0745
 
+// Un solo proyecto de Supabase para TODO Auria (pedidos, referidos, inventario
+// compartido) -- cuenta "inforbventas1-prog" (la misma de Buen Cerdito), proyecto
+// "auria" (npllotjcjplpdztbxhla). Antes `pedidos` vivia en un proyecto APARTE, en la
+// cuenta rbalta00 (fjjtfqnufweozasyasgg), que se dejo pausado a proposito desde el
+// 2026-11-08 (ver seccion "Login del admin" en CLAUDE.md) -- esa cuenta ya tiene 2/2
+// proyectos activos del plan gratis (invita/cotizador-fv-cfe), asi que cada vez que se
+// necesitaba abrir "pedidos" aqui, en realidad estaba viendo una base dormida y fallaba
+// en silencio. Migrado el 2026-11-17: la tabla `pedidos` se recreo en este MISMO
+// proyecto (ya activo, sin el limite de 2/2 de la otra cuenta) -- `sb` y `sbRef` quedan
+// como alias del mismo cliente por compatibilidad con el resto del archivo, no hace
+// falta tocar cada `sb.from(...)`/`sbRef.from(...)` de aqui para abajo.
+const SUPABASE_URL = "https://npllotjcjplpdztbxhla.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_iSF-h2sxdYAnzhqOtWz-mQ_w52iLvSp";
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-// Proyecto de Supabase APARTE para el sistema de referidos (2026-11-06) -- cuenta
-// distinta a la de "pedidos" (esta sigue pausada/activa segun el limite de 2 proyectos
-// gratis de la cuenta rbalta00; referidos vive en la cuenta nueva usada para Buen
-// Cerdito, sin ese limite todavia). Por eso son dos clientes de Supabase separados en
-// esta misma pagina.
-const REF_SUPABASE_URL = "https://npllotjcjplpdztbxhla.supabase.co";
-const REF_SUPABASE_KEY = "sb_publishable_iSF-h2sxdYAnzhqOtWz-mQ_w52iLvSp";
-const sbRef = supabase.createClient(REF_SUPABASE_URL, REF_SUPABASE_KEY);
+const sbRef = sb;
 
 const STATUS_LABELS = {
   confirmado: "Confirmado",

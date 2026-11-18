@@ -184,3 +184,44 @@ ningun numero de cuenta real. Tres acciones: "💾 Guardar", "📋 Copiar" (al p
 `navigator.clipboard`) y "💬 Enviar por WhatsApp" (sin numero fijo, abre el selector de
 contactos, mismo patron que "Enviar link de la tienda"). Mismo patron replicado identico
 en `karla`/Universo de Joyas (`karla_datos_pago_v1`).
+
+## Tabla `pedidos` migrada al proyecto de Supabase de referidos/inventario (2026-11-17)
+
+Hasta hoy, `pedidos` (la tabla que lee/escribe `admin.html` para el panel de "Nuevo
+pedido"/"Pedidos") vivia en un proyecto de Supabase APARTE (`fjjtfqnufweozasyasgg`,
+cuenta `rbalta00`) que se dejo pausado a proposito desde el 2026-11-08 (ver seccion
+"Login del admin" arriba) -- esa cuenta ya tenia 2/2 proyectos activos del plan gratis
+(`invita`/`cotizador-fv-cfe`), asi que nunca se reactivaba, y cada vez que alguien abria
+"Pedidos" en el panel estaba viendo (y fallando contra) una base dormida en silencio. En
+la practica el panel de pedidos de Auria llevaba semanas sin funcionar de verdad.
+
+**Fix**: se creo la tabla `pedidos` (mismo esquema que ya esperaba el codigo: `id uuid`,
+`folio`, `customer_name`, `phone`, `address`, `postal_code`, `items jsonb`, `total`,
+`status`, `created_at`, `updated_at`; RLS abierta a `anon`, mismo modelo que el resto del
+proyecto) dentro del proyecto `npllotjcjplpdztbxhla` ("auria" dentro de la cuenta
+`inforbventas1-prog`, la misma de Buen Cerdito) -- el MISMO proyecto donde ya vivian
+`referidos`/`referidos_conversiones`/`inventario_joyeria` desde el 2026-11-06/09. Ese
+proyecto tambien estaba pausado (nadie lo habia tocado en un rato) -- se reactivo antes
+de crear la tabla.
+
+`admin.html`: `SUPABASE_URL`/`SUPABASE_ANON_KEY` (la variable `sb`) ahora apuntan a
+`npllotjcjplpdztbxhla` en vez de `fjjtfqnufweozasyasgg`. `sbRef` se dejo como alias de
+`sb` (`const sbRef = sb;`) por compatibilidad -- ya no hace falta un segundo cliente de
+Supabase en este archivo, pero no se tocaron los `sb.from(...)`/`sbRef.from(...)` de mas
+abajo para no arriesgar un error de renombrado en un archivo sin build/tipado.
+
+**Resultado**: Auria ya tiene TODO (pedidos, referidos, inventario compartido) en un solo
+proyecto de Supabase, activo, en la cuenta de Buen Cerdito -- deja de depender del
+proyecto pausado de la cuenta `rbalta00`, que se queda sin usar (no se borro, por si acaso,
+pero no hay plan de volver a usarlo). El proyecto viejo (`fjjtfqnufweozasyasgg`) ya NO
+tiene ninguna razon tecnica para permanecer referenciado en ningun lado de este repo.
+
+Verificado en vivo (servidor local, PIN de prueba `admin`/`111111`): se creo un pedido de
+prueba real desde el formulario del panel (folio `AUR-1117-01` generado correcto por
+`nextFolio()`), se confirmo con una consulta SQL directa que llego a la tabla nueva, y se
+borro despues junto con el renglon de inventario que su descuento automatico genero de
+paso (`descontarInventario`, codigo de prueba sin relacion con el catalogo real). Sin
+tocar ningun dato real existente de Auria/Karla en ese proyecto.
+
+Ver tambien `C:\repos activos\CUENTAS_SUPABASE.md` (registro maestro de todas las cuentas
+de Supabase) -- actualizar ahi tambien si esto vuelve a cambiar.
